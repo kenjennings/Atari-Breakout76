@@ -18,25 +18,6 @@ I had been in the middle of Breakout-GECE, and the debugging effort in that game
 Therefore, the idea here is to force a more stringent modularization of the code and data, keeping components entirely separate, so when I need to look at a part of the game, I will know exactly which files and locations to find everything without having to remember what I am looking at.  The first victim of this strategy is to implement a reasonable immitation of the Breakout video game in its original condition.  There will be the fewest bells and whistles used to keep the visuals, sound, and behavior similar to the original.
 
 ;=============================================================================
-; Breakout Arcade -- 1976
-; Conceptualized by Nolan Bushnell and Steve Bristow.
-; Built by Steve Wozniak.
-; https://en.wikipedia.org/wiki/Breakout_(video_game)
-;=============================================================================
-; Ten thousand Breakout clones written
-; by variable quality of programmers over
-; the intervening 40 years....
-;=============================================================================
-; Here is yet another lame clone of Breakout 
-; written by an idiot.....
-;=============================================================================
-; Breakout76 -- 2017
-; Written by Ken Jennings
-; Build for Atari using eclipse/wudsn/atasm on linux
-; Source at:
-; Github: https://github.com/kenjennings/Atari-Breakout76
-; Google Drive: https://drive.google.com/drive/folders/
-;=============================================================================
 
 What's it about. . . . . .
 
