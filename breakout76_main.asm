@@ -11,11 +11,11 @@
 ; Here is yet another lame clone of Breakout 
 ; written by an idiot.....
 ;===============================================================================
-; Breakout: Gratuitous Eye Candy Edition -- 2017
+; Breakout76 -- 2017
 ; Written by Ken Jennings
 ; Build for Atari using eclipse/wudsn/atasm on linux
 ; Source at:
-; Github: https://github.com/kenjennings/Atari-Breakout-GECE
+; Github: https://github.com/kenjennings/Atari-Breakout76
 ; Google Drive: https://drive.google.com/drive/folders/
 ;===============================================================================
 
