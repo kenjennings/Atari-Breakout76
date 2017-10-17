@@ -25,7 +25,7 @@ An important fact here is that Breakout is a very early arcade game made of a co
 
 One of these behaviors is how the graphics work.  The screen display is black and white.  I have not determined if the screen is a plain, black-and white TV, or a dedicated monitor.  A TV has a lot of unnecessary parts such as a tuner, so I suspect it is a simple monitor.  Either way this means it exhibits CRT behavior -- "Pixels" are drawn in horizontal scan lines, and a number of scan lines stacked vertically to create the display.  "Pixels" may be stretching what the Breakout hardware actually does as the modern use of the word implies a memory value resulting in a predictable dot on a display. The dedicated digital logic does not implement memory in this sense and "pixels" are signals triggered by logic conditions.  
 
-It is unlikely the game's video output is timed in the same way as the Atari's compliance with the NTSC color clock, so the "pixels" in the Breakout game probably do not correspond to the Atari's color-clock-sized pixels.  Therefore, the Atari will be approximating the display.  Here is a screen capture of video of an emulator implementing Breakout.  On this screengrab I simulate an Atari pixel one color clock wide by two scan lines tall (Antic map mode B or D) and overlay it around the Breakout game's graphics objects to gauge the sizes.....
+It is unlikely the game's video output is timed in the same way as the Atari's compliance with the NTSC color clock, so the "pixels" in the Breakout game probably do not correspond to the Atari's color-clock-sized pixels.  Therefore, the best that can be done is an approximation on the Atari.  Below is a screen capture of video of an emulator implementing Breakout.  On this screengrab I simulate an Atari pixel one color clock wide by two scan lines tall (ANTIC map mode B or D) and overlay it around the Breakout game's graphics objects to gauge the sizes.....
 
-WIP.
+WIP....
 
