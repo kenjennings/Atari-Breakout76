@@ -1,7 +1,7 @@
 # Atari-Breakout76
 Currently Work In Progress..
 
-;=============================================================================
+=============================================================================
 
 This is a simple Breakout clone for Atari 8-bit computers approximating the look and feel of the original arcade Breakout released by Atari in 1976 (without the bugs).
 
@@ -9,7 +9,7 @@ This version uses only the Atari computer features necessary to mimic the correc
 
 Or, you could just get an emulator to play the original game.
 
-;=============================================================================
+=============================================================================
 
 The real purpose of this is to create a modular framework for working on game projects that I can understand and sustain. (Your Mileage May Vary.)  
 
@@ -17,13 +17,13 @@ I had been in the middle of Breakout-GECE, and the debugging effort in that game
 
 Therefore, the idea here is to force a more stringent modularization of the code and data, keeping visual components entirely separate, so when I need to look at a part of the game, I will know exactly which files and locations to find everything without having to remember what I am looking at.  The first victim to test this strategy is an attempt to make reasonable immitation of the original arcade Breakout video game. The  scope of Atari's bells and whistles will be primarily limited to implementing the visuals, sound, and behavior as similar as possible to the original game.
 
-;=============================================================================
+=============================================================================
 
 According to Wikipedia ( https://en.wikipedia.org/wiki/Breakout_(video_game)), the Breakout arcade game was conceived at Atari by Nolan Bushnell and Steve Bristow.  A working prototype was built by Steve Wozniak. (Steve Job's role was to steal Wozniak's fair share of the bonus for reducing the design's chip count.)  Atari was unable to use Wozniak's design.  The game Steve Wozniak built worked, so it should not have been difficult to duplicate wiring and chips.  Therefore, I would infer that Atari wanted to make some kind of design change and they didn't have anyone on hand clever enough to understand Wozniak's design. So, Atari went with their own design using a lot more chips.  Per Steve Wozniak the final game appeared to work the same as his design.
 
 An important fact here is that Breakout is a very early arcade game made of a collection of digital logic chips.  There is no CPU, no program executing, so no source code.  Therefore any programmable system is only simualting the behaviors.  I have no Breakout system of my own, and even if I did I have no electronics background myself, so I can not dissect the electronics.  This limits me to guesses from watching how the game behaves in pictures and videos on the internet.
 
-;=============================================================================
+=============================================================================
 
 GRAPHICS:
 The screen display is black and white.  I have not determined if the screen is a plain, black-and white TV, or a dedicated monitor.  A TV has a lot of unnecessary parts such as a tuner, so I suspect it is a simple monitor.  Either way this means it exhibits CRT behavior -- "Pixels" are drawn in horizontal scan lines, and a number of scan lines stacked vertically to create the display.  "Pixels" may be stretching what the Breakout hardware actually does as the modern use of the word implies a memory value resulting in a predictable dot on a display. The dedicated digital logic does not implement memory in this sense and "pixels" are signals triggered by logic conditions.  
@@ -51,13 +51,20 @@ BALL:
 Interestingly, the ball appears wider than it is tall.  It is approximately two scan lines high, and two pixels (color clocks) wide making it horizontally rectangular.  The ball will be implemented as a Player or Missile.  This allows the ball to move where needed on the screen without a corresponding graphics mode.
 
 PADDLE:
-The paddle at its widest is the same width as a brick -- 7 visible pixels (color clocks).  When the paddle switches to narrow width it is about four pixels (color clocks) wide only twice the width of the ball. The paddle is three pixels (six scan lines) tall.  When the game is over the paddle is replaced by a solid horizontal border the width of the screen.  The paddle will probably be implemented as Player/Missile graphics. The solid border would be mapped graphics. 
+The paddle at its widest is the same width as a brick -- 7 visible pixels (color clocks).  When the paddle switches to narrow width it is about four pixels (color clocks) wide only twice the width of the ball. The paddle is three pixels (six scan lines) tall.  When the game is over the paddle is replaced by a solid horizontal border the width of the screen.  This border acts as a giant paddle during the game's demo mode keeping the ball rebounding up to the bricks.  The paddle will probably be implemented as Player/Missile graphics. The solid border would be mapped graphics.  
 
-;=============================================================================
+COLOR:
+The game is output only as  black and white.  Colored plastic strips placed horizontally on the screen add "color" to the display.  Every pair of rows is provided a different color.  From top to bottom: red, orange, yellow, green.   A blue plastic overlay is provided for the paddle's row.  (Notes from Capt: Obvious: Since the plastic overlay covers the width of the screen, the borders are also colored at those row positions, and the ball is colored when it passes through those rows.  duh') This could be duplicated by a set of Display List Interrupts that change the color register parameters at different vertical locations on the screen.
+
+=============================================================================
 
 AUDIO:
 
-;=============================================================================
+=============================================================================
+
+GAMEPLAY:
+
+=============================================================================
 
 WIP....
 
