@@ -27,7 +27,7 @@ One of these behaviors is how the graphics work.  The screen display is black an
 
 It is unlikely the game's video output is timed in the same way as the Atari's compliance with the NTSC color clock, so the "pixels" in the Breakout game probably do not correspond to the Atari's color-clock-sized pixels.  Therefore, the best that can be done is an approximation on the Atari.  Below is a screen capture of video of an emulator implementing Breakout.  On this screengrab I simulate an Atari pixel one color clock wide by two scan lines tall (ANTIC map mode B or D) and overlay it around the Breakout game's graphics objects to gauge the sizes.....
 
-![GameScreenPixels](https://github.com/kenjennings/Breakout76/blob/master/breakout_bw_pixels.jpg)
+![Game Screen Pixels](breakout_bw_pixels.jpg?raw=true "Game Screen Pixels")
 
 WIP....
 
