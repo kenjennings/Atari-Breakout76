@@ -32,7 +32,7 @@ It is unlikely the game's video output is timed in the same way as the Atari's c
 
 ![Game Screen Pixels](breakout_bw_pixels.jpg?raw=true "Game Screen Pixels")
 
-The emulator blurs and blends its pixels to simulate the output of a CRT.  The red dots are 3x3 pixels meant to approximate the Atari pixel at one color clock wide, two scan lines tall.  This works out nicely as the graphics objects on screen fit well using this measurement.
+The emulator blurs and blends its pixels to simulate the output of the CRT.  The red dots on the captured images are 3x3 pixels meant to approximate the Atari pixel at one color clock wide, two scan lines tall.  This appears to work out nicely as the graphics objects on screen fit well using this measurement.  As we will see later, appearances are not always correct.
 
 BRICKS:
 There are eight rows of 14 bricks each.  The bricks are horizontally and vertically separated from each other by a small gap.  The Atari pixel scale measures a brick at approximately 7 pixels wide, and two pixels tall (or seven color clocks by four scan lines).  The vertical gaps work out fairly close to one pixel (one color clock) wide, and the horizontal gaps appear close to one pixel (two scan lines) tall. Including the pixel required for the gap to one side of a brick, and the gap between bricks puts the dimension of a brick at 8 pixels (color clocks) wide and three pixels (six scan lines) tall.  
