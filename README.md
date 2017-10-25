@@ -37,7 +37,7 @@ Below is a screen capture of video of an emulator implementing Breakout.  The ho
 The emulator blurs and blends its pixels to simulate the output of the CRT.  This makes it difficult to determine the real start/end position of a Breakout game "pixels".  The red dots on the captured images are 3x3 graphics pixels meant to approximate one Atari pixel at one color clock wide, two scan lines tall -- the equivalent of ANTIC map mode B or D.  Therefore, all discussion of object sizes in terms of "pixel" dimensions are implicitly qualified with "appears to be" due to the vague nature of Breakout's "pixels" versus the approximation of an Atari NTSC-based pixel.
 
 **OVERALL**:
-The entire screen is very tall.  If the simulated Atari pixels are to be believed then there are around 400 scan lines displayed on the screen.  (It is entirely possible there are much less -- given difference in vertical sclain it could actually be 200 scan lines.  Still researching this.)  Since the Atari displays approximately half this number of scan lines, then approximations and sacrifices will be needed.  
+The entire screen is very tall.  If the simulated Atari pixels are to be believed then there are around 400 scan lines displayed on the screen.  (It is entirely possible there are much less -- given difference in vertical scale it could actually be 200 scan lines.  Still researching this.)  Since the Atari displays approximately half this number of scan lines, then approximations and sacrifices will be needed.  
 
 **BORDERS**:
 The game displays a visible Border at the top, left and right sides of the screen which rebound the ball.  The horizontal Border is about four pixels (eight scan lines) thick.  This will likely be displayed as regular graphics.  
@@ -45,12 +45,14 @@ The game displays a visible Border at the top, left and right sides of the scree
 The left and right Borders are two pixels (color clocks) wide.  If the vertical Borders are implemented using mapped graphics it would require the entire screen be drawn in the same graphics mode.  Alternatively, the vertical Borders could be drawn with Player/Missile graphics which also provide the ability to draw beyond the top and bottom edge of the playfield which is how they appear in the Breakout game.
 
 **BALL**:
-The Ball is the smallest, visible, discrete object in Breakout and notably not a square -- it appears wider than it is tall.  It is approximately one Atari pixel tall, and two pixels wide, (or two scan lines high, and two pixels (color clocks) wide) making it horizontally rectangular.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between bricks are smaller than the Ball's width.  
+The Ball is the smallest, visible, discrete object in Breakout and notably not a square -- it appears wider than it is tall.  Per the Atari pixel scale it is approximately one pixel tall, and two pixels wide, (or two scan lines high, and two pixels (color clocks) wide) making it horizontally rectangular.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between bricks are smaller than the Ball's width.  
 
-The ball will be implemented as a Player or Missile.  This allows the ball to move where needed everywhere on the screen without a corresponding graphics mode for the entire display.
+The ball will be implemented as a Player or Missile.  This allows the ball to move whereever needed on the screen without a contiguous graphics mode for the entire display.
 
 **BRICKS**:
-There are eight rows of 14 Bricks each.  The Bricks are horizontally and vertically separated from each other by a small gap.  The Atari pixel scale measures a Brick at approximately 7 pixels wide, and two pixels tall (or seven color clocks by four scan lines).  The vertical gaps work out fairly close to one pixel (one color clock) wide, and the horizontal gaps appear close to one pixel (two scan lines) tall.  Including the pixel required for the gap to one side of a Brick, and the gap between rows puts the dimension of a Brick at 8 pixels (color clocks) wide and three pixels (six scan lines) tall.
+There are eight rows of 14 Bricks each.  (Side bar... 14 is such a weird number.  Considering the discrete electronics nature of the game construction it would seem more sensible for there to be a base 2 number of bricks -- such as 16 bricks, not 14.    I can only theorize that the two missing bricks actually represent the left and right borders.)
+
+The Bricks are horizontally and vertically separated from each other by a small gap.  The Atari pixel scale measures a Brick at approximately 7 pixels wide, and two pixels tall (or seven color clocks by four scan lines).  The vertical gaps work out fairly close to one pixel (one color clock) wide, and the horizontal gaps appear close to one pixel (two scan lines) tall.  Including the pixel required for the gap to one side of a Brick, and the gap between rows puts the dimension of a Brick at 8 pixels (color clocks) wide and three pixels (six scan lines) tall.
 
 The fourteen Bricks then require 111 pixels/color clocks of screen width on the Atari. (Eight color clocks of Brick and gap, minus one pixel for the unneeded gap at the end of the line.)  This is less than ANTIC narrow screen width.   For the purpose of simulating a more correct aspect the horizontal dimension could be cut down further. 
 
@@ -67,7 +69,7 @@ These numbers are very large, tall objects on screen. The numbers and the space 
 Note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.  This should be duplicated in the game as graphics/text on the screen to meaningfully label the numbers. 
 
 **COLOR**:
-The game is output only in black and white video.  Colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Every pair of Brick rows is provided a different color.  From top to bottom: red, orange, yellow, green.   A blue plastic overlay is provided for the Paddle's row.  Below is the color representation from an emulator.  The horizontal red line near the bottom of the screen is from the YouTube video player and is not part of the game:
+The game is output only in black and white video.  Colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Every pair of Brick rows is provided a different color.  From top to bottom: red, orange, greern, yellow.   A blue plastic overlay is provided for the Paddle's row.  Below is the color representation from an emulator.  The horizontal red line near the bottom of the screen is from the YouTube video player and is not part of the game:
 
 ![Game Color Pixels](breakout_color.jpg?raw=true "Game Color Pixels")
 
