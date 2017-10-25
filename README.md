@@ -62,14 +62,14 @@ The eight rows of Bricks require 46 scan lines of screen height.  That's four sc
 The Paddle at its widest is the same width as a Brick -- 7 visible pixels (color clocks).  When the Paddle switches to narrow width it is about four pixels (color clocks) wide, or only twice the width of the Ball.  The Paddle is visibly thicker then the height of a brick -- definitively three pixels (six scan lines) tall.  When the game is over the Paddle is replaced by a solid horizontal Border the width of the screen.  This border acts as a giant Paddle during the game's demo mode keeping the ball rebounding up to the Bricks.  The Paddle would likely be implemented as Player/Missile graphics.  The solid Border would be mapped graphics.  
 
 **PLAYER, BALL COUNTER, and SCORES**:
-The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  This blank area occupies an area approximately equal to the region of all the Brick rows on the screen.  The Ball travels through this area and straight through any of the numbers without being deflected.
+The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  This blank area occupies vertical space approximately equal height to the region of the eight Brick rows on the screen.  The Ball travels through this area and straight through any of the numbers without being deflected.
 
 These numbers are very large, tall objects on screen. The numbers and the space between them are the same width as a brick.  So, horizontally, the numbers including the space between them are 8 pixels/color clocks wide.  The height approaches 10 pixels (or 20 scan lines) tall which is taller than any font on the Atari.  ANTIC Mode 7 text is the nearest match at 16 scan lines tall.  The loss of a few scan lines should be acceptable with a custom font modeled after the appearance of the arcade Breakout numbers.  Alternatively, the score could be drawn as graphics.
 
 Note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.  This should be duplicated in the game as graphics/text on the screen to meaningfully label the numbers. 
 
 **COLOR**:
-The game is output only in black and white video.  Colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Every pair of Brick rows is provided a different color.  From top to bottom: red, orange, greern, yellow.   A blue plastic overlay is provided for the Paddle's row.  Below is the color representation from an emulator.  The horizontal red line near the bottom of the screen is from the YouTube video player and is not part of the game:
+The game is output only in black and white video.  Colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Every pair of Brick rows is provided a different color.  From top to bottom: red, orange, green, yellow.   A blue plastic overlay is provided for the Paddle's row.  The picture below is the color representation from an emulator.  The horizontal red line near the bottom of the screen is from the YouTube video player and is not part of the game:
 
 ![Game Color Pixels](breakout_color.jpg?raw=true "Game Color Pixels")
 
@@ -103,4 +103,3 @@ GAMEPLAY:
 =============================================================================
 
 WIP....
-
