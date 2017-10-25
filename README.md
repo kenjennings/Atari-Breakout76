@@ -67,11 +67,26 @@ These numbers are very large, tall objects on screen. The numbers and the space 
 Note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.  This should be duplicated in the game as graphics/text on the screen to meaninfgully label the numbers. 
 
 **COLOR**:
-The game is output only in black and white video.  Colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Every pair of Brick rows is provided a different color.  From top to bottom: red, orange, yellow, green.   A blue plastic overlay is provided for the Paddle's row.  
+The game is output only in black and white video.  Colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Every pair of Brick rows is provided a different color.  From top to bottom: red, orange, yellow, green.   A blue plastic overlay is provided for the Paddle's row.  Here is the color representation from an emulator:
+
+![Game Color Pixels](breakout_color.jpg?raw=true "Game Color Pixels")
+
+Best guesses for object colors: 
+
+
+| Object     | Emulator RGB | Atari RGB  | Atari Palette |
+| ---------- | ------------ | ---------- | ------------- |
+| Borders    | cccccc       | c5c5c5     | $0C           |
+| Paddle     | 026f9d       | 1b6ad8     | $96           |
+| Red        | 94200f       | 931302     | $34           |
+| Orange     | c28712       | bf6d04     | $28           |
+| Green      | 0a8334       | 006b25     | $B4           |
+| Yellow     | c1c23d       | bfb200     | $FA           |
+
 
 (Notes from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.  duh')  
 
-The color effect would be duplicated by a set of Display List Interrupts that change the color register parameters at different vertical locations on the screen.  To be convincing it will need to change the Bricks, Borders, and Ball colors at the same time.  (and lower on the screen the Paddle, Borders, and Ball.)
+The color effect would be duplicated by a set of Display List Interrupts that change the color register parameters at different vertical locations on the screen.  To be convincing it will need to change the Bricks, Borders, and Ball colors at the same time.  (and lower on the screen set the Paddle, Borders, and Ball color.)
 
 =============================================================================
 
