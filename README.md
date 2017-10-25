@@ -30,7 +30,7 @@ The screen display is black and white, but is not an ordinary black and white te
 
 Due to the display's extremely tall aspect it is unlikely the game's video output is timed to the NTSC color clock in the same way as the Atari computer, so the "pixels" in the Breakout game likely do not correspond to the Atari's color-clock-sized pixels.  Therefore, the best that can be done is an approximation on the Atari.  
 
-Below is a screen capture of video of an emulator implementing Breakout.  On this screengrab the red dots simulate an Atari pixel overlaid on the Breakout game's graphics objects to gauge the sizes: 
+Below is a screen capture of video of an emulator implementing Breakout.  The horizontal red line is from the YouTube video player and is not part of the game.  On this screengrab the red dots simulate an Atari pixel overlaid on the Breakout game's graphics objects to gauge the sizes: 
 
 ![Game Screen Pixels](breakout_bw_pixels.jpg?raw=true "Game Screen Pixels")
 
@@ -67,12 +67,11 @@ These numbers are very large, tall objects on screen. The numbers and the space 
 Note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.  This should be duplicated in the game as graphics/text on the screen to meaninfgully label the numbers. 
 
 **COLOR**:
-The game is output only in black and white video.  Colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Every pair of Brick rows is provided a different color.  From top to bottom: red, orange, yellow, green.   A blue plastic overlay is provided for the Paddle's row.  Here is the color representation from an emulator:
+The game is output only in black and white video.  Colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Every pair of Brick rows is provided a different color.  From top to bottom: red, orange, yellow, green.   A blue plastic overlay is provided for the Paddle's row.  Below is the color representation from an emulator.  The horizontal red line near the bottom of the screen is from the YouTube video player and is not part of the game:
 
 ![Game Color Pixels](breakout_color.jpg?raw=true "Game Color Pixels")
 
 Best guesses for object colors: 
-
 
 | Object     | Emulator RGB | Atari RGB  | Atari Palette |
 | ---------- | ------------ | ---------- | ------------- |
