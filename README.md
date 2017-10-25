@@ -64,7 +64,7 @@ The current Player number, the Ball Counter, and the Scores appear in the blank 
 
 These numbers are very large, tall objects on screen. The numbers and the space between them are the same width as a brick.  So, horizontally, the numbers including the space between them are 8 pixels/color clocks wide.  The height approaches 10 pixels (or 20 scan lines) tall which is taller than any font on the Atari.  ANTIC Mode 7 text is the nearest match at 16 scan lines tall.  The loss of a few scan lines should be acceptable with a custom font modeled after the appearance of the arcade Breakout numbers.  Alternatively, the score could be drawn as graphics.
 
-Note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.  This should be duplicated in the game as graphics/text on the screen to meaninfgully label the numbers. 
+Note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.  This should be duplicated in the game as graphics/text on the screen to meaningfully label the numbers. 
 
 **COLOR**:
 The game is output only in black and white video.  Colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Every pair of Brick rows is provided a different color.  From top to bottom: red, orange, yellow, green.   A blue plastic overlay is provided for the Paddle's row.  Below is the color representation from an emulator.  The horizontal red line near the bottom of the screen is from the YouTube video player and is not part of the game:
@@ -81,7 +81,6 @@ Best guesses for object colors:
 | Orange     | c28712       | bf6d04     | $28           |
 | Green      | 0a8334       | 006b25     | $B4           |
 | Yellow     | c1c23d       | bfb200     | $FA           |
-
 
 (Notes from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.  duh')  
 
