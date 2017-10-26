@@ -90,7 +90,7 @@ The color effect would be duplicated by a set of Display List Interrupts that ch
 
 =============================================================================
 
-AUDIO:
+**AUDIO**:
 
 So far three aparent sounds ....
 
@@ -104,13 +104,33 @@ It doesn't seem to be impact to a brick that triggers the sound.  Rather, it is 
 
 =============================================================================
 
-GAMEPLAY:
+**GAMEPLAY**:
 
-This is a brutal game.  It is deviously difficult.  Conceived at a time when most "arcade" games were electromechanical tests of skill this game is designed to suction a quarter out of your pocket as fast as the player's feeble skills permit.
+**OVERVIEW**:
+This is a brutal game.  It is deviously difficult.  Conceived at a time when most "arcade" games were electromechanical tests of skill this game is designed to suction a quarter out of your pocket as fast as the player's feeble skills permit.  It is not expected that a typical player can finish one screen, much less two, so the real game hardware only lasts through the second screen, and then glitches out after that.  
 
-It is not expected that a typical player can finish one screen, much less two, so the real game hardware only lasts through the second screen, and then glitches out after that.  The game begins at a difficulty level any child could handle and quickly progresses to a speed only the twitchiest paddle jockey can survive.  But, oddly, people just never learn and still love to play this game and be humiliated by it.  This is a good indicator that the game is nicely balanced between game play vs difficulty progression.  An easy game becomes boring.  A game that is too hard discourages players, so they give up on it.
+The game begins at a difficulty level any child could handle and quickly progresses to a speed only the twitchiest paddle jockey can survive.  But, oddly, people just never learn and still love to play this game and be humiliated by it.  This is a good indicator that the game is nicely balanced between game play vs difficulty progression.  An easy game becomes boring.  A game that is too hard discourages players, so they give up on it.
 
- 
+**SERVE**:
+
+
+**BRICKS, POINTS**:
+
+
+**PADDLE**
+
+
+**REBOUNDs, COLLISIONS**:
+
 =============================================================================
+
+**IMPLEMENTATION**
+
+
+**TITLE SCREEN**:
+
+
+**GAME SCREEN**:
+
 
 WIP....
