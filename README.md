@@ -28,7 +28,7 @@ An important fact here is that Breakout is a very early arcade game made of a co
 **GRAPHICS**:
 The screen display is black and white, but is not an ordinary black and white television.  It is a specialized, dedicated monitor with a very tall aspect.  The display exhibits the expected CRT behavior just like a TV -- "Pixels" are drawn in horizontal scan lines, and a number of scan lines stacked vertically to create the display.  "Pixels" may be stretching what the Breakout hardware actually does as the modern use of the word implies a memory value directly related to each dot on the display. The dedicated digital logic does not implement memory-mapped pixels in this sense.  "Pixels" are signals triggered by logic conditions.  (I saw a video of Woz discussing the game wherein he reveals the game had 256 bits of memory -- enough to count the bricks.)  
 
-Due to the display's extremely tall aspect it is unlikely the game's video output is timed to the NTSC color clock in the same way as the Atari computer, so the "pixels" in the Breakout game likely do not correspond to the Atari's color-clock-sized pixels.  Therefore, the best that can be done is an approximation on the Atari.  
+Due to the display's extremely tall aspect the game's video output is certainly not timed like the Atari's display which is tied to the NTSC color clock.  Therefore, the "pixels" in the Breakout game likely do not correspond to the Atari's color-clock-sized pixels.  Consequently, the best that can be done is an approximation on the Atari.  
 
 Below is a screen capture of video of an emulator implementing Breakout.  The horizontal red line near the bottom is from the YouTube video player and is not part of the game.  On this screengrab the red dots simulate an Atari pixel overlaid on the Breakout game's graphics objects to gauge the sizes: 
 
@@ -73,9 +73,9 @@ The game is output only in black and white video.  However, colored plastic stri
 
 ![Game Color Pixels](breakout_color.jpg?raw=true "Game Color Pixels")
 
-I captured the dominant color in each area from the color screen grab of the Breakout emulator game (above).  I then compared those colors to the closest apparent matching RGB equivalent in the Atari palette, and then report the final result as one of the Atari's 128 color.  Here are the best guesses for the object colors: 
+I captured the averaged color in each area from the color screen grab of the Breakout emulator game (above).  I then compared each Breakout color to the closest apparent matching RGB equivalent in the Atari palette.  (Using the GIMP eyedropper tool, a reference picture grabbed from an Atari emulator of the entire pallette, and my eyeballs.)  The final result is the best matching color from the  Atari's 128 color palette: 
 
-| Object     | Emulator RGB | Atari RGB  | Atari Palette |
+| Object     | Breakout RGB | Atari RGB  | Atari Palette |
 | ---------- | ------------ | ---------- | ------------- |
 | Borders    | cccccc       | c5c5c5     | $0C           |
 | Paddle     | 026f9d       | 1b6ad8     | $96           |
@@ -84,7 +84,7 @@ I captured the dominant color in each area from the color screen grab of the Bre
 | Green      | 0a8334       | 006b25     | $B4           |
 | Yellow     | c1c23d       | bfb200     | $FA           |
 
-(Notes from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.  duh')  
+(Notes from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.)  
 
 The color effect would be duplicated by a set of Display List Interrupts that change the color register parameters at different vertical locations on the screen.  To be convincing it will need to change the Bricks, Borders, and Ball colors at the same time.  (and lower on the screen set the Paddle, Borders, and Ball color.)
 
@@ -92,7 +92,7 @@ The color effect would be duplicated by a set of Display List Interrupts that ch
 
 **AUDIO**:
 
-So far three aparent sounds ....
+So far three apparent sounds ....
 
 | Object | Sound Pitch |
 | ------ | ----------- |
@@ -111,7 +111,7 @@ This is a brutal game.  It is simple in concept and unforgiving in execution.  C
 
 The game begins at a difficulty level any child could handle and quickly progresses to a speed only the twitchiest paddle jockey can survive.  But, oddly, people still love to play this game and to be humiliated by it.  This is a good indicator that the game play is nicely balanced between human play time vs difficulty progression.  An easy game becomes boring.  An impossible game or a game that feels like it cheats the player discourages repeat play.  Many games with poor play planning simply overwhelm the player with enemies to the point where it is literally impossible to progress or win by either a human or a computer.  However, the mechanics of Breakout make it feel like it is the player's responsibility for losing the game, not that the game robbed the player.  The player can clearly see the ball, but doesn't turn the Paddle controller in time to hit the Ball.  The player is trying to hit the Ball on the edge of the Paddle to change the Ball's direction and misses.  The only one to blame is the player.
 
-Breakout is frequently immitated, because the game concept is so simple.  For decades the Breakout concept has been a frequent rite of passage for thousands of programmers from beginners learning to program to experienced programmers learning a new language, to commercial game production houses looking to squeeze their share of money from a concept that refuses to die.  But, more often than not, the result is poor or clumsy compared to the original Breakout.  Programmers often over-think the game play and implement behavior that is not in the game.  Simple alterations in the game play can make the game too easy to be interesting.  Sloppy play handling and inconsistent collision detection can make the game too difficult to be playable.  We'll visit these different topics below. . .  
+Breakout is frequently immitated, because the game concept is so simple.  For decades the Breakout concept has been a frequent rite of passage for thousands of programmers from beginners learning programming to experienced programmers learning a new language, to commercial game production houses looking to squeeze more money from a concept that refuses to die.  But, as often as not, the result is poor or clumsy compared to the original Breakout.  Programmers often over-think the game play and implement behavior that is not in the game.  Simple alterations in the game play can make the game too easy to be interesting.  Sloppy play handling and inconsistent collision detection can make the game too difficult to be playable.  The playability topics are visited below. . .  
 
 **SERVE**:
 
