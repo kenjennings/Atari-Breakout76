@@ -36,8 +36,26 @@ Below is a screen capture of video of an emulator implementing Breakout.  The ho
 
 The emulator blurs and blends its pixels to simulate the output of the CRT.  This makes it difficult to determine the real start/end position of a Breakout game "pixels".  The red dots on the captured images are 3x3 graphics pixels meant to approximate one Atari pixel at one color clock wide, two scan lines tall -- the equivalent of ANTIC map mode B or D.  Therefore, all discussion of object sizes in terms of "pixel" dimensions are implicitly qualified with "appears to be" due to the vague nature of Breakout's "pixels" versus the approximation of an Atari NTSC-based pixel.
 
-**OVERALL**:
-The entire screen is very tall.  If the simulated Atari pixels are to be believed then there are around 400 scan lines displayed on the screen.  (So, then it is entirely possible there are fewer lines -- given the huge vertical scale it could actually be 200 scan lines.  Still researching this.)  Since the Atari displays approximately half this number of scan lines, then approximations and sacrifices will be needed.  
+So, then how to make that approximation?  The Breakout vertical aspect is very tall; far greater than the Atari's display originally intended for NTSC color televition.  If the simulated Atari pixels are to be believed then there are around 400 scan lines displayed on the screen.  Therefore, everything will be estimated based on how to scale the Breakout screen to the height of the Atari screen.
+
+**OVERALL ESTIMATION**:
+The screen grab of the emulator video from Youtube is 335 x 484 pixels tall.  
+
+The emulator is duplicating full overscan for the game display.  In a real Breakout game a portion of the top and bottom of the display visible in the screen grab is off the CRT.  
+
+Cropping the screen grab to the vertical size needed for display reduces the image to 335 x 395 pixels. 
+
+On the Atari we need to define an appropriate vertical size for the game screen.  Contrary to Commodore's marketing information in the 1980s the Atari's graphics are not limited to 192 scan lines.  The Atari's display hardware is inherently capable of producing graphics and text into the overscan area off the edges of the screen -- up to 240 scan lines.  Most televisions have no problem displaying two more lines of text before running into the overscan area which corresponds to 16 extra scan lines of information.
+
+Therefore the Atari display for Breakout will be based on 208 scan lines.
+
+Then 208 Atari scan lines divided by 395 Breakout scan lines provides a Breakout to Atari scaling factor of 0.52658227848.
+
+However, this scaling factor is correct only for vertical estimation.  The Breakout emulator screen grab pixels are square.  Real Atari pixels are based on the NTSC color clock timing which is not square.  (The pixel/color clock horizontal to vertical size relationship is the same for other well-designed systems following NTSC specs -- Atari 2600, Astrocade, Apple II, Amiga.)  Therefore, an additional scaling factor is needed to adjust the horizontal size to fit within color clock dimensions.  
+
+The color clock horizontal to vertical ratio is 22 / 13 which is a 1.692307 scaling factor (or 0.5909090909 when multiplying in the other direction.)   (The 22 / 13 ratio is based on the 11 / 13 aspect ratio published for the Amiga's low resolution/140ns pixels which is 1/2 color clock wide.)
+
+Thus the horizontal color clocks needed for the Breakout screen is 335 Breakout pixels times 0.52658227848 to scale down to the Atari screen size, times 0.5909090909 to convert the hosrizonal dimensions to color clocks, or 104.239 color clocks, and so, 104 Atari medium res pixels. This is well within the Atari's horizontal display dimensions, and is actually smaller than the Atari's narrow screen width.
 
 **BORDERS**:
 The game displays a visible Border at the top, left and right sides of the screen which rebound the ball.  The horizontal Border is about four pixels (eight scan lines) thick.  This will likely be displayed as regular graphics.
