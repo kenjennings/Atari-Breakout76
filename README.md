@@ -47,15 +47,15 @@ The emulator is duplicating full overscan for the game display.  In a real Break
 
 Cropping the screen grab to the vertical size needed for display reduces the image to 335 x 395 pixels. 
 
-On the Atari we need to define an appropriate vertical size for the game screen.  Contrary to Commodore's marketing information in the 1980s the Atari's graphics are not limited to 192 scan lines.  The Atari's display hardware is inherently capable of producing graphics and text into the overscan area off the edges of the screen -- up to 240 scan lines.  Most televisions have no problem displaying two more lines of text before running into the overscan area which corresponds to 16 extra scan lines of information.
+On the Atari we need to define an appropriate vertical size for the game screen.  Contrary to Commodore's marketing information in the 1980s the Atari is not limited to 192 scan lines.  The Atari's display hardware is inherently capable of producing graphics and text up to 240 scan lines -- well into the overscan area off the edges of the screen.  Most televisions can display about 16 scan lines more than the default 192 scan lines before running into the overscan area.
 
 Therefore the Atari display for Breakout will be based on 208 scan lines.
 
-Then 208 Atari scan lines divided by 395 Breakout scan lines provides a Breakout to Atari scaling factor of 0.52658227848.
+Then 208 Atari scan lines divided by 395 Breakout scan lines provide a Breakout to Atari scaling factor of 0.52658227848.
 
-However, this scaling factor is correct only for vertical estimation.  The Breakout emulator screen grab pixels are square.  Real Atari pixels are based on the NTSC color clock timing which is not square.  (The pixel/color clock horizontal to vertical size relationship is the same for other well-designed systems following NTSC specs -- Atari 2600, Astrocade, Apple II, Amiga.)  Therefore, an additional scaling factor is needed to adjust the horizontal size to fit within color clock dimensions.  
+However, this scaling factor is correct only for vertical estimation.  The Breakout emulator screen grab pixels are square.  Real Atari pixels are based on the NTSC color clock timing which is not square.  (The color clock horizontal to scan line vertical size relationship is the same for other systems following NTSC specifications -- Atari 2600, Astrocade, Apple II, Amiga.)  Therefore, an additional scaling factor is needed to adjust the horizontal size to fit within color clock dimensions.  
 
-The color clock horizontal to vertical ratio is 22 / 13 which is a 1.692307 scaling factor (or 0.5909090909 when multiplying in the other direction.)   (The 22 / 13 ratio is based on the 11 / 13 aspect ratio published for the Amiga's low resolution/140ns pixels which is 1/2 color clock wide.)
+The color clock horizontal to vertical ratio is 22 / 13 which is a 1.692307 scaling factor (or 0.5909090909 when multiplying in the other direction.)   (The 22 / 13 ratio is from the 11 / 13 aspect ratio published for the Amiga's low resolution/140ns pixels which is 1/2 color clock wide.)
 
 Thus the horizontal color clocks needed for the Breakout screen is 335 Breakout pixels times 0.52658227848 to scale down to the Atari screen size, times 0.5909090909 to convert the hosrizonal dimensions to color clocks, or 104.239 color clocks, and so, 104 Atari medium res pixels. This is well within the Atari's horizontal display dimensions, and is actually smaller than the Atari's narrow screen width.
 
