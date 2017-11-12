@@ -33,7 +33,7 @@ Due to the display's extremely tall aspect the game's video output is certainly 
 
 Below is a screen capture of video of an emulator implementing Breakout.  The horizontal red line near the bottom is from the YouTube video player and is not part of the game.  On this screengrab the red dots simulate an Atari pixel overlaid on the Breakout game's graphics objects to gauge the sizes: 
 
-![Game Screen Pixels](Breakoput_bw_startup_crop_to_main.png?raw=true "Game Screen Pixels")
+![Game Screen Pixels](Breakoput_bw_startup_overscan_plus_ball.png?raw=true "Game Screen Pixels")
 
 The emulator blurs and blends its pixels to simulate the output of the CRT.  This makes it difficult to determine the real start/end position of a Breakout game "pixels".  Therefore, all discussion of object sizes in terms of "pixel" dimensions are implicitly qualified with "appears to be" due to the vague nature of Breakout's "pixels" versus the approximation of an Atari NTSC-based pixel.
 
@@ -97,7 +97,7 @@ Note that in the arcade game there are labels painted in yellow on the glass ove
 
 The game is output only in black and white video.  However, colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Each pair of Brick rows is provided a different color.  From top to bottom: red, orange, green, yellow.   A blue plastic overlay is provided for the Paddle's row.  The picture below is the color representation from an emulator.  The horizontal red line near the bottom of the screen is from the YouTube video player and is not part of the game:
 
-![Game Color Pixels](breakout_color.jpg?raw=true "Game Color Pixels")
+![Game Color Pixels](Breakoput_cl_startup_crop_to_underscan.png?raw=true "Game Color Pixels")
 
 I captured the averaged color in each area from the color screen grab of the Breakout emulator game (above).  I then compared each Breakout color to the closest apparent matching RGB equivalent in the Atari palette.  (Using the GIMP eyedropper tool, a reference picture grabbed from an Atari emulator of the entire pallette, and my eyeballs.)  The final result is the best matching color from the  Atari's 128 color palette: 
 
