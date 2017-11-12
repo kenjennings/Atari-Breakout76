@@ -33,53 +33,53 @@ Due to the display's extremely tall aspect the game's video output is certainly 
 
 Below is a screen capture of video of an emulator implementing Breakout.  The horizontal red line near the bottom is from the YouTube video player and is not part of the game.  On this screengrab the red dots simulate an Atari pixel overlaid on the Breakout game's graphics objects to gauge the sizes: 
 
-![Game Screen Pixels](breakout_bw_pixels.jpg?raw=true "Game Screen Pixels")
+![Game Screen Pixels](Breakoput_bw_startup_crop_to_main.png?raw=true "Game Screen Pixels")
 
-The emulator blurs and blends its pixels to simulate the output of the CRT.  This makes it difficult to determine the real start/end position of a Breakout game "pixels".  The red dots on the captured images are 3x3 graphics pixels meant to approximate one Atari pixel at one color clock wide, two scan lines tall -- the equivalent of ANTIC map mode B or D.  Therefore, all discussion of object sizes in terms of "pixel" dimensions are implicitly qualified with "appears to be" due to the vague nature of Breakout's "pixels" versus the approximation of an Atari NTSC-based pixel.
+The emulator blurs and blends its pixels to simulate the output of the CRT.  This makes it difficult to determine the real start/end position of a Breakout game "pixels".  Therefore, all discussion of object sizes in terms of "pixel" dimensions are implicitly qualified with "appears to be" due to the vague nature of Breakout's "pixels" versus the approximation of an Atari NTSC-based pixel.
 
 So, then how to make that approximation?  The Breakout vertical aspect is very tall; far greater than the Atari's display originally intended for NTSC color televition.  If the simulated Atari pixels are to be believed then there are around 400 scan lines displayed on the screen.  Therefore, everything will be estimated based on how to scale the Breakout screen to the height of the Atari screen.
 
 **OVERALL ESTIMATION**:
 
-The screen grab of the emulator video from Youtube is 335 x 484 pixels tall.  
+The screen grab of the emulator video from Youtube is 331 x 480 pixels tall.  
 
 The emulator is duplicating full overscan for the game display.  In a real Breakout game a portion of the top and bottom of the display visible in the screen grab is off the CRT.  
 
-Cropping the screen grab to the vertical size needed for display reduces the image to 335 x 395 pixels. 
+Cropping the screen grab to the vertical size needed for display reduces the image height to 400 pixels. 
 
 On the Atari we need to define an appropriate vertical size for the game screen.  Contrary to Commodore's marketing information in the 1980s the Atari is not limited to 192 scan lines.  The Atari's display hardware is inherently capable of producing graphics and text up to 240 scan lines -- well into the overscan area off the edges of the screen.  Most televisions can display about 16 scan lines more than the default 192 scan lines before running into the overscan area.
 
-Therefore the Atari display for Breakout will be based on 208 scan lines.
+Therefore the Atari display for Breakout is easily variable to best match the aspect.  Either 200 or 208 scan lines are easily workable and visible on the majority of NTSC displays.  This should put the math close to 2 to 1 for the Breakout arcade screen grabs vs the scan lines needed for the Atari.
 
-Then 208 Atari scan lines divided by 395 Breakout scan lines provide a Breakout to Atari scaling factor of 0.52658227848.
+Therefore 208 Atari scan lines divided by 400 Breakout scan lines provide a Breakout to Atari scaling factor of 0.52 (or in the other direction 1.92307692308).
 
-However, this scaling factor is correct only for vertical estimation.  The Breakout emulator screen grab pixels are square.  Real Atari pixels are based on the NTSC color clock timing which is not square.  (The color clock horizontal to scan line vertical size relationship is the same for other systems following NTSC specifications -- Atari 2600, Astrocade, Apple II, Amiga.)  Therefore, an additional scaling factor is needed to adjust the horizontal size to fit within color clock dimensions.  
+However, this scaling factor is correct only for vertical estimation.  The Breakout emulator screen grab pixels are square.  Real Atari pixels are based on the NTSC color clock timing which is not square.  (The color clock horizontal to scan line vertical size relationship is the same for other systems following NTSC specifications -- Bally Astrocade, Atari 2600, Apple II, Amiga.)  Therefore, an additional scaling factor is needed to adjust the horizontal size to fit within color clock dimensions.  
 
 The color clock horizontal to vertical ratio is 22 / 13 which is a 1.692307 scaling factor (or 0.5909090909 when multiplying in the other direction.)   (The 22 / 13 ratio is from the 11 / 13 aspect ratio published for the Amiga's low resolution/140ns pixels which is 1/2 color clock wide.)
 
-Thus the horizontal color clocks needed for the Breakout screen is 335 Breakout pixels times 0.52658227848 to scale down to the Atari screen size, times 0.5909090909 to convert the hosrizonal dimensions to color clocks, or 104.239 color clocks, and so, 104 Atari medium res pixels. This is well within the Atari's horizontal display dimensions, and is actually smaller than the Atari's narrow screen width.
+Thus the horizontal color clocks needed for the Breakout screen is 331 Breakout pixels times 0.52 to scale down to the Atari screen size, times 0.5909090909 to convert the horizonal dimensions to color clocks, or 101.7072 color clocks, and so, 101 Atari medium res pixels. (This includes the vertical borders around Bricks' playfield area.) This is well within the Atari's horizontal display dimensions, and is actually smaller than the Atari's narrow screen width.
 
 **BORDERS**:
 
-The game displays a visible Border at the top, left and right sides of the screen which rebound the ball.  The horizontal Border is about four pixels (eight scan lines) thick.  This will likely be displayed as regular graphics.
+The game displays a visible Border at the top, left and right sides of the screen which rebound the ball.  The horizontal Border is about 16 lines tall -- converted to Atari dimensions this is 8.32 scan lines, so then 8 scan lines thick.  This will likely be displayed as regular graphics.
 
-The left and right Borders are two pixels (color clocks) wide.  If the vertical Borders are implemented using mapped graphics it would require the entire screen be drawn in the same graphics mode.  Alternatively, the vertical Borders could be drawn with Player/Missile graphics which also provide the ability to draw beyond the top and bottom edge of the playfield which is how they appear in the Breakout game.  Using Player/Missile graphics for the borders would also make it easier to use the best graphics or text mode fit for the different sections of the display.
+The left and right Borders work out to two Atari pixels (color clocks) wide.  If the vertical Borders are implemented using mapped graphics it would require the entire screen be drawn in the same graphics mode.  Alternatively, the vertical Borders could be drawn with Player/Missile graphics which also provide the ability to draw beyond the top and bottom edge of the playfield which is how they appear in the Breakout game.  Using Player/Missile graphics for the borders would also make it easier to use the best graphics or text mode fit for the different sections of the display.
 
 **BALL**:
 
-The Ball is the smallest, visible, discrete object in Breakout and notably not a square -- it appears wider than it is tall.  Per the Atari pixel scale it is approximately one pixel tall, and two pixels wide, (or two scan lines high, and two pixels (color clocks) wide) making it horizontally rectangular.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between Bricks are smaller than the Ball's width.  
+The Ball is the smallest, visible, discrete object in Breakout and notably does not appear square -- it appears wider than it is tall.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between Bricks are smaller than the Ball's width. 
 
-The Ball will be implemented as a Player or Missile.  This allows the ball to move whereever needed on the screen without a contiguous graphics mode for the entire display.
+On the screen grab the Ball is about six pixels wide by four pixels tall.  Per the Atari pixel scale it is approximately two  scan lines tall.  Horizontally, it is one and a half color clocks wide.  Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball as wide as the vertical borders.  So, this is where compromise is needed.  The Ball may be reduced to only one color clock wide and one scan line tall to maintain the visual appearance.
+
+The Ball will be implemented as a Player or Missile.  This will allow the ball to move wherever needed on the screen without a contiguous graphics mode for the entire display.
 
 **BRICKS**:
 
 There are eight rows of 14 Bricks each.  (Side bar... 14 is such a weird number.  Considering the discrete electronics nature of the game construction it would seem more sensible for there to be a base 2 number of bricks -- such as 16 bricks, not 14.  I can only theorize that the two missing bricks actually represent the left and right borders.)
 
-The Bricks are horizontally and vertically separated from each other by a small gap.  The Atari pixel scale measures a Brick at approximately 7 pixels wide, and two pixels tall (or seven color clocks by four scan lines).  The vertical gaps work out fairly close to one pixel (one color clock) wide, and the horizontal gaps appear close to one pixel (two scan lines) tall.  Including the pixel required for the gap to one side of a Brick, and the gap between rows puts the dimension of a Brick at 8 pixels (color clocks) wide and three pixels (six scan lines) tall.
+The area of the bricks is 63 pixels tall.  Scaled to the Atari dimensions this is 32.76 scan lines.  32 is a good approximation as this is even divisible by the number of lines.  A row of bricks works out to 3 scan lines of pixels and one blank blank line separating each row.
 
-The fourteen Bricks then require 111 pixels/color clocks of screen width on the Atari. (Eight color clocks of Brick and gap, minus one pixel for the unneeded gap at the end of the line.)  This is less than ANTIC narrow screen width.  For the purpose of simulating a more correct aspect the horizontal dimension could be cut down further. 
-
-The eight rows of Bricks require 46 scan lines of screen height.  That's four scan lines for each brick row, plus two more for the gap between rows and minus two scan lines for the unneeded gap after the Bricks.  Not quite the height of six lines of ANTIC mode 2 text, which is roughly a quarter of the Atari screen height. This is a significantly larger portion of the screen's vertical real estate on the Atari computer than the real game.  The scale aspect may be sacrificed by using only one blank scan line between rows.  This shortens the Brick area to 39 scan lines.  If the Bricks themselves are reduced to three scan lines this shortens the Brick area to 31 scan lines, about 4 lines of ANTIC mode 2 text.
+The area of the Bricks is 318 pixels wide. Scaled to the Atari color clocks this is 97.712 pixels wide which works out to 6.97948 color clocks per brick including one color clock for the gap between bricks.  Rounding up makes 7 color clocks per Brick.  So, a total of 98 pixels, less one for the unneeded gap after the last Brick is 97 color clocks.  This is less than ANTIC narrow screen width.
 
 **PADDLE**:
 
