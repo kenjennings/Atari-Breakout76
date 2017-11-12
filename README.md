@@ -45,7 +45,9 @@ The screen grab of the emulator video from Youtube is 331 x 480 pixels tall.
 
 The emulator is duplicating full overscan for the game display.  In a real Breakout game a portion of the top and bottom of the display visible in the screen grab is off the CRT.  
 
-Cropping the screen grab to the vertical size needed for display reduces the image height to 400 pixels. 
+Cropping the screen grab to the vertical size needed for display reduces the image height to 400 pixels:
+
+![Game Screen Pixels](Breakoput_bw_startup_crop_to_underscan.png?raw=true "Game Screen Pixels")
 
 On the Atari we need to define an appropriate vertical size for the game screen.  Contrary to Commodore's marketing information in the 1980s the Atari is not limited to 192 scan lines.  The Atari's display hardware is inherently capable of producing graphics and text up to 240 scan lines -- well into the overscan area off the edges of the screen.  Most televisions can display about 16 scan lines more than the default 192 scan lines before running into the overscan area.
 
