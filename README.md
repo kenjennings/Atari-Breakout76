@@ -49,7 +49,7 @@ Cropping the screen grab to the vertical size needed for display reduces the ima
 
 ![Game Screen Pixels](Breakoput_bw_startup_crop_to_underscan.png?raw=true "Game Screen Pixels")
 
-On the Atari we need to define an appropriate vertical size for the game screen.  Contrary to Commodore's marketing information in the 1980s the Atari is not limited to 192 scan lines.  The Atari's display hardware is inherently capable of producing graphics and text up to 240 scan lines -- well into the overscan area off the edges of the screen.  Most televisions can display about 16 scan lines more than the default 192 scan lines before running into the overscan area.
+On the Atari we need to define an appropriate vertical size for the game screen.  Contrary to Commodore's marketing information in the 1980s the Atari is not limited to 192 scan lines.  The Atari's display hardware is inherently capable of producing graphics and text up to 240 scan lines -- well into the overscan area off the edges of the screen.  In my experience the typical 13" color television of the 1980s could safely display about 16 scan lines more than the default 192 scan lines before running into the overscan area.
 
 Therefore the Atari display for Breakout is easily variable to best match the aspect.  Either 200 or 208 scan lines are easily workable and visible on the majority of NTSC displays.  This should put the math close to 2 to 1 for the Breakout arcade screen grabs vs the scan lines needed for the Atari.
 
