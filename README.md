@@ -25,7 +25,7 @@ An important fact here is that Breakout is a very early arcade game built from d
 
 =============================================================================
 
-**GRAPHICS**:
+**DISPLAY**:
 
 The screen display is black and white, but is not an ordinary black and white television.  It is a specialized, dedicated monitor with a very tall aspect.  The display exhibits the expected CRT behavior just like a TV -- "Pixels" are drawn in horizontal scan lines, and a number of scan lines stacked vertically to create the display.  "Pixels" may be stretching what the Breakout hardware actually does as the modern use of the word implies a memory value directly related to each dot on the display. The dedicated digital logic does not implement memory-mapped pixels in this sense.  "Pixels" are signals triggered by logic conditions.  (I saw a video of Woz discussing the game wherein he reveals the game had 256 bits of memory -- enough to count the bricks.)  
 
@@ -55,23 +55,120 @@ Therefore the Atari display for Breakout is easily variable to best match the as
 
 Therefore 208 Atari scan lines divided by 400 Breakout scan lines provide a Breakout to Atari scaling factor of 0.52 (or in the other direction 1.92307692308).
 
-However, this scaling factor is correct only for vertical estimation.  The Breakout emulator screen grab pixels are square.  Real Atari pixels are based on the NTSC color clock timing which is not square.  (The color clock horizontal to scan line vertical size relationship is the same for other systems following NTSC specifications -- Bally Astrocade, Atari 2600, Apple II, Amiga.)  Therefore, an additional scaling factor is needed to adjust the horizontal size to fit within color clock dimensions.  
+However, this scaling factor is correct only for vertical estimation.  The Breakout emulator screen grab pixels are square.  Real Atari pixels are based on the NTSC color clock timing which is not square.  (The color clock horizontal to scan line vertical size relationship is the same for other systems following NTSC specifications -- Bally Astrocade, Atari 2600, Apple II, Amiga.)  Therefore, an additional scaling factor is needed to determine the real horizontal dimension measured in color clocks per the number of square pixels in the screen grab image. 
 
-The color clock horizontal to vertical ratio is 22 / 13 which is a 1.692307 scaling factor (or 0.5909090909 when multiplying in the other direction.)   (The 22 / 13 ratio is from the 11 / 13 aspect ratio published for the Amiga's low resolution/140ns pixels which is 1/2 color clock wide.)
+The color clock horizontal to vertical ratio is 22 / 13 which is a 1.692307 scaling factor (or 0.5909090909 when multiplying in the other direction.)   (The 22 / 13 ratio is derived from the 11 / 13 aspect ratio published for the Amiga's low resolution/140ns pixels which is 1/2 color clock wide.)
 
 Thus the horizontal color clocks needed for the Breakout screen is 331 Breakout pixels times 0.52 to scale down to the Atari screen size, times 0.5909090909 to convert the horizonal dimensions to color clocks, or 101.7072 color clocks, and so, 101 Atari medium res pixels. (This includes the vertical borders around Bricks' playfield area.) This is well within the Atari's horizontal display dimensions, and is actually smaller than the Atari's narrow screen width.
 
 **BORDERS**:
 
-The game displays a visible Border at the top, left and right sides of the screen which rebound the ball.  The horizontal Border is about 16 lines tall -- converted to Atari dimensions this is 8.32 scan lines, so then 8 scan lines thick.  This will likely be displayed as regular graphics.
+The game displays a visible Border at the top, left and right sides of the screen which rebound the ball.  The horizontal Border is about 16 lines tall -- converted to Atari dimensions this is 8.32 scan lines, so then 8 scan lines thick.
 
-The left and right Borders work out to two Atari pixels (color clocks) wide.  If the vertical Borders are implemented using mapped graphics it would require the entire screen be drawn in the same graphics mode.  Alternatively, the vertical Borders could be drawn with Player/Missile graphics which also provide the ability to draw beyond the top and bottom edge of the playfield which is how they appear in the Breakout game.  Using Player/Missile graphics for the borders would also make it easier to use the best graphics or text mode fit for the different sections of the display.
+The left and right Borders work out to two Atari pixels (color clocks) wide.
 
 **BALL**:
 
-The Ball is the smallest, visible, discrete object in Breakout and notably does not appear square -- it appears wider than it is tall.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between Bricks are smaller than the Ball's width. 
+The Ball is the smallest, visible, discrete object in Breakout and notably does not appear square -- it appears wider than it is tall.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between Bricks appear smaller than the Ball's width. 
 
-On the screen grab the Ball is about six pixels wide by four pixels tall.  Per the Atari pixel scale it is approximately two  scan lines tall.  Horizontally, it is one and a half color clocks wide.  Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball as wide as the vertical borders.  So, this is where compromise is needed.  The Ball may be reduced to only one color clock wide and one scan line tall to maintain the visual appearance.
+On the screen grab the Ball is about six pixels wide by four pixels tall.  Per the Atari pixel scale it is approximately two scan lines tall.  Horizontally, it is one and a half color clocks wide.  Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball as wide as the vertical borders.  
+
+So, this is where compromise is needed.  The choice is that the ball is displayed as only one color clock, one scan line tall to maintain its visual appearance relative to the dimensions of the screen, or two color clocks two scan lines tall (four times larger).  The Ball may be reduced to only one color clock wide and one scan line tall to maintain the visual appearance.
+
+**BRICKS**:
+
+There are eight rows of 14 Bricks each.  (Side bar... 14 is such a weird number.  Considering the discrete electronics nature of the game construction it would seem more sensible for there to be a base 2 number of bricks -- such as 16 bricks, not 14.  I can only theorize that the two missing bricks actually represent the left and right borders.)
+
+The area of the bricks is 63 pixels tall.  Scaled to the Atari dimensions this is 32.76 scan lines.  32 is a good approximation as this is even divisible by the number of lines.  A row of bricks works out to 3 scan lines of pixels and one blank blank line separating each row.
+
+The area of the Bricks is 318 pixels wide. Scaled to the Atari color clocks this is 97.712 pixels wide which works out to 6.97948 color clocks per brick including one color clock for the gap between bricks.  Rounding up makes 7 color clocks per Brick.  So, a total of 98 pixels, less one for the unneeded gap after the last Brick is 97 color clocks.
+
+**PADDLE**:
+
+The Paddle at its widest is the same width as a Brick -- 6 visible pixels (color clocks).  When the Paddle switches to narrow width it is about three pixels (color clocks) wide.  The Paddle is visibly thicker than the height of a brick -- definitively four Atari scan lines tall. When the game is over the Paddle is replaced by a solid horizontal Border the width of the screen.  This border acts as a giant Paddle during the game's demo mode keeping the ball rebounding up toward the Bricks.
+
+**PLAYER, BALL COUNTER, and SCORES**:
+
+The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  This blank area occupies vertical space approximately equal height to the region of the eight Brick rows on the screen.  The Ball travels through this area and straight through any of the numbers without being deflected.
+
+These numbers are very large, tall objects on screen. The numbers and the space between them match the width of the bricks below them, so the math is already sone -- horizontally, the numbers including the space between them are 7 color clocks wide.  The height is about 27 pixels and when converted to the Atari works out to 14.04 scan lines tall.
+
+Note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.  This should be duplicated in the game as graphics/text on the screen to meaningfully label the numbers. 
+
+**COLOR**:
+
+The game is output only in black and white video.  However, colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Each pair of Brick rows is provided a different color.  From top to bottom: red, orange, green, yellow.   A blue plastic overlay is provided for the Paddle's row.  The picture below is the color representation from an emulator:
+
+![Game Color Pixels](Breakoput_cl_startup_crop_to_underscan.png?raw=true "Game Color Pixels")
+
+Note from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.  
+
+=============================================================================
+
+**AUDIO**:
+
+So far three apparent sounds ....
+
+| Object  | Sound Pitch |
+| ------- | ----------- |
+| Paddle  | High        | 
+| Borders | Medium      | 
+| Bricks  | Low         | 
+
+It doesn't seem to be impact to a brick that triggers the sound.  Rather, it is the score counter increment that initiates sound.  One strike on a Yellow Brick cause one tone for one point added to the score.  One strike on a Red Brick causes the game to add 7 points to the score, and then it plays 7 tones.
+
+=============================================================================
+
+**GAMEPLAY**:
+
+**OVERVIEW**:
+
+This is a brutal game.  It is simple in concept and unforgiving in execution.  Conceived at a time when most "arcade" games were electromechanical tests of skill this game is designed to suction a quarter out of your pocket as fast as the player's feeble skills permit.  A typical player is not expected to clear all the bricks from one screen, much less two. In fact, the real game hardware only lasts through the second screen and then glitches out after that.
+
+The game begins at a difficulty level any child could handle and quickly progresses to a speed only the twitchiest paddle jockey can survive.  But, oddly, people still love to play this game and to be humiliated by it.  This is a good indicator that the game play is nicely balanced between human play time vs difficulty progression.  An easy game becomes boring.  A game perceived as impossible or that feels like it cheats the player discourages repeat play.  Many games with poor play planning simply overwhelm the player with enemies to the point where it is literally impossible to progress or win by either a human or a computer.  However, the mechanics of Breakout make it feel like it is the player's responsibility for losing the game, not that the game robbed the player.  The player can clearly see the ball, but doesn't turn the Paddle controller in time to hit the Ball.  The player is trying to hit the Ball on the edge of the Paddle to change the Ball's direction and misses.  The only one to blame is the player.
+
+Breakout is frequently immitated, because the game concept is so simple.  For decades the Breakout concept has been a frequent rite of passage for thousands of programmers from beginners learning programming to experienced programmers learning a new language, to commercial game production houses looking to squeeze more money from a concept that refuses to die.  But, as often as not, the result is poor or clumsy compared to the original Breakout.  Programmers often over-think the game play and implement behavior that is not in the game.  Simple alterations in the game play can make the game too easy to be interesting.  Sloppy play handling and inconsistent collision detection can make the game too difficult to be playable.  The playability topics are visited below. . .  
+
+**SERVE**:
+
+
+**BRICKS, POINTS**:
+
+
+**PADDLE**
+
+
+**REBOUNDs, COLLISIONS**:
+
+=============================================================================
+
+**IMPLEMENTATION**
+
+The Atari is a highly flexible system and lends itself to creative thinking.  A visual affect can be achieved via multiple methods with pros and cons for each.  Screen objects could be drawn directly as graphics, as text using custom characters, or as Player-Missile graphics depending on geometry, animation, and how well the intended solution fits the architecture of the display method.  A choice for one implementation method  can affect what is chosen for other areas further down the screen.  
+
+**TITLE SCREEN**:
+
+
+**GAME SCREEN**:
+
+The game screen scaled to the Atari's dimensions fit within the horizontal width for ANTIC's narrow playfield.  The game screen can utilize ANTIC's narrow width, reducing the RAM requirements for where pixel graphics are needed. 
+
+**BORDERS**:
+
+The game displays a visible Border at the top of the screen 8 scan lines thick.  Depending on the vertical border implementation the top border may need to cover the width of the bricks (97 color clocks), or the width of the bricks plus the vertical borders (97 + 4 color clocks = 101).
+
+The top border is a solid horizontal bar.  It needs to run across 97 or 101 contiguous pixels.
+
+This is easy to do with ANTIC modes B, C, D or E which each support pixels one color clock wide.  (If this were an even number of color clocks then the mode 9 or A lower resolution modes could be used.)  Since multiple colors are not needed, the two-color modes, B or C, could be used.  Since the data displayed on each scan line is the same, and the number of scan lines is an even number, then this can be done using four lines of mode B graphics.  Each line would use LMS to redisplay the same data, so the entire top border line could be displayed using only 16 bytes of screen memory.
+
+Player/Missile graphics could cover the same area.   Three Players set for quadrouple width can cover 32 color clocks each, or 96 color clocks when lined up next to each other. The remaining color clock for the playfield, plus the four for the vertical borders could be covered by one more Player, or several Missiles.
+
+Alternatively, the vertical Borders could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
+
+
+**BALL**:
+
+Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball as wide as the vertical borders.  So, this is where compromise is needed.  The Ball may be reduced to only one color clock wide and one scan line tall to maintain the visual appearance.
 
 The Ball will be implemented as a Player or Missile.  This will allow the ball to move wherever needed on the screen without a contiguous graphics mode for the entire display.
 
@@ -115,53 +212,6 @@ I captured the averaged color in each area from the color screen grab of the Bre
 (Notes from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.)  
 
 The color effect would be duplicated by a set of Display List Interrupts that change the color register parameters at different vertical locations on the screen.  To be convincing it will need to change the Bricks, Borders, and Ball colors at the same time.  (and lower on the screen set the Paddle, Borders, and Ball color.)
-
-=============================================================================
-
-**AUDIO**:
-
-So far three apparent sounds ....
-
-| Object | Sound Pitch |
-| ------ | ----------- |
-| Paddle | High | 
-| Borders | Medium | 
-| Bricks | Low | 
-
-It doesn't seem to be impact to a brick that triggers the sound.  Rather, it is the score counter increment that initiates sound.  One strike on a Yellow Brick cause one tone for one point added to the score.  One strike on a Red Brick causes 7 tones as the game adds 7 individual points to the score.
-
-=============================================================================
-
-**GAMEPLAY**:
-
-**OVERVIEW**:
-
-This is a brutal game.  It is simple in concept and unforgiving in execution.  Conceived at a time when most "arcade" games were electromechanical tests of skill this game is designed to suction a quarter out of your pocket as fast as the player's feeble skills permit.  A typical player is not expected to clear all the bricks from one screen, much less two. In fact, the real game hardware only lasts through the second screen and then glitches out after that.
-
-The game begins at a difficulty level any child could handle and quickly progresses to a speed only the twitchiest paddle jockey can survive.  But, oddly, people still love to play this game and to be humiliated by it.  This is a good indicator that the game play is nicely balanced between human play time vs difficulty progression.  An easy game becomes boring.  An impossible game or a game that feels like it cheats the player discourages repeat play.  Many games with poor play planning simply overwhelm the player with enemies to the point where it is literally impossible to progress or win by either a human or a computer.  However, the mechanics of Breakout make it feel like it is the player's responsibility for losing the game, not that the game robbed the player.  The player can clearly see the ball, but doesn't turn the Paddle controller in time to hit the Ball.  The player is trying to hit the Ball on the edge of the Paddle to change the Ball's direction and misses.  The only one to blame is the player.
-
-Breakout is frequently immitated, because the game concept is so simple.  For decades the Breakout concept has been a frequent rite of passage for thousands of programmers from beginners learning programming to experienced programmers learning a new language, to commercial game production houses looking to squeeze more money from a concept that refuses to die.  But, as often as not, the result is poor or clumsy compared to the original Breakout.  Programmers often over-think the game play and implement behavior that is not in the game.  Simple alterations in the game play can make the game too easy to be interesting.  Sloppy play handling and inconsistent collision detection can make the game too difficult to be playable.  The playability topics are visited below. . .  
-
-**SERVE**:
-
-
-**BRICKS, POINTS**:
-
-
-**PADDLE**
-
-
-**REBOUNDs, COLLISIONS**:
-
-=============================================================================
-
-**IMPLEMENTATION**
-
-
-**TITLE SCREEN**:
-
-
-**GAME SCREEN**:
 
 
 WIP....
