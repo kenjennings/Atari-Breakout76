@@ -31,7 +31,7 @@ The screen display is black and white, but is not an ordinary black and white te
 
 Due to the display's extremely tall aspect the game's video output is certainly not timed like the Atari's display which is tied to the NTSC color clock.  Therefore, the "pixels" in the Breakout game likely do not correspond to the Atari's color-clock-sized pixels.  Consequently, the best that can be done is an approximation on the Atari.  
 
-Below is a screen capture of video of an emulator implementing Breakout.  The horizontal red line near the bottom is from the YouTube video player and is not part of the game.  On this screengrab the red dots simulate an Atari pixel overlaid on the Breakout game's graphics objects to gauge the sizes: 
+Below is a screen capture of video of an emulator implementing Breakout: 
 
 ![Game Screen Pixels](Breakoput_bw_startup_overscan_plus_ball.png?raw=true "Game Screen Pixels")
 
@@ -95,7 +95,7 @@ Note that in the arcade game there are labels painted in yellow on the glass ove
 
 **COLOR**:
 
-The game is output only in black and white video.  However, colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Each pair of Brick rows is provided a different color.  From top to bottom: red, orange, green, yellow.   A blue plastic overlay is provided for the Paddle's row.  The picture below is the color representation from an emulator.  The horizontal red line near the bottom of the screen is from the YouTube video player and is not part of the game:
+The game is output only in black and white video.  However, colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Each pair of Brick rows is provided a different color.  From top to bottom: red, orange, green, yellow.   A blue plastic overlay is provided for the Paddle's row.  The picture below is the color representation from an emulator:
 
 ![Game Color Pixels](Breakoput_cl_startup_crop_to_underscan.png?raw=true "Game Color Pixels")
 
