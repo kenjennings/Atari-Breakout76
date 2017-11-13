@@ -149,7 +149,7 @@ Breakout is frequently immitated, because the game concept is so simple.  For de
 
 **IMPLEMENTATION**
 
-The Atari is a highly flexible system and lends itself to creative thinking.  The playfield display is completely programmable allowing a game to mix graphics and text modes at any vertical position of the screen, and even specify that no bitmapped or character graphics displayed.  Screen memory on adjacent lines need not be contiguous in memory.  
+The Atari is a highly flexible system and lends itself to creative thinking.  The playfield display is completely programmable allowing a game to mix graphics and text modes and blank lines at any vertical position of the screen.  Graphics and text on adjacent lines need not be contiguous in memory.  
 
 A desired visual affect can be achieved via multiple methods with pros and cons for each:  Screen objects could be drawn directly as graphics, as text using custom characters, or as Player-Missile graphics depending on geometry, animation, and how well the intended solution fits the architecture of the display method.  A choice for one implementation method can affect what is chosen for other areas on the screen.  
 
@@ -165,11 +165,9 @@ The game screen scaled to the Atari's dimensions fit within the horizontal width
 
 The screen entire visible playfield  will be 208 scan lines.  
 
-**BORDERS**:
+**TOP BORDER**:
 
 The game displays a visible Border at the top of the screen 8 scan lines thick.  Depending on the vertical border implementation the top border may need to cover the width of the bricks (97 color clocks), or the width of the bricks plus the vertical borders (97 + 4 color clocks = 101).
-
-The top border is a solid horizontal bar.  It needs to run across 97 or 101 contiguous pixels.
 
 This is easy to do with ANTIC modes B, C, D or E which each support pixels one color clock wide.  (If this were an even number of color clocks then the mode 9 or mode A lower resolution modes could be used.)  
 
@@ -178,6 +176,14 @@ Since multiple colors are not needed, the two-color modes, B or C, could be used
 Player/Missile graphics could cover the same area.   Three Players set for quadrouple width can cover 32 color clocks each, or 96 color clocks when lined up next to each other. The remaining color clock for the playfield, plus the four for the vertical borders could be covered by one more Player, or several Missiles.  The border would require setting 4 or 8 bytes per player depending on Player/Missile resolution. If Player/Missile graphics are used for other components later on the display, then a Display List interrupt is needed to reset the sizes and reposition the objects' horizontal positions. 
 
 Alternatively, the horizontal border could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
+
+**LEFT/RIGHT BORDERS**:
+
+Left and Right Borders extend the entire height of the screen.  Each is two color clocks wide.
+
+Drawn as pixels, the borders require building the entire display of contiguous lines of graphics.  Likewise, if custom characters are used it requires the entire game screen must be character set graphics.  
+
+Player/Missile graphics can extend the height of the screen and go into the vertical overscan area.  It would require one Player or even just a Missile for each left and right border.  This would free the playfield for customization and variable graphics modes going down the screen.
 
 **BALL**:
 
@@ -189,11 +195,11 @@ If the Ball is implemented as a Player or Missile it may be positioned wherever 
 
 **BRICKS**:
 
-There are eight rows of 14 Bricks each.  (Side bar... 14 is such a weird number.  Considering the discrete electronics nature of the game construction it would seem more sensible for there to be a base 2 number of bricks -- such as 16 bricks, not 14.  I can only theorize that the two missing bricks actually represent the left and right borders.)
+There are eight rows of 14 Bricks each determined to be 7 color clocks per brick -- six visible color clocks, and one blank to separate it from the next brick.  There are 4 scan lines per brick, three visible, and one blank to separate it from the next row.
 
-The area of the bricks is 63 pixels tall.  Scaled to the Atari dimensions this is 32.76 scan lines.  32 is a good approximation as this is even divisible by the number of lines.  A row of bricks works out to 3 scan lines of pixels and one blank blank line separating each row.
+Player/Missile graphics can't be used for bricks.  While they may be able to cover the distance across the screen the width setting necessary makes it impossible to represent the gap between bricks.
 
-The area of the Bricks is 318 pixels wide. Scaled to the Atari color clocks this is 97.712 pixels wide which works out to 6.97948 color clocks per brick including one color clock for the gap between bricks.  Rounding up makes 7 color clocks per Brick.  So, a total of 98 pixels, less one for the unneeded gap after the last Brick is 97 color clocks.  This is less than ANTIC narrow screen width.
+Custom characters are not optimal either.  As character set graphics are 4 or 8 color clocks wide, s are 
 
 **PADDLE**:
 
