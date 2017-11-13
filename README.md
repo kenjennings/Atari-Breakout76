@@ -71,9 +71,9 @@ The left and right Borders work out to two Atari pixels (color clocks) wide.
 
 The Ball is the smallest, visible, discrete object in Breakout and notably does not appear square -- it appears wider than it is tall.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between Bricks appear smaller than the Ball's width. 
 
-On the screen grab the Ball is about six pixels wide by four pixels tall.  Per the Atari pixel scale it is approximately two scan lines tall.  Horizontally, it is one and a half color clocks wide.  Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball as wide as the vertical borders.  
+On the screen grab the Ball is about six pixels wide by four pixels tall.  Per the Atari pixel scale it is approximately two scan lines tall.  Horizontally, it is one and a half color clocks wide.  Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball wider than tall, but noticeably larger than the ball appears in Breakout. 
 
-So, this is where compromise is needed.  The choice is that the ball is displayed as only one color clock, one scan line tall to maintain its visual appearance relative to the dimensions of the screen, or two color clocks two scan lines tall (four times larger).  The Ball may be reduced to only one color clock wide and one scan line tall to maintain the visual appearance.
+So, this is where compromise is needed.  The choice is that the ball is displayed as only one color clock, one scan line tall to maintain its visual appearance relative to the dimensions of the screen, or two color clocks two scan lines tall (four times larger).  The first choice may be too small to see easily.  The second may be too large per the look and feel of the game.
 
 **BRICKS**:
 
@@ -93,7 +93,7 @@ The current Player number, the Ball Counter, and the Scores appear in the blank 
 
 These numbers are very large, tall objects on screen. The numbers and the space between them match the width of the bricks below them, so the math is already sone -- horizontally, the numbers including the space between them are 7 color clocks wide.  The height is about 27 pixels and when converted to the Atari works out to 14.04 scan lines tall.
 
-Note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.  This should be duplicated in the game as graphics/text on the screen to meaningfully label the numbers. 
+Also note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.
 
 **COLOR**:
 
