@@ -123,11 +123,16 @@ It doesn't seem to be impact to a brick that triggers the sound.  Rather, it is 
 
 **OVERVIEW**:
 
-This is a brutal game.  It is simple in concept and unforgiving in execution.  Conceived at a time when most "arcade" games were electromechanical tests of skill this game is designed to suction a quarter out of your pocket as fast as the player's feeble skills permit.  A typical player is not expected to clear all the bricks from one screen, much less two. In fact, the real game hardware only lasts through the second screen and then glitches out after that.
+This is a brutal game of violence and terror*.  The game is simple in concept and unforgiving in execution.  Conceived at a time when most "arcade" games were electromechanical tests of skill this game is designed to suction a quarter out of your pocket as fast as the player's feeble skills permit.  A typical player is not expected to clear all the bricks from one screen, much less two. In fact, the real game hardware only lasts through the second screen and then glitches out after that.
 
-The game begins at a difficulty level any child could handle and quickly progresses to a speed only the twitchiest paddle jockey can survive.  But, oddly, people still love to play this game and to be humiliated by it.  This is a good indicator that the game play is nicely balanced between human play time vs difficulty progression.  An easy game becomes boring.  A game perceived as impossible or that feels like it cheats the player discourages repeat play.  Many games with poor play planning simply overwhelm the player with enemies to the point where it is literally impossible to progress or win by either a human or a computer.  However, the mechanics of Breakout make it feel like it is the player's responsibility for losing the game, not that the game robbed the player.  The player can clearly see the ball, but doesn't turn the Paddle controller in time to hit the Ball.  The player is trying to hit the Ball on the edge of the Paddle to change the Ball's direction and misses.  The only one to blame is the player.
+(* not really)
+
+The game begins at a difficulty level any child could handle and quickly progresses to a speed only the twitchiest paddle jockey can survive.  But, oddly, people still love to play this game and to be humiliated by it over and over.  This is a good indicator that the game play is nicely balanced between human play time vs difficulty progression.  An easy game becomes boring.  A game perceived as impossible or that feels like it cheats the player discourages repeat play.  Many games with poor play planning simply overwhelm the player with enemies to the point where it is literally impossible to progress or win by either a human or a computer.  However, the mechanics of Breakout make it feel like it is the player's responsibility for losing the game, not that the game robbed the player.  The player can clearly see the ball, but doesn't turn the Paddle controller in time to hit the Ball.  The player is trying to hit the Ball on the edge of the Paddle to change the Ball's direction and misses.  The only one to blame is the player.
 
 Breakout is frequently immitated, because the game concept is so simple.  For decades the Breakout concept has been a frequent rite of passage for thousands of programmers from beginners learning programming to experienced programmers learning a new language, to commercial game production houses looking to squeeze more money from a concept that refuses to die.  But, as often as not, the result is poor or clumsy compared to the original Breakout.  Programmers often over-think the game play and implement behavior that is not in the game.  Simple alterations in the game play can make the game too easy to be interesting.  Sloppy play handling and inconsistent collision detection can make the game too difficult to be playable.  The playability topics are visited below. . .  
+
+
+
 
 **SERVE**:
 
@@ -144,14 +149,21 @@ Breakout is frequently immitated, because the game concept is so simple.  For de
 
 **IMPLEMENTATION**
 
-The Atari is a highly flexible system and lends itself to creative thinking.  A visual affect can be achieved via multiple methods with pros and cons for each.  Screen objects could be drawn directly as graphics, as text using custom characters, or as Player-Missile graphics depending on geometry, animation, and how well the intended solution fits the architecture of the display method.  A choice for one implementation method  can affect what is chosen for other areas further down the screen.  
+The Atari is a highly flexible system and lends itself to creative thinking.  The playfield display is completely programmable allowing a game to mix graphics and text modes at any vertical position of the screen, and even specify that no bitmapped or character graphics displayed.  Screen memory on adjacent lines need not be contiguous in memory.  
+
+A desired visual affect can be achieved via multiple methods with pros and cons for each:  Screen objects could be drawn directly as graphics, as text using custom characters, or as Player-Missile graphics depending on geometry, animation, and how well the intended solution fits the architecture of the display method.  A choice for one implementation method can affect what is chosen for other areas on the screen.  
 
 **TITLE SCREEN**:
 
+The Breakout arcade game does not have a title screen.  The "splash screen" or title graphics are the box cabinet.  The number of players, and game initiation are managed with buttons.
+
+However, the Atari computer immitation of Breakout can add some configurability to game parameters. This needs a minimal user interface and directions in place of the arcade button controls and should appear separately from the main game screen. 
 
 **GAME SCREEN**:
 
-The game screen scaled to the Atari's dimensions fit within the horizontal width for ANTIC's narrow playfield.  The game screen can utilize ANTIC's narrow width, reducing the RAM requirements for where pixel graphics are needed. 
+The game screen scaled to the Atari's dimensions fit within the horizontal width for ANTIC's narrow playfield.  The game screen can utilize ANTIC's narrow width, reducing the RAM requirements where pixel graphics are needed.
+
+The screen entire visible playfield  will be 208 scan lines.  
 
 **BORDERS**:
 
@@ -159,18 +171,21 @@ The game displays a visible Border at the top of the screen 8 scan lines thick. 
 
 The top border is a solid horizontal bar.  It needs to run across 97 or 101 contiguous pixels.
 
-This is easy to do with ANTIC modes B, C, D or E which each support pixels one color clock wide.  (If this were an even number of color clocks then the mode 9 or A lower resolution modes could be used.)  Since multiple colors are not needed, the two-color modes, B or C, could be used.  Since the data displayed on each scan line is the same, and the number of scan lines is an even number, then this can be done using four lines of mode B graphics.  Each line would use LMS to redisplay the same data, so the entire top border line could be displayed using only 16 bytes of screen memory.
+This is easy to do with ANTIC modes B, C, D or E which each support pixels one color clock wide.  (If this were an even number of color clocks then the mode 9 or mode A lower resolution modes could be used.)  
 
-Player/Missile graphics could cover the same area.   Three Players set for quadrouple width can cover 32 color clocks each, or 96 color clocks when lined up next to each other. The remaining color clock for the playfield, plus the four for the vertical borders could be covered by one more Player, or several Missiles.
+Since multiple colors are not needed, the two-color modes, B or C, could be used.  Since the data displayed on each scan line is the same, and the number of scan lines is an even number, then this can be done using four lines of mode B graphics.  Each line would use LMS to redisplay the same data, so the entire top border line could be displayed using only 16 bytes of screen memory.
 
-Alternatively, the vertical Borders could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
+Player/Missile graphics could cover the same area.   Three Players set for quadrouple width can cover 32 color clocks each, or 96 color clocks when lined up next to each other. The remaining color clock for the playfield, plus the four for the vertical borders could be covered by one more Player, or several Missiles.  The border would require setting 4 or 8 bytes per player depending on Player/Missile resolution. If Player/Missile graphics are used for other components later on the display, then a Display List interrupt is needed to reset the sizes and reposition the objects' horizontal positions. 
 
+Alternatively, the horizontal border could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
 
 **BALL**:
 
 Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball as wide as the vertical borders.  So, this is where compromise is needed.  The Ball may be reduced to only one color clock wide and one scan line tall to maintain the visual appearance.
 
-The Ball will be implemented as a Player or Missile.  This will allow the ball to move wherever needed on the screen without a contiguous graphics mode for the entire display.
+If the Ball is implemented as a drawn, pixel object, then the entire display must be produced with contiguous lines of graphics, so the ball can be consistently positioned anywhere on the plafield.
+
+If the Ball is implemented as a Player or Missile it may be positioned wherever needed on the screen without a contiguous graphics mode for the entire display.
 
 **BRICKS**:
 
