@@ -12,14 +12,24 @@ The Breakout arcade game does not have a title screen.  The "splash screen" or t
 
 However, the Atari computer immitation of Breakout can add some configurability to game parameters. This needs a minimal user interface and directions in place of the arcade button controls and should appear separately from the main game screen. This startup screen provides an opportunity for splash or title graphics.
 
-The configuration should be pre-set to the options closest to the arcade game experience.   Options could include:
+The configuration should be pre-set to the options closest to the arcade game experience.   Options may include:
 - Number of balls: 1, 3, 5 (default), 7 
 - Starting speed: slow (default), medium, fast
 - Speed increments: none, 2 hits, 4 hits (default), 6 hits, 8 hits 
 - Paddle size change: Yes (default), No.
 - Paddle sizes: 12cc/6cc, 10cc/5cc, 7cc/4cc (default), 5cc/3cc, 4cc/2cc 
+- Ball Size: 1x1, 2x2 (default), 3x3
+- Number of Players: 1 (default), 2
 
-The game does have a kind of demo mode.  When there is no game in progress the paddle is replaced by a horizontal border and the ball continues to bounce between the borders and the bricks without destroying any bricks.  This implementation may enhanced this to a self-played game where the ball is served and the computer plays without sound or score tracking.
+Basic input controls on the Title/Configuratin screen:
+- Option: Move to next item
+- Select: Change item value
+- Start: Start game
+- Paddle button: Start game
+
+The game does have a kind of demo mode.  When there is no game in progress the paddle is replaced by a horizontal border and the ball continues to bounce between the borders and the bricks without destroying any bricks.  This implementation may enhance this to a self-played game where the ball is served and the computer plays without sound or score tracking.
+
+
 
 **GAME SCREEN**:
 
