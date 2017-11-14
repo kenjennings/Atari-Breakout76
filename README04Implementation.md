@@ -8,11 +8,15 @@ A desired visual affect can be achieved via multiple methods with pros and cons 
 
 **TITLE SCREEN**:
 
-The Breakout arcade game does not have a title screen.  The "splash screen" or title graphics are on the physical cabinet.  The number of players, and game initiation are managed with buttons.
+The Breakout arcade game does not have a title or configuration screen.  The title graphics are on the physical cabinet.  Physical buttone manage the number of players, and game initiation.
 
-However, the Atari computer imitation of Breakout is free from the pay-for-play requirement and it can add configurability to game parameters.  This requires a minimal user interface which is best separated from the main game screen.  A separate set up screen also provides an opportunity for splash or title graphics.
+However, the Atari computer imitation of Breakout is free from the pay-for-play requirement and it can add configurability to game parameters.  This requires a minimal user interface which is best separated from the main game screen.  A separate set up screen also provides an opportunity for title graphics.
 
-Top of screen banner: The Breakout cabinet art does not use many colors.  Reduction to four-colors should not significantly damage the image quality.  ANTIC mode D (two scan line/pixel) and mode E (one scan line/pixel) both display 160 pixels/color clocks per line in four colors.
+Top of screen banner: The Breakout cabinet art does not use many colors -- primarily Yellow, Red, Black, White plus a limited amount of Purple and a darker shade of Yellow.  Reduction to four-colors should not significantly damage the image quality.  
+
+ANTIC graphics mode D (two scan line/pixel) and mode E (one scan line/pixel) both display 160 pixels/color clocks per line in four colors, so both could display a color-reduced version of the picture.  
+
+Also, text modes 4 and 5 display four colors in each character matrix with an option of swapping one color with a different color register.  This could allow retaining a fifth color (Purple) for the title screen.  
 
 The configuration should be pre-set to the options closest to the arcade game experience.   Possible options may include:
 - Number of balls: 1, 3, 5 (default), 7 
