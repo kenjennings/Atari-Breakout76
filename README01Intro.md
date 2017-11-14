@@ -1,5 +1,7 @@
 # Atari-Breakout76 INTRODUCTION
 
+**INTRODUCTION**:
+
 According to Wikipedia ( https://en.wikipedia.org/wiki/Breakout_(video_game)), the Breakout arcade game was conceived at Atari by Nolan Bushnell and Steve Bristow.  A working prototype was built by Steve Wozniak. (Steve Job's role was to steal Wozniak's fair share of the bonus for reducing the design's chip count.)  Steve Wozniak's highly optimal design was clever to the point that Atari was unable to modify it to add the coin slot control needed for an arcade game.  So, Atari went with their own design using more chips.  Per Steve Wozniak the final game appeared to work the same as his design.
 
 An important fact here is that Breakout is a very early arcade game built from digital logic chips.  There is no CPU, no program executing, so no source code.  Therefore any programmable system is only simualting the behaviors.  I have no Breakout system of my own, and even if I did I have no electronics background myself, so I can not dissect the electronics.  This limits me to guesses from watching how the game behaves in pictures and videos on the internet.
@@ -74,7 +76,9 @@ The current Player number, the Ball Counter, and the Scores appear in the blank 
 
 These numbers are very large, tall objects on screen. The numbers and the space between them match the width of the bricks below them, so the math is already sone -- horizontally, the numbers including the space between them are 7 color clocks wide.  The height is about 27 pixels and when converted to the Atari works out to 14.04 scan lines tall.
 
-Also note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.
+**EXTERNAL LABELS**:
+
+Also note that the arcade game has labels painted in yellow on the glass over the display indicating which screen value is the Player number, and the Ball Counter.
 
 **COLOR**:
 
@@ -83,17 +87,3 @@ The game is output only in black and white video.  However, colored plastic stri
 ![Game Color Pixels](Breakoput_cl_startup_crop_to_underscan.png?raw=true "Game Color Pixels")
 
 Note from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.  
-
-=============================================================================
-
-**AUDIO**:
-
-So far three apparent sounds ....
-
-| Object  | Sound Pitch |
-| ------- | ----------- |
-| Paddle  | High        | 
-| Borders | Medium      | 
-| Bricks  | Low         | 
-
-It doesn't seem to be impact to a brick that triggers the sound.  Rather, it is the score counter increment that initiates sound.  One strike on a Yellow Brick cause one tone for one point added to the score.  One strike on a Red Brick causes the game to add 7 points to the score, and then it plays 7 tones.
