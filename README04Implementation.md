@@ -4,13 +4,22 @@
 
 The Atari is a highly flexible system and lends itself to creative thinking.  The playfield display is completely programmable allowing a game to mix graphics and text modes and blank lines at any vertical position of the screen.  Graphics and text on adjacent lines need not be contiguous in memory.  
 
-A desired visual affect can be achieved via multiple methods with pros and cons for each:  Screen objects could be drawn directly as graphics, as text using custom characters, or as Player-Missile graphics depending on geometry, animation, and how well the intended solution fits the architecture of the display method.  A choice for one implementation method can affect what is chosen for other areas on the screen.  
+A desired visual affect can be achieved via multiple methods with pros and cons for each:  Screen objects could be drawn directly as graphics, as text using custom characters, or as Player-Missile graphics.  These choices depend on geometry, animation, and how well the intended solution fits the architecture of the display method.  A choice for one implementation method can affect what is chosen for other areas on the screen.  
 
 **TITLE SCREEN**:
 
-The Breakout arcade game does not have a title screen.  The "splash screen" or title graphics are the box cabinet.  The number of players, and game initiation are managed with buttons.
+The Breakout arcade game does not have a title screen.  The "splash screen" or title graphics are on the physical box cabinet.  The number of players, and game initiation are managed with buttons.
 
-However, the Atari computer immitation of Breakout can add some configurability to game parameters. This needs a minimal user interface and directions in place of the arcade button controls and should appear separately from the main game screen. 
+However, the Atari computer immitation of Breakout can add some configurability to game parameters. This needs a minimal user interface and directions in place of the arcade button controls and should appear separately from the main game screen. This startup screen provides an opportunity for splash or title graphics.
+
+The configuration should be pre-set to the options closest to the arcade game experience.   Options could include:
+- Number of balls: 1, 3, 5 (default), 7 
+- Starting speed: slow (default), medium, fast
+- Speed increments: none, 2 hits, 4 hits (default), 6 hits, 8 hits 
+- Paddle size change: Yes (default), No.
+- Paddle sizes: 12cc/6cc, 10cc/5cc, 7cc/4cc (default), 5cc/3cc, 4cc/2cc 
+
+The game does have a kind of demo mode.  When there is no game in progress the paddle is replaced by a horizontal border and the ball continues to bounce between the borders and the bricks without destroying any bricks.  This implementation may enhanced this to a self-played game where the ball is served and the computer plays without sound or score tracking.
 
 **GAME SCREEN**:
 
@@ -64,7 +73,13 @@ The current Player number, the Ball Counter, and the Scores appear in the blank 
 
 These numbers are very large, tall objects on screen. The numbers and the space between them are the same width as a brick.  So, horizontally, the numbers including the space between them are 8 pixels/color clocks wide.  The height approaches 10 pixels (or 20 scan lines) tall which is taller than any font on the Atari.  ANTIC Mode 7 text is the nearest match at 16 scan lines tall.  The loss of a few scan lines should be acceptable with a custom font modeled after the appearance of the arcade Breakout numbers.  Alternatively, the score could be drawn as graphics.
 
-Note that in the arcade game there are labels painted in yellow on the glass over the display indicating which value is the Player number, and the Ball Counter.  This should be duplicated in the game as graphics/text on the screen to meaningfully label the numbers. 
+**EXTERNAL LABELS:**
+
+The arcade game has painted labels on the glass above the display identifying the purpose of the numbers in the top row.  "PLAYER NUMBER" and "BALL IN PLAY". These real world labels will have to be worked into the game display to provide necessary information to the player.  
+
+If the labels are inserted above or below the top border it will compromise the screen geometry.  Therefore, the lables must be rendered within the border area.  This is a visual change, but less intrusive than moving visual components to make space.  The labels could also be visible part of the time -- when the game switches players and serves the ball the text could be visible during this activity, and then disappear leaving the top border a solid, blank barrier.
+
+There are too many letters to implement the text as Player/Missiles.  The labels could be drawn in the border area as graphics.  They could also be drawn in as custom characters in a font.  
 
 **COLOR**:
 
