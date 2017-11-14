@@ -2,15 +2,17 @@
 
 **IMPLEMENTATION**
 
-The Atari is a highly flexible system and lends itself to creative thinking.  The playfield display is completely programmable allowing a game to mix graphics and text modes and blank lines at any vertical position of the screen.  Graphics and text on adjacent lines need not be contiguous in memory.  
+The Atari is a highly flexible system and lends itself to creative thinking.  The playfield display is completely programmable allowing a game to easily mix graphics and text modes and blank lines at any vertical position of the screen.  Graphics and text on adjacent lines need not be contiguous in memory.  
 
 A desired visual affect can be achieved via multiple methods with pros and cons for each:  Screen objects could be drawn directly as graphics, as text using custom characters, or as Player-Missile graphics.  These choices depend on geometry, animation, and how well the intended solution fits the architecture of the display method.  A choice for one implementation method can affect what is chosen for other areas on the screen.  
 
 **TITLE SCREEN**:
 
-The Breakout arcade game does not have a title screen.  The "splash screen" or title graphics are on the physical box cabinet.  The number of players, and game initiation are managed with buttons.
+The Breakout arcade game does not have a title screen.  The "splash screen" or title graphics are on the physical cabinet.  The number of players, and game initiation are managed with buttons.
 
-However, the Atari computer immitation of Breakout can add some configurability to game parameters. This needs a minimal user interface and directions in place of the arcade button controls and should appear separately from the main game screen. This startup screen provides an opportunity for splash or title graphics.
+However, the Atari computer imitation of Breakout is free from the pay-for-play requirement and it can add configurability to game parameters.  This requires a minimal user interface which is best separated from the main game screen.  A separate set up screen also provides an opportunity for splash or title graphics.
+
+Top of screen banner: The Breakout cabinet art does not use many colors.  Reduction to four-colors should not significantly damage the image quality.  ANTIC mode D (two scan line/pixel) and mode E (one scan line/pixel) both display 160 pixels/color clocks per line in four colors.
 
 The configuration should be pre-set to the options closest to the arcade game experience.   Possible options may include:
 - Number of balls: 1, 3, 5 (default), 7 
@@ -27,9 +29,9 @@ Basic input controls on the Title/Configuratin screen:
 - Start key: Start game
 - Paddle button: Start game
 
+**DEMO MODE**:
+
 The game does have a kind of demo mode.  When there is no game in progress the paddle is replaced by a horizontal border and the ball continues to bounce between the borders and the bricks without destroying any bricks.  This implementation may enhance this to a self-played game where the ball is served and the computer plays without sound or score tracking.
-
-
 
 **GAME SCREEN**:
 
@@ -112,3 +114,7 @@ I captured the averaged color in each area from the color screen grab of the Bre
 
 The color effect would be duplicated by a set of Display List Interrupts that change the color register parameters at different vertical locations on the screen.  To be convincing it will need to change the Bricks, Borders, and Ball colors at the same time.  (and lower on the screen set the Paddle, Borders, and Ball color.)
 
+**TO HI-RES OR NOT HI-RES**
+
+
+** SUMMARY 
