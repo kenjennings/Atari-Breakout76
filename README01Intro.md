@@ -78,7 +78,7 @@ These numbers are very large, tall objects on screen. The numbers and the space 
 
 **EXTERNAL LABELS**:
 
-Also note that the arcade game has labels painted in yellow on the glass over the display indicating which screen value is the Player number, and the Ball Counter.
+The arcade game has labels painted in yellow on the glass over the display identifying the numbers in the top row.  The number on the left is the PLAYER NUMBER, and the number on the right is the "BALL IN PLAY" counter.  These real world labels will have to be worked into the game display to provide necessary information to the player.  
 
 **COLOR**:
 
