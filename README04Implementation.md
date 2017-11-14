@@ -114,7 +114,14 @@ I captured the averaged color in each area from the color screen grab of the Bre
 
 The color effect would be duplicated by a set of Display List Interrupts that change the color register parameters at different vertical locations on the screen.  To be convincing it will need to change the Bricks, Borders, and Ball colors at the same time.  (and lower on the screen set the Paddle, Borders, and Ball color.)
 
-**TO HI-RES OR NOT HI-RES**
+**TITLE SCREEN DETAIL**
 
+**GAME SCREEN DETAIL** 
 
-** SUMMARY 
+**TO HI-RES OR NOT TO HI-RES**
+
+As Breakout is simply black and white the first impulse is to go to the Atari's high-resolution, "monochrome", mode F graphics.  (320 pixels per normal width line, 1/2 color clock each).  This turns out to be less accurate than using a lower resolution mode.
+
+First, the high esolution graphics mode is not actually "monochrome".  It is a color mode, but it has restrictions on how colors are chosen, and how color is applied to pixels.  It provides a background color, with "lit" pixels in a different luminance.
+
+Also, the display hardware is generating a display for NTSC with color information.   Consequently, the graphics mode cannot produce a clean black and white display at its full resolution. 
