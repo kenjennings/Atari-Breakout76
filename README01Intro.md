@@ -18,9 +18,9 @@ Below is a screen capture of video of an emulator implementing Breakout:
 
 ![Game Screen Pixels](Breakoput_bw_startup_overscan_plus_ball.png?raw=true "Game Screen Pixels")
 
-The emulator blurs and blends its pixels to simulate the output of the CRT.  This makes it difficult to determine the real start/end position of a Breakout game "pixels".  Therefore, all discussion of object sizes in terms of "pixel" dimensions are implicitly qualified with "appears to be" due to the vague nature of Breakout's "pixels" versus the approximation of an Atari NTSC-based pixel.
+The emulator blurs and blends its pixels to simulate the output of the CRT.  This makes it difficult to determine the real start/end position of a Breakout game "pixels".  Also, the Breakout vertical aspect is very tall; far greater than the Atari's display intended for NTSC color television.  Therefore, all discussion of object sizes in terms of "pixel" dimensions are implicitly qualified with "appears to be" due to the vague nature of Breakout's "pixels" versus the approximation of an Atari NTSC-based pixel.
 
-So, then how to make that approximation?  The Breakout vertical aspect is very tall; far greater than the Atari's display originally intended for NTSC color televition.  If the simulated Atari pixels are to be believed then there are around 400 scan lines displayed on the screen.  Therefore, everything will be estimated based on how to scale the Breakout screen to the height of the Atari screen.
+So, then how to make that approximation?  Designing the graphics assests is simply a matter of measuring the sizes for objects in the Breakout emulator screen grab and scaling this down to fit within the Atari display geometry.
 
 **OVERALL ESTIMATION**:
 
