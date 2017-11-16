@@ -8,7 +8,7 @@ A desired visual affect can be achieved via multiple methods with pros and cons 
 
 **TITLE SCREEN**:
 
-The Breakout arcade game does not have a title or configuration screen.  The title graphics are on the physical cabinet.  Physical buttone manage the number of players, and game initiation.
+The Breakout arcade game does not have a title or configuration screen.  The title graphics are on the physical cabinet.  Physical buttons manage the number of players and game initiation.
 
 However, the Atari computer imitation of Breakout is free from the pay-for-play requirement and it can add configurability to game parameters.  This requires a minimal user interface which is best separated from the main game screen.  A separate set up screen also provides an opportunity for title graphics.
 
@@ -51,9 +51,13 @@ This is easy to do with ANTIC modes B, C, D or E which each support pixels one c
 
 Since multiple colors are not needed, the two-color modes, B or C, could be used.  Since the data displayed on each scan line is the same, and the number of scan lines is an even number, then this can be done using four lines of mode B graphics.  Each line would use LMS to redisplay the same data, so the entire top border line could be displayed using only 16 bytes of screen memory.
 
-Player/Missile graphics could cover the same area.   Three Players set for quadrouple width can cover 32 color clocks each, or 96 color clocks when lined up next to each other. The remaining color clock for the playfield, plus the four for the vertical borders could be covered by one more Player, or several Missiles.  The border would require setting 4 or 8 bytes per player depending on Player/Missile resolution. If Player/Missile graphics are used for other components later on the display, then a Display List interrupt is needed to reset the sizes and reposition the objects' horizontal positions. 
+Player/Missile graphics could cover the same area.   Three Players set for quadrouple width can cover 32 color clocks each, or 96 color clocks when lined up next to each other. The remaining color clock for the playfield, plus the four for the vertical borders could be covered by one more Player, or several Missiles.  The actual image of the border requires setting 4 or 8 bytes per player depending on Player/Missile resolution. If Player/Missile graphics are used for other components later on the display, then a Display List interrupt is needed to reset the sizes and reposition the objects' horizontal positions. 
 
 Alternatively, the horizontal border could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
+
+If this is all that needed to be considered then the ANTIC mode B graphics would be the easiest solution.  However, there is a real world display issue to resolve.  The top of the screen includes labels over the screen identifying the top line of numbers in the game.  This is text painted on glass which will have to be displayed on screen in the Atari computer version.  The nearest location to use is the actual border itself.
+
+The text will be displayed in the border which means the border itself will be created as test characters.  Custom characters will display the labels.  To maintain the main screen appearance as consistently as possible the text labels will only appear when there is a ball or player transition.   During main play after the serve the text will be removed leaving only the solid border.
 
 **LEFT/RIGHT BORDERS**:
 
@@ -67,7 +71,7 @@ Player/Missile graphics can extend the height of the screen and go into the vert
 
 Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball as wide as the vertical borders.  So, this is where compromise is needed.  The Ball may be reduced to only one color clock wide and one scan line tall to maintain the visual appearance.
 
-If the Ball is implemented as a drawn, pixel object, then the entire display must be produced with contiguous lines of graphics, so the ball can be consistently positioned anywhere on the plafield.
+If the Ball is implemented as a drawn, pixel object, then the entire display must be produced with contiguous lines of graphics, so the ball can be consistently positioned anywhere on the playfield.
 
 If the Ball is implemented as a Player or Missile it may be positioned wherever needed on the screen without a contiguous graphics mode for the entire display.
 
@@ -77,17 +81,24 @@ There are eight rows of 14 Bricks each determined to be 7 color clocks per brick
 
 Player/Missile graphics can't be used for bricks.  While they may be able to cover the distance across the screen the width setting necessary makes it impossible to represent the gap between bricks.
 
-Custom characters are not optimal either.  Since character set graphics are 4 or 8 color clocks wide, then drawing and erasing 7 color clock bricks in series adds difficult bit shifting and merging into multiple character.  Due to graphics geometery character graphics provide no benefits to justify the work. 
+Custom characters are not optimal either.  Since character set graphics are 4 or 8 color clocks wide, then drawing and erasing 7 color clock bricks in series adds difficult bit shifting and merging into multiple character.  Due to graphics geometry character graphics provide no benefits to justify the work.
+
+Bitmapped graphics would be best.  Since the bricks are three scan lines tall with one scan line of gap, the bricks will be drawn in one line of ANTIC Mode B graphics (two scan lines) and one line of ANTIC Mode C (one scan line) followed by one blank scan line.  The two graphics instructions will use the LMS option to display the same data.  
 
 **PADDLE**:
 
-The Paddle at its widest is the same width as a Brick -- 7 visible pixels (color clocks).  When the Paddle switches to narrow width it is about four pixels (color clocks) wide, or only twice the width of the Ball.  The Paddle is visibly thicker then the height of a brick -- definitively three pixels (six scan lines) tall.  When the game is over the Paddle is replaced by a solid horizontal Border the width of the screen.  This border acts as a giant Paddle during the game's demo mode keeping the ball rebounding up toward the Bricks.  The Paddle would likely be implemented as Player/Missile graphics.  The solid Border would be mapped graphics.  
+The Paddle at its widest is the same width as a Brick -- 6 visible pixels (color clocks).  When the Paddle switches to narrow width it is about three pixels (color clocks) wide.  The Paddle is visibly thicker than the height of a brick -- four Atari scan lines tall.  The Paddle would likely be implemented as Player/Missile graphics.
+
+When the game is over the Paddle is replaced by a solid horizontal Border the width of the screen.  This border acts as a giant Paddle during the game's demo mode keeping the ball rebounding up toward the Bricks.  The solid Border would be mapped graphics.
 
 **PLAYER, BALL COUNTER, and SCORES**:
 
-The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  This blank area occupies vertical space approximately equal height to the region of the eight Brick rows on the screen.  The Ball travels through this area and straight through any of the numbers without being deflected.
+The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  This blank area occupies vertical space approximately equal height to the region of the eight Brick rows on the screen.  (32 Atari scan lines)  The Ball travels through this area and straight through any of the numbers without being deflected.
 
-These numbers are very large, tall objects on screen. The numbers and the vertical gap between numbers are the same width as a brick.  So, horizontally, the numbers including the space between them are 7 pixels/color clocks wide.  The height approaches 10 pixels (or 20 scan lines) tall which is taller than any font on the Atari.  ANTIC Mode 7 text is the nearest match at 16 scan lines tall.  The loss of a few scan lines should be acceptable with a custom font modeled after the appearance of the arcade Breakout numbers.  Alternatively, the score could be drawn as graphics.
+These numbers are very large, tall objects on screen. The numbers and the vertical gap between numbers are the same width as a brick.  So, horizontally, the numbers including the space between them are 7 pixels/color clocks wide.  The height is simple -- 32 scan lines divided by 2 is 16 scan lines for each number.  
+
+
+ANTIC Mode 7 text is the nearest match at 16 scan lines tall.  The loss of a few scan lines should be acceptable with a custom font modeled after the appearance of the arcade Breakout numbers.  Alternatively, the score could be drawn as graphics.
 
 **EXTERNAL LABELS:**
 
