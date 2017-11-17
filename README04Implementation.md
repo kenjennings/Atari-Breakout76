@@ -127,9 +127,19 @@ I captured the averaged color in each area from the color screen grab of the Bre
 | Green      | 0a8334       | 006b25     | $B4           |
 | Yellow     | c1c23d       | bfb200     | $FA           |
 
-(Notes from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.)  
+(Notes from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.) 
 
-The color effect would be duplicated by a set of Display List Interrupts that change the color register parameters at different vertical locations on the screen.  To be convincing it will need to change the Bricks, Borders, and Ball colors at the same time.  (and lower on the screen set the Paddle, Borders, and Ball color.)
+Looking at the screen holistically leads to the conclusion that the game needs six colors on the screen.  (background/black, white, and the four brick colors.)  This is an incorrect point of view relative to the Atari's graphics capabilities.
+
+GTIA pixel modes may be able to supply the necessary six colors, but the GTIA pixel dimensions are too large to accommodate the smaller details such as the vertical gaps between bricks.
+
+ANTIC text modes 4, 5, 6, and 7 allow five colors -- nearly the six colors needed.  Modes 5 and 7 use pixel sizes in their character glyphs that will not fit the brick dimensions, leaving only Modes 4, and 6 as workable.  One line of either mode can accurately represent two lines of Bricks.  Conveniently the Brick colors are applied in pairs of lines which also fits the text mode geometries.  The default capabilities of these text modes can provide four colors, enough for the Bricks. However, this uses all the available playfield registers, so something else needs to be done about the white horizontal top border, and the blue horizontal bottom border displayed when the game is over.  In this case a couple of display list interrupts will be needed to re-use color registers twice on the screen.
+
+The problem with using a character set is that the brick width does not match the character width.  Therefore a number of custom characters will be required to represent bricks at different horizontal positions on the screen, and to represent bricks removed between other bricks.  This is not unworkable, but it introduces complexity.
+
+Up to now it has looked like the preferred method to render the Bricks is direct pixel bitmapped graphics.  However, the best mode available allows only 3 colors not including the background.  Character graphics are complicated and bitmaps do not provide enough color.  What to do?  
+
+Observe the screen in detail.  Only one color is needed on any horizontal line.  So, the game does not need a graphics mode displaying all six colors at a time.   It only needs one color register for display, and then the color effect would be implemented by multiple  Display List Interrupts that change the color register parameters at different vertical locations on the screen.  To be convincing it will need to change the Bricks, Borders, and Ball colors at the same time.  (and lower on the screen set the Paddle, Borders, and Ball color.)
 
 **TITLE SCREEN DETAIL**
 
