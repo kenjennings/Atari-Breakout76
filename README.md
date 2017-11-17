@@ -5,7 +5,7 @@ Currently Work In Progress..
 
 This is a simple Breakout clone for Atari 8-bit computers approximating the look and feel of the original arcade Breakout released by Atari in 1976 (without the bugs).
 
-This version uses only the Atari computer features necessary to mimic the correct look and behavior with as few extraneous bells and whistles as possible.
+The overarching goal here is to maintain visual presentation and play action as similar as possible to the original arcade game as well as can be done by the Atari computer's capabilities. Therefore, certain clever features of the Atari may not be the preferred choice if the result does not conform to the original game presentation.  This version uses only the Atari computer features necessary to mimic the correct look and behavior with as few extraneous bells and whistles as possible.
 
 Or, you could just get an emulator to play the original game.
 
