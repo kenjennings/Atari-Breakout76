@@ -8,14 +8,14 @@ An important fact here is that Breakout is a very early arcade game built from d
 
 =============================================================================
 
-Section 01: Display Asset Estimation 
+**Section 01: Display Asset Estimation**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README01AssetEstimation.md )
 
-Section 02: Audio 
+**Section 02: Audio**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md )
 
-Section 03: Gameplay 
+**Section 03: Gameplay**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md )
 
-Section 04: Implementation 
+**Section 04: Implementation**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
