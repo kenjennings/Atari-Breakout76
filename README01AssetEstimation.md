@@ -84,5 +84,13 @@ Note from Capt Obvious: Since the plastic overlay covers the width of the screen
 
 =============================================================================
 
+**PREVIOUS Section 00: Introduction**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README00Intro.md )
+
+**NEXT Section 02: Audio**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md )
+
+=============================================================================
+
 **Back To Beginning**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
