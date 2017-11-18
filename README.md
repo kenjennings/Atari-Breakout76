@@ -18,3 +18,18 @@ I had been in the middle of Breakout-GECE, and the debugging effort in that game
 Therefore, the idea here is to force a more stringent modularization of the code and data, keeping visual components entirely separate, so when I need to look at a part of the game, I will know exactly which files and locations to find everything without having to remember what I am looking at.  The first victim to test this strategy is an attempt to make reasonable immitation of the original arcade Breakout video game.  The scope of Atari's bells and whistles will be primarily limited to implementing the visuals, sound, and behavior as similar as possible to the original game.
 
 =============================================================================
+
+**Section 00: Introduction**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README00Intro.md )
+
+**Section 01: Display Asset Estimation**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README01AssetEstimation.md )
+
+**Section 02: Audio**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md )
+
+**Section 03: Gameplay**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md )
+
+**Section 04: Implementation**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
