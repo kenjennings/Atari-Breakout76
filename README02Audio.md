@@ -15,3 +15,8 @@ The score counter increment relates to the sounds played. One strike on a Yellow
 The change in score is immediate, but the tones play while the ball continues moving.  The ball movement does not stop for the audio. The multiple-tone playback will need to be multi-tasking to continue.
 
 Some emulators play a  tone with a slight warble, click, or interruption in the audio.  This could be an artifact of slow emulation of the hardware rather than actual hardware behavior.
+
+=============================================================================
+
+**Back To Beginning**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
