@@ -157,4 +157,7 @@ Observe the screen in detail.  Only one color is needed on any horizontal line. 
 
 **GAME SCREEN DETAIL** 
 
+=============================================================================
 
+**Back To Beginning**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
