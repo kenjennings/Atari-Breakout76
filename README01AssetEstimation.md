@@ -78,9 +78,9 @@ The game is output only in black and white video.  However, colored plastic stri
 
 ![Game Color Pixels](Breakoput_cl_startup_crop_to_underscan.png?raw=true "Game Color Pixels")
 
-Looking at the screen holistically leads to the conclusion that the game needs six colors on the screen.  (background/black, white, and the four brick colors.)  This is an incorrect point of view relative to the Atari's graphics capabilities and will be discussed later in the implementation section for the entertainment value.
+Note from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows. 
 
-Note from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.  
+Looking at the screen holistically leads to the conclusion that the game needs seven colors on the screen.  (background/black, white,  the four brick colors, and blue for the bottom border when present.)  This is an incorrect point of view relative to the way the screen is generated plus considering the Atari's graphics capabilities.  This will be discussed later in the Implementation section for its entertainment value.
 
 =============================================================================
 
