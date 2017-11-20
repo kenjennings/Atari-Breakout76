@@ -54,21 +54,23 @@ So, this is where compromise is needed.  The choice is that the ball is displaye
 
 **BRICKS**:
 
-There are eight rows of 14 Bricks each.  (Side bar... 14 is such a weird number.  Considering the discrete electronics nature of the game construction it would seem more sensible for there to be a base 2 number of bricks -- such as 16 bricks, not 14.  I can only theorize that the two missing bricks actually represent the left and right borders.)
-
-The area of the bricks is 63 pixels tall.  Scaled to the Atari dimensions this is 32.76 scan lines.  32 is a good approximation as this is the closest number evenly divisible by the number of Brick Rows.  A row of bricks works out to 3 scan lines of pixels and one blank blank line separating each row.
+There are eight rows of 14 Bricks each.  The area of the bricks is 63 pixels tall.  Scaled to the Atari dimensions this is 32.76 scan lines.  32 is a good approximation as this is the closest number evenly divisible by the number of Brick Rows.  A row of bricks works out to 3 scan lines of pixels and one blank blank line separating each row.
 
 The area of the Bricks is 318 pixels wide. Scaled to the Atari color clocks this is 97.712 pixels wide which works out to 6.97948 color clocks per brick including one color clock for the gap between bricks.  Rounding up makes 7 color clocks per Brick.  So, a total of 98 pixels, less one for the unneeded gap after the last Brick is 97 color clocks.
 
+Side bar... 14 is such a weird number in computing terms.  Considering the discrete electronics nature of the game construction it would seem more sensible for there to be a base 2 number of bricks -- such as 16 bricks, not 14.  I can only theorize that the two missing bricks actually (or electronically?) represent the left and right borders.
+
 **PADDLE**:
 
-The Paddle at its widest is the same width as a Brick -- 6 visible pixels (color clocks).  When the Paddle switches to narrow width it is half the width, or three pixels (color clocks) wide.  The Paddle is visibly thicker than the height of a brick -- definitively four Atari scan lines tall. When the game is over the Paddle is replaced by a solid horizontal Border the width of the screen.  This border acts as a giant Paddle during the game's demo mode keeping the ball rebounding up toward the Bricks. 
+The Paddle at its widest is the same width as a Brick -- 6 visible pixels (color clocks).  When the Paddle switches to narrow width it is half the width, or three pixels (color clocks) wide.  The Paddle is visibly thicker than the height of a brick -- definitively four Atari scan lines tall. 
+
+When the game is over the Paddle is replaced by a solid horizontal Border the width of the screen.  This border acts as a giant Paddle during the game's demo mode keeping the ball rebounding up toward the Bricks. 
 
 **PLAYER, BALL COUNTER, and SCORES**:
 
-The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  This blank area occupies vertical space approximately equal height to the region of the eight Brick rows on the screen.  The Ball travels through this area and straight through any of the numbers without being deflected.  This maximizes use of the playfield's vertical space to nearly the entire screen height.
+The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  This blank area occupies vertical space approximately equal height to the region of the eight Brick rows on the screen.  The Ball travels through this area and straight through any of the numbers without being deflected.  This maximizes use of the playfield's vertical space to nearly the entire CRT display height.
 
-These numbers are very large, tall objects on screen. The numbers and the space between them match the width of the bricks below them, so the math is already done -- horizontally, the numbers including the space between them are 7 color clocks wide.  The height of the number area is identical to the size of the bricks -- about 63 pixels tall.  Scaled to the Atari dimensions this is 32.76 scan lines per line of numbers which includes the blank space below each number.  Therefore the vertical size of a number will be 16 scan lines. 
+These numbers are large, tall objects on screen. The numbers and the space between them match the width of the bricks below them, so the math is already done -- horizontally, the numbers including the space between them are 7 color clocks wide.  The height of the number area is identical to the size of the bricks -- about 63 pixels tall.  Scaled to the Atari dimensions this is 32.76 scan lines per line of numbers which includes the blank space below each number.  Therefore the vertical size of a number will be 16 scan lines. 
 
 **EXTERNAL LABELS**:
 
@@ -82,7 +84,7 @@ The game is output only in black and white video.  However, colored plastic stri
 
 Note from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows. 
 
-Looking at the screen holistically leads to the conclusion that the game needs seven colors on the screen.  (background/black, white,  the four brick colors, and blue for the bottom border when present.)  This is an incorrect point of view relative to the way the screen is generated plus considering the Atari's graphics capabilities.  This will be discussed later in the Implementation section for its entertainment value.
+Looking at the screen holistically leads to the conclusion that the game needs seven colors on the screen.  (background/black, white,  the four brick colors, and blue for the Paddle/bottom border.)  This is incorrect when the screen display is considered from the point of view of the Atari's graphics capabilities.  This will be discussed later in the Implementation section for its entertainment value.
 
 =============================================================================
 
