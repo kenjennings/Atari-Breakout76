@@ -30,11 +30,13 @@ The Atari display is easily variable to best match the aspect for arcade Breakou
 
 Therefore 208 Atari scan lines divided by 400 Breakout (screen grab) scan lines provide a Breakout to Atari scaling factor of 0.52 (or in the other direction 1.92307692308).
 
-However, this scaling factor is correct only for vertical estimation.  The Breakout emulator screen grab pixels are square.  Real Atari pixels are based on the NTSC color clock timing which is not square.  (This aspect ration for the color clock horizontal to scan line vertical size relationship is the same for other systems following NTSC specifications -- Bally Astrocade, Atari 2600, Apple II, Amiga.)  Therefore, an additional scaling factor is needed to determine the real horizontal dimension measured in color clocks per the number of square pixels in the screen grab image. 
+However, this scaling factor is correct only for vertical estimation.  The Breakout emulator screen grab pixels are square.  Real Atari pixels are based on the NTSC color clock timing which is not square.  (This aspect ratio for the color clock horizontal to scan line vertical size relationship is the same for other systems following NTSC specifications -- Bally Astrocade, Atari 2600, Apple II, Amiga.)  Therefore, an additional scaling factor is needed to determine the real horizontal dimension measured in color clocks per the number of square pixels in the screen grab image. 
 
-The color clock horizontal to vertical ratio is 22 / 13 which is a 1.692307 scaling factor (or 0.5909090909 when multiplying in the other direction.)   (The 22 / 13 ratio is derived from the 11 / 13 aspect ratio published for the Amiga's low resolution/140ns pixels which are 1/2 color clock wide.)
+The color clock horizontal to vertical ratio is 22 / 13 which is a 1.692307 scaling factor (or 0.5909090909 when multiplying in the other direction.)   (The 22 / 13 ratio is derived from the 11 / 13 aspect ratio published in the Amiga's RKM/Hardware Reference Manual for the Amiga's low resolution/140ns pixels which are 1/2 color clock wide.)
 
-Thus the horizontal color clocks needed for the Breakout screen is 331 Breakout pixels times 0.52 to scale down to the Atari screen size, times 0.5909090909 to convert the horizonal dimensions to color clocks, or 101.7072 color clocks, and so, 101 Atari medium res pixels. (This includes the vertical borders around Bricks' playfield area.) This is well within the Atari's horizontal display dimensions, and is actually smaller than the Atari's narrow screen width.
+Thus the horizontal color clocks needed for the Breakout screen is 331 Breakout pixels times 0.52 to scale down to the Atari screen size, times 0.5909090909 to convert the horizonal dimensions to color clocks, or 101.7072 color clocks, and so, 102 Atari medium res pixels. (This includes the vertical borders around Bricks' playfield area.) This is well within the Atari's horizontal display dimensions, and is actually smaller than the Atari's narrow screen width.
+
+The 102 color clocks is a target and not necessarily the definite width of the display.  The final size  will depend on the size determined for the Bricks. 
 
 **BORDERS**:
 
