@@ -16,7 +16,7 @@ Since the Breakout arcade game is a simple black and white display the initial i
 
 First, the high resolution graphics mode is not actually "monochrome".  It is a color mode, but it has restrictions on how colors are chosen, and how color applies to its pixels.  This graphics mode provides a background color as a base, with "white" pixels in a different luminance of the same base color.
 
-Also, the display hardware is generating a signal for NTSC with color information.  The graphics mode cannot produce a clean, plainly black and white display at its full resolution, because these high resolution pixels are half the size of a color clock, and the television interprets the pixel presentation as color information.  Pixels presented in the first half of a color clock vs the second half are displayed in two different colors, an effect called "color artifacts".  Two high resolution pixels together produce the complete information for a "white" color clock, but there will still be some degree of color fringing before and after the color clock.  
+Also, the display hardware is generating a signal for NTSC with color information.  The graphics mode cannot produce a clean, plainly black and white display at its full resolution, because these high resolution pixels are half the size of a color clock, and the television interprets the pixel presentation as color information.  The NTSC television displays a different color for pixels presented in the first half of a color clock vs the second half in an effect called "color artifacts".  Two high resolution pixels together produce the complete information for a "white" color clock, but there will still be some small degree of color fringing before and after the paired pixels in the color clock.  
 
 Sidebar: Color artifacts at resolutions greater than the television color clock is actually a concern and visual defect common to all systems which generate pixels smaller than the color clock timing.  The degree and amount of color fringing depends on how well the pixel divides into the color clock.  These visual behaviors seen on CRT displays are often NOT addressed by modern emulators on high resultion LCD monitors.  Emulators usually present unreasonably perfect displays that do not occur in the real world of the original hardware.  Systems like the Atari, Amiga, Apple, etc. that evenly divide pixels into the color clock timing produce consistent color artifacts.  Other systems with oddly timed pixels that disregard the color clock standard produce color artifacts that vary depending on where the pixels occur on the screen (C64, NES, etc.)
 
@@ -37,11 +37,11 @@ The configuration should be pre-set to the options closest to the arcade game ex
 - Starting speed: slow (default), medium, fast
 - Speed increments: none, 2 hits, 4 hits (default), 6 hits, 8 hits 
 - Paddle size change: Yes (default), No.
-- Paddle sizes: 12cc/6cc, 10cc/5cc, 7cc/4cc (default), 5cc/3cc, 4cc/2cc 
+- Paddle sizes: 10cc/5cc, 8cc/4cc, 6cc/3cc (default), 5cc/3cc, 4cc/2cc 
 - Ball Size: 1x1, 2x2 (default), 3x3
 - Number of Players: 1 (default), 2
 
-Basic input controls on the Title/Configuratin screen:
+Basic input controls on the Title/Configuration screen:
 - Option key: Move to next item
 - Select key: Change item value
 - Start key: Start game
