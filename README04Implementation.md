@@ -61,31 +61,33 @@ The screen entire visible playfield  will be 208 scan lines.
 
 The game displays a visible Border at the top of the screen 8 scan lines thick.  Depending on the vertical border implementation the top border may need to cover the width of the bricks (97 color clocks), or the width of the bricks plus the vertical borders (97 + 4 color clocks = 101).
 
-This is easy to do with ANTIC modes B, C, D or E which each support pixels one color clock wide.  (If this were an even number of color clocks then the mode 9 or mode A lower resolution modes could be used.)  
+**Top Border As Map Graphics**: This is easy to do with ANTIC modes B, C, D or E which each support pixels one color clock wide.  (If this were an even number of color clocks then the mode 9 or mode A lower resolution modes could be used.)  
 
 Since multiple colors are not needed, the two-color modes, B or C, could be used.  Since the data displayed on each scan line is the same, and the number of scan lines is an even number, then this can be done using four lines of mode B graphics.  Each line would use LMS to redisplay the same data, so the entire top border line could be displayed using only 16 bytes of screen memory.
 
-Player/Missile graphics could cover the same area.   Three Players set for quadruple width can cover 32 color clocks each, or 96 color clocks when lined up next to each other. The remaining color clock for the playfield, plus the four for the vertical borders could be covered by one more Player, or several Missiles.  The actual image of the border requires setting 4 or 8 bytes per player depending on Player/Missile resolution. If Player/Missile graphics are used for other components later on the display, then a Display List interrupt is needed to reset the sizes and reposition the objects' horizontal positions. 
+**Top Border as Player-Missile Graphics**: Player/Missile graphics could cover the same area.   Three Players set for quadruple width can cover 32 color clocks each, or 96 color clocks when lined up next to each other. The remaining color clock for the playfield, plus the four for the vertical borders could be covered by one more Player, or several Missiles.  The actual image of the border requires setting 4 or 8 bytes per player depending on Player/Missile resolution. If Player/Missile graphics are used for other components later on the display, then a Display List interrupt is needed to reset the sizes and reposition the objects' horizontal positions. 
 
-Alternatively, the horizontal border could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
+**Top Border as Character Set**: Alternatively, the horizontal border could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
 
-If this is all that needed to be considered then the ANTIC mode B graphics would be the easiest solution.  However, there is a real world display issue to resolve.  The top of the screen includes labels over the screen identifying the top line of numbers in the game.  This is text painted on glass which will have to be displayed on screen in the Atari computer version.  The nearest location to use is the actual border itself.
+**But That's Not All...**:  If this is all that needed to be considered then the ANTIC mode B graphics would be the easiest solution.  However, there is a real world display issue to resolve.  The top of the screen includes labels over the screen identifying the top line of numbers in the game.  This is text painted on glass which will have to be displayed on screen in the Atari computer version.  The nearest location to use is the actual border itself.
 
-The text will be displayed in the border which means the border itself will be created as test characters.  Custom characters will display the labels.  To maintain the main screen appearance as consistently as possible the text labels will only appear when there is a ball or player transition.   During main play after the serve the text will be removed leaving only the solid border.
+The text will be displayed in the border which means the border itself will be created as text characters.  Custom characters will display the labels.  To maintain the main screen appearance as consistently as possible the text labels will only appear when there is a ball or player transition.   During main game play after the serve the text will be removed leaving only the solid border.
+
+A full text character is 8x8 which is overkill and disproportionately large when comparing the painted letters on glass to the playfield screen.  The minimum grid for a usable character glyph is 3x5 pixels.  A happy medium will be used.  Stylistically, the first and last columns of pixels will be doubled.  The text will occupy six scan lines from the top of the font.  The center line (i.e "H, F, E, B, P, A" etc. horizontal bar) will be the third scan line.  The seventh line will be blank, and the 8th will be solid maintaining the bottom of the horizontal border. This will make characters about 6 pixels wide including the blank column to separate letters.  The characters will be rendered non-proportionally, so rather than "P", "L", "A", "Y" glyphs in the characters "P", L", "A" and "Y" respectively, the glyphs will be written into several sequential custom characters placed as a group.. (e.g. the characters "RST" would contain the images for "PLAY".) 
 
 **LEFT/RIGHT BORDERS**:
 
 Left and Right Borders extend the entire height of the screen.  Each is two color clocks wide.
 
-Drawn as pixels, the borders require building the entire display of contiguous lines of graphics.  Likewise, if custom characters are used it requires the entire game screen must be character set graphics.  
+Drawn as pixels, the borders require building the entire display of contiguous lines of graphics.  Likewise, if custom characters are used it requires the entire game screen must be built of character set graphics.  
 
-Player/Missile graphics can extend the height of the screen and go into the vertical overscan area.  It would require one Player or even just a Missile for each left and right border.  This would free the playfield for customization and variable graphics modes going down the screen.
+Player/Missile graphics can extend the height of the screen and go into the vertical overscan area.  It would require one Player or even just one Missile for each left and right border.  This would free the playfield for customization and variable graphics modes going down the screen.
 
 **BALL**:
 
 Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball as wide as the vertical borders.  So, this is where compromise is needed.  The Ball may be reduced to only one color clock wide and one scan line tall to maintain the visual appearance.
 
-If the Ball is implemented as a drawn, pixel object, then the entire display must be produced with contiguous lines of graphics, so the ball can be consistently positioned anywhere on the playfield.
+If the Ball is implemented as a drawn, pixel object, then the entire display must be produced with contiguous lines of graphics to allow placing the ball consistently anywhere on the playfield.
 
 If the Ball is implemented as a Player or Missile it may be positioned wherever needed on the screen without a contiguous graphics mode for the entire display.
 
