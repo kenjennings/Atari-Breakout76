@@ -253,6 +253,9 @@ Do_While_More_Electricity         ; Infinite loop, otherwise the
 	*=SDMCTL  ; Set DMA control. (Screen DMA on + narrow width.)
 	.byte ENABLE_DL_DMA|PLAYFIELD_WIDTH_NARROW
 
+	*=COLOR0  ;  Playfield color register 0.
+	.byte $0C  ; light white.
+
 ; --------------------------------------------------------------------
 ; Store the program start location in the Atari DOS RUN Address.
 ; When DOS is done loading the executable file into memory it will 
