@@ -45,135 +45,145 @@
 
 DISPLAY_LIST
 
-; Force to start of next plage.  Since narrow screen width is 
-; used the lines are multiples of base 2 numbers and should not
-; cross a 4K boundary.
-
 ; Overscan 0 - 15
 	.byte DL_BLANK_8
 	.byte DL_BLANK_8
 
-; Start screen 8 lines of top border.
+; Start screen, 8 lines of top border.
 ; Map mode B is 2 scan lines.
 ; screen Lines 0 to 7.
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_BORDER
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_BORDER
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_BORDER
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_BORDER
+	mDL_LMS DL_MAP_B, SCREEN_BORDER
+	mDL_LMS DL_MAP_B, SCREEN_BORDER
+	mDL_LMS DL_MAP_B, SCREEN_BORDER
+	mDL_LMS DL_MAP_B, SCREEN_BORDER
 
 ; Squeeze in one playfield line as separator.
 ; Map Mode C is one scan line. 
 ; Line 8
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_PLAYFIELD
+	mDL_LMS DL_MAP_C, SCREEN_PLAYFIELD
 
 ; 15 lines of "Zero" text.  
 ; i.e 3x5 matrix.  Each "pixel" is 3 scanlines tall.
 ; lines 9 - 23
 ; "three" is one line of 1 scanlines and 1 line of 2 scanlines
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_TOP_ZERO1
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_TOP_ZERO1
+	mDL_LMS DL_MAP_C, SCREEN_TOP_ZERO1
+	mDL_LMS DL_MAP_B, SCREEN_TOP_ZERO1
 
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_TOP_ZERO2
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_TOP_ZERO2
+	mDL_LMS DL_MAP_C, SCREEN_TOP_ZERO2
+	mDL_LMS DL_MAP_B, SCREEN_TOP_ZERO2
 
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_TOP_ZERO2
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_TOP_ZERO2
+	mDL_LMS DL_MAP_C, SCREEN_TOP_ZERO2
+	mDL_LMS DL_MAP_B, SCREEN_TOP_ZERO2
 
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_TOP_ZERO2
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_TOP_ZERO2
+	mDL_LMS DL_MAP_C, SCREEN_TOP_ZERO2
+	mDL_LMS DL_MAP_B, SCREEN_TOP_ZERO2
 
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_TOP_ZERO1
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_TOP_ZERO1
+	mDL_LMS DL_MAP_C, SCREEN_TOP_ZERO1
+	mDL_LMS DL_MAP_B, SCREEN_TOP_ZERO1
 
 ; Squeeze in one playfield line as separator.
 ; Map Mode C is one scan line. 
 ; Line 24
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_PLAYFIELD
+	mDL_LMS DL_MAP_C, SCREEN_PLAYFIELD
 
 ; 15 lines of "Score" text.  
 ; i.e 3x5 matrix.  Each "pixel" is 3 scanlines tall.
 ; lines 25 - 38
 ; "three" is one line of 1 scanlines and 1 line of 2 scanlines
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_SCORE_ZERO1
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_SCORE_ZERO1
+	mDL_LMS DL_MAP_C, SCREEN_SCORE_ZERO1
+	mDL_LMS DL_MAP_B, SCREEN_SCORE_ZERO1
 
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_SCORE_ZERO2
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_SCORE_ZERO2
+	mDL_LMS DL_MAP_C, SCREEN_SCORE_ZERO2
+	mDL_LMS DL_MAP_B, SCREEN_SCORE_ZERO2
 
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_SCORE_ZERO2
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_SCORE_ZERO2
+	mDL_LMS DL_MAP_C, SCREEN_SCORE_ZERO2
+	mDL_LMS DL_MAP_B, SCREEN_SCORE_ZERO2
 
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_SCORE_ZERO2
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_SCORE_ZERO2
+	mDL_LMS DL_MAP_C, SCREEN_SCORE_ZERO2
+	mDL_LMS DL_MAP_B, SCREEN_SCORE_ZERO2
 
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_SCORE_ZERO1
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_SCORE_ZERO1
+	mDL_LMS DL_MAP_C, SCREEN_SCORE_ZERO1
+	mDL_LMS DL_MAP_B, SCREEN_SCORE_ZERO1
 
 ; Squeeze in one playfield line as separator.
 ; Map Mode C is one scan line. 
 ; Line 39
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_PLAYFIELD
+	mDL_LMS DL_MAP_C, SCREEN_PLAYFIELD
 
 ; Eight lines of bricks.  
 ; Bricks are 3 scan lines + 1 scan line separator
 ; Lines 40 - 70
 
 ; 1, Lines 40 - 43
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_BRICKS
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_BRICKS
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_PLAYFIELD
+	mDL_LMS DL_MAP_C, SCREEN_BRICKS
+	mDL_LMS DL_MAP_B, SCREEN_BRICKS
+	mDL_LMS DL_MAP_C, SCREEN_PLAYFIELD
 
 ; 2, Lines 44 - 47
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_BRICKS
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_BRICKS
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_PLAYFIELD
+	mDL_LMS DL_MAP_C, SCREEN_BRICKS
+	mDL_LMS DL_MAP_B, SCREEN_BRICKS
+	mDL_LMS DL_MAP_C, SCREEN_PLAYFIELD
 
-; 2, Lines 44 - 47
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_BRICKS
-	.byte DL_MAP_B!DL_LMS
-	.word SCREEN_BRICKS
-	.byte DL_MAP_C!DL_LMS
-	.word SCREEN_PLAYFIELD
+; 3, Lines 48 - 51
+	mDL_LMS DL_MAP_C, SCREEN_BRICKS
+	mDL_LMS DL_MAP_B, SCREEN_BRICKS
+	mDL_LMS DL_MAP_C, SCREEN_PLAYFIELD
 
+; 4, Lines 52 - 55
+	mDL_LMS DL_MAP_C, SCREEN_BRICKS
+	mDL_LMS DL_MAP_B, SCREEN_BRICKS
+	mDL_LMS DL_MAP_C, SCREEN_PLAYFIELD
+
+; 5, Lines 56 - 59
+	mDL_LMS DL_MAP_C, SCREEN_BRICKS
+	mDL_LMS DL_MAP_B, SCREEN_BRICKS
+	mDL_LMS DL_MAP_C, SCREEN_PLAYFIELD
+
+; 6, Lines 61 - 64
+	mDL_LMS DL_MAP_C, SCREEN_BRICKS
+	mDL_LMS DL_MAP_B, SCREEN_BRICKS
+	mDL_LMS DL_MAP_C, SCREEN_PLAYFIELD
+
+; 7, Lines 65 - 68
+	mDL_LMS DL_MAP_C, SCREEN_BRICKS
+	mDL_LMS DL_MAP_B, SCREEN_BRICKS
+	mDL_LMS DL_MAP_C, SCREEN_PLAYFIELD
 	
+; 8, Lines 69 - 71
+	mDL_LMS DL_MAP_C, SCREEN_BRICKS
+	mDL_LMS DL_MAP_B, SCREEN_BRICKS
 	
-	
+; Many lines of blank playfield.  
+; If the borders were Player/Missiles then map modes
+; would not even be needed.  These could be done by 
+; blank lines.
+
+; Lines 72 to 197
+	.rept 62 ;; repeat 62 times
+	mDL_LMS DL_MAP_B, SCREEN_PLAYFIELD
+	.endr
+
+; Drawn another border area the paddle.
+; This one six scan lines tall.
+; Lines 198 - 203
+	mDL_LMS DL_MAP_B, SCREEN_BORDER
+	mDL_LMS DL_MAP_B, SCREEN_BORDER
+	mDL_LMS DL_MAP_B, SCREEN_BORDER
+
+; Last four lines under paddle
+; Lines 204 - 207
+	mDL_LMS DL_MAP_B, SCREEN_PLAYFIELD
+	mDL_LMS DL_MAP_B, SCREEN_PLAYFIELD
+
+; Display List End
+	.byte DL_JUMP_VB
+	.word DISPLAY_LIST
 	
 ; ***************** SCREEN DATA *****************
+
+; Force to start of next page.  Since narrow screen width is 
+; used the lines are multiples of base 2 numbers (16 actual bytes) 
+; and will not cross a 4K boundary.
 
 	mAlign 256
 
@@ -224,31 +234,10 @@ SCREEN_BRICKS ; 14 bricks between left and right borders
 	.byte ~11111101,~11111011,~11110111,~11101111,~11011111,~10111111
 	.byte ~01111110,~11111101,~11111011,~11110111,~11101111,~11011111,
 	.byte ~11100000,~00000000, ; Last brick pixel and Right border
-
-; --------------------------------------------------------------------
-; Yup, that's all the "program" there is. 3 bytes of JMP
-
-PRG_START
-
-Do_While_More_Electricity         ; Infinite loop, otherwise the
-	jmp Do_While_More_Electricity ; program returns to DOS immediately.
-
-; --------------------------------------------------------------------
-; The data.  The text to display and a minimal display list.
-
-HELLO_WHIRLED ; plus one trailing blank space
-	.sbyte "HELLO, WHIRLED! " ; .sbyte is internal Atari format
-	
-DISPLAY_LIST
-	.byte $70,$70,$70,$47 ; 3 blank Lines, mode 7 text with Load Memeory Scan
-	.word HELLO_WHIRLED   ; Display the text
-	.byte $41             ; Vertical Blank, then jump to...
-	.word DISPLAY_LIST    ; the start of the display list
 	
 ; --------------------------------------------------------------------
-; Create the display.  Narrow screen width is used which is 
-; exactly 16 Mode 2 characters wide which is the same length
-; as the HELLO_WHIRLED text.
+; Create the display.  Narrow screen widthth ony needs
+; 16 bytes per line for Modes B and C.
 
 	*=SDLSTL  ; Set new Display List address
 	.word DISPLAY_LIST
@@ -256,8 +245,16 @@ DISPLAY_LIST
 	*=SDMCTL  ; Set DMA control. (Screen DMA on + narrow width.)
 	.byte $21 
 
-; And that's it -- data loaded from file. Hello, Whirled! with no code.
+; And that's it -- data loaded from file. Graphics with no real code.
 
+; --------------------------------------------------------------------
+; Yup, This is all the "program" there is. 3 bytes of JMP
+
+PRG_START
+
+Do_While_More_Electricity         ; Infinite loop, otherwise the
+	jmp Do_While_More_Electricity ; program returns to DOS immediately.
+	
 ; --------------------------------------------------------------------
 ; Store the program start location in the Atari DOS RUN Address.
 ; When DOS is done loading the executable file into memory it will 
