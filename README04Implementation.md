@@ -155,6 +155,17 @@ Up to now it has looked like the preferred method to render the Bricks is direct
 
 Observe the screen in detail.  Only one color is needed on any horizontal line.  So, the game does not need a graphics mode displaying all six colors at a time.   It only needs one color register for display, and then the color effect would be implemented by multiple  Display List Interrupts that change the color register parameters at different vertical locations on the screen.  The Display List Interrupts will need to change the Bricks, Borders, and Ball colors at the same time to appear convincing.  (and also do the same lower on the screen to set the Paddle, Borders, and Ball colors.)
 
+**TEST SCREEN**
+
+The result of the test program, br76-test_screen.asm as displayed in the Atari800 emulator:
+
+![Test Screen](Breakout_bw_test_screen_cropped_with_border.png?raw=true "Test Screen")
+
+Comparison of the original (emulated) Breakout screen to the Atari test program above.   The Atari screen is in back tnited blue, and the original game is in front tinted red.
+
+![Screen Comparison](Breakout_bw_test_screen_merge.png?raw=true "Screen Comparison")
+
+
 **TITLE SCREEN DETAIL**
 
 **GAME SCREEN DETAIL** 
