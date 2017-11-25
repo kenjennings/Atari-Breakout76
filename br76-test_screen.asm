@@ -23,14 +23,8 @@
 
 	.include "macros.asm"
 	
-; SDMCTL = $022F ; OS Shadow register for ANTIC's DMACTL (Display DMA Control)
-; SDLSTL = $0230 ; OS Shadow register for ANTIC's DLISTL (Display List Address)
-
-; LOMEM_DOS_DUP = $3308 ; First usable memory after DOS and DUP 
-
-; DOS_RUN_ADDR =  $02e0 ; Execute at address stored here when file loading completes.
-
 ; --------------------------------------------------------------------
+; LOMEM_DOS_DUP = $3308 ; First usable memory after DOS and DUP 
 
 	*=LOMEM_DOS_DUP ; Start "program" after DOS and DUP 
 
@@ -235,17 +229,6 @@ SCREEN_BRICKS ; 14 bricks between left and right borders
 	.byte ~01111110,~11111101,~11111011,~11110111,~11101111,~11011111,
 	.byte ~11100000,~00000000, ; Last brick pixel and Right border
 	
-; --------------------------------------------------------------------
-; Create the display.  Narrow screen widthth ony needs
-; 16 bytes per line for Modes B and C.
-
-	*=SDLSTL  ; Set new Display List address
-	.word DISPLAY_LIST
-	
-	*=SDMCTL  ; Set DMA control. (Screen DMA on + narrow width.)
-	.byte $21 
-
-; And that's it -- data loaded from file. Graphics with no real code.
 
 ; --------------------------------------------------------------------
 ; Yup, This is all the "program" there is. 3 bytes of JMP
@@ -254,11 +237,28 @@ PRG_START
 
 Do_While_More_Electricity         ; Infinite loop, otherwise the
 	jmp Do_While_More_Electricity ; program returns to DOS immediately.
+
+; --------------------------------------------------------------------
+; Start the display.  Narrow screen width only needs
+; 16 bytes per line for Modes B and C.
+
+; SDMCTL = $022F ; OS Shadow register for ANTIC's DMACTL (Display DMA Control)
+; SDLSTL = $0230 ; OS Shadow register for ANTIC's DLISTL (Display List Address)
+
+; And that's it -- data loaded from file. Graphics with no real code.
 	
+	*=SDLSTL  ; Set new Display List address
+	.word DISPLAY_LIST
+	
+	*=SDMCTL  ; Set DMA control. (Screen DMA on + narrow width.)
+	.byte ENABLE_DL_DMA|PLAYFIELD_WIDTH_NARROW
+
 ; --------------------------------------------------------------------
 ; Store the program start location in the Atari DOS RUN Address.
 ; When DOS is done loading the executable file into memory it will 
 ; automatically jump to the address placed here in DOS_RUN_ADDR.
+
+; DOS_RUN_ADDR =  $02e0 ; Execute at address stored here when file loading completes.
 
 	*=DOS_RUN_ADDR
 	.word PRG_START
