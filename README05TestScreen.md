@@ -19,8 +19,8 @@ Comparison of the original (emulated) Breakout screen to the Atari test program 
 ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
 
 
-**NEXT Section 06: Title Screen**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README06TitleScreen.md )
+**NEXT Section 06: Game Screen**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md )
 
 =============================================================================
 
