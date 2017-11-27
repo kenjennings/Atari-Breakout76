@@ -34,11 +34,11 @@ Therefore, the idea here is to force a more stringent modularization of the code
 **Section 04: Implementation**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
 
-**Section 05: Implementation**
+**Section 05: Test Screen**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md )
 
-**Section 06: Implementation**
+**Section 06: Game Screen**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md )
 
-**Section 07: Implementation**
+**Section 07: Title Screen**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md )
