@@ -28,11 +28,10 @@
 
 	*=LOMEM_DOS_DUP ; Start "program" after DOS and DUP 
 
-
 ; ***************** DISPLAY LIST *****************
 
 ; Forcing start to a boundary guarantees there is no problem 
-; graphics or display list alignment.
+; with graphics or display list alignment.
 ; Even the most convoluted display list will not exceed 1K.
 
 	mAlign 1024
@@ -142,9 +141,13 @@ DISPLAY_LIST
 	
 ; ***************** SCREEN DATA *****************
 
-; Force to start of next page.  Since narrow screen width is 
-; used the lines are multiples of base 2 numbers (16 actual bytes) 
-; and will not cross a 4K boundary.
+; Narrow screen width only needs 16 bytes per line for Modes B and C. 
+;
+; Since screen memory is 16 bytes per line which is a nice divisor into 
+; page size of 256 bytes we know the screen memory data will not cross
+; a 4K boundary mid-line.
+;
+; Therefore, it is safe to force alignment to a page rather than 4K.
 
 	mAlign 256
 
@@ -193,32 +196,41 @@ SCREEN_BRICKS ; 14 bricks between left and right borders
 	.byte ~01111110,~11111101,~11111011,~11110111,~11101111,~11011111,
 	.byte ~11100000,~00000000, ; Last brick pixel and Right border
 	
+; --------------------------------------------------------------------
+; Start the display.  
+
+; Set new Display List address
+; SDLSTL = $0230 ; OS Shadow register for ANTIC's DLISTL (Display List Address)
+
+	mDiskDPoke SDLSTL, DISPLAY_LIST
+
+; Set DMA control. (Screen DMA on + narrow width.)
+; SDMCTL = $022F ; OS Shadow register for ANTIC's DMACTL (Display DMA Control)
+
+	mDiskPoke SDMCTL, ENABLE_DL_DMA|PLAYFIELD_WIDTH_NARROW
+
+; Set COLOR0 to light white. 
+; COLOR0  ; OS Sharow register for Playfield color register 0.
+
+	mDiskPoke COLOR0, $0C
+	
+; And that's it -- data loaded from file. 
+; Graphics/display created with no real code executed.
+;
+; Note that because atasm sorts and consolidates address changes 
+; it is remotely possible that register changes above occur 
+; out of sync wuth frame/VBI updates  potentially causing
+; ANTIC to begin using different memory for a display list
+; which could result in a trashed display for a frame.  Also
+; a remote possibility of crashing the Atari.
 
 ; --------------------------------------------------------------------
-; Yup, This is all the "program" there is. 3 bytes of JMP
+; Yup, this is all the "program" there is. 3 bytes of JMP
 
 PRG_START
 
 Do_While_More_Electricity         ; Infinite loop, otherwise the
 	jmp Do_While_More_Electricity ; program returns to DOS immediately.
-
-; --------------------------------------------------------------------
-; Start the display.  Narrow screen width only needs
-; 16 bytes per line for Modes B and C.
-
-; SDMCTL = $022F ; OS Shadow register for ANTIC's DMACTL (Display DMA Control)
-; SDLSTL = $0230 ; OS Shadow register for ANTIC's DLISTL (Display List Address)
-
-; And that's it -- data loaded from file. Graphics with no real code.
-	
-	*=SDLSTL  ; Set new Display List address
-	.word DISPLAY_LIST
-	
-	*=SDMCTL  ; Set DMA control. (Screen DMA on + narrow width.)
-	.byte ENABLE_DL_DMA|PLAYFIELD_WIDTH_NARROW
-
-	*=COLOR0  ;  Playfield color register 0.
-	.byte $0C  ; light white.
 
 ; --------------------------------------------------------------------
 ; Store the program start location in the Atari DOS RUN Address.
@@ -227,8 +239,7 @@ Do_While_More_Electricity         ; Infinite loop, otherwise the
 
 ; DOS_RUN_ADDR =  $02e0 ; Execute at address stored here when file loading completes.
 
-	*=DOS_RUN_ADDR
-	.word PRG_START
+	mDiskDPoke DOS_RUN_ADDR, PRG_START
 
 ; --------------------------------------------------------------------
 	.end ; finito
