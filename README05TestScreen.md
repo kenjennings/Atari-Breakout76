@@ -2,16 +2,34 @@
 
 **TEST SCREEN**
 
-The result of the test program, br76-test_screen.asm as displayed in the Atari800 emulator:
+The test program, br76-test_screen.asm, builds a mock-up of the game screen using only pixels in ANTIC map modes B and C.  The purpose is to verify the size and placement of screen components is as correct as possible for the Atari screen v the original arcade aspect.  This is the result displayed in the Atari800 emulator:
 
 ![Test Screen](Breakout_bw_test_screen_cropped_with_border.png?raw=true "Test Screen")
 
-Comparison of the original (emulated) Breakout screen to the Atari test program above.   The Atari screen is in back tinted blue, and the original game is in front tinted red:
+GIMP is used to compare the mock-up to the Arcade original screen by blending the two screens together to see how well they overlay each other.  The screen grab of the Atari emulator is tinted blue, and then composited with the original (emulated) Breakout screen which is tinted red.  The arcade display is in the front and set to 50% transparency.  Where Atari pixels exist without a corresponding arcade pixel a dull blue(ish) shadow appears.  Conversely, red appears where arcade pixels exist without a matching Atari pixel.  Where both appear the pixels are lightest (a light lavender color).  Below is the result:
 
 ![Screen Comparison](Breakout_bw_test_screen_merge.png?raw=true "Screen Comparison")
 
+**ASSESSMENT**
+
+Looking pretty good overall....
 
 
+**SIDEBAR:** The first test program, br76-test_screen.asm, actually executes only one assembly language instruction; a JMP instruction as an infinite loop to prevent the program from returning imediately to the DOS menu.  Everything else about the program capitalizes on the Atari's structured executable load file format.  The display list and the screen data are loaded directly into defined locations in memory.  The same mechanism is used to update the Operating System shadow registers for the ANTIC controls for display width and Display list address, as well as the Shadow register for the color.   
+
+If I recall correctly (and I may not), Mac/65 would keep the disk loads in the order in which they occurred in the code, therefore loads could be defined within the main program loading allowing the load file to set up graphics at specific points in loading. 
+
+But, it appears atasm optimizes this by sorting and consolidating address changes into related groups ordered by addresses.  Because of this it is remotely possible that register changes to set the display occur out of sync with frame/VBI updates.  This has the potential to cause ANTIC to begin using different memory values for a display list before the program's values are loaded into memory resulting in a trashed display for a frame.  This also has the remote possibility of crashing the Atari.
+
+Use with caution.  Your Mileage Will Definitely Vary.
+
+Therefore, when building with atasm maximum effectiveness of the disk load feature to enable Title screens, animation, music, etc. during program load time requires separate builds of the parts and concatenating the programs together. 
+
+**ADDING COLOR**
+
+The second program, br76-test_screen_color.asm, adds to the original program by implementing display list interrupts to color the bricks and paddle line.  This requires assembly code for the display list interrupt.  The program also uses a vertical blank interrupt to force the display list interrupts to remain in sync with the screen.  This is the result:
+
+In the arcade game there is only a black and white display and plastic overlays change the color at vertical rows on the screen tinting the lit, white pixels to another color.  It is mild irony that the display list interrupt is conceptually similar - there is only a two-color display on the Atari, and the display list interrupts execute at specific rows on the screen to change the color of the lit, white pixels temporarily to another color.
 
 =============================================================================
 
