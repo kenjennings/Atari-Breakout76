@@ -12,7 +12,15 @@ GIMP is used to compare the mock-up to the Arcade original screen by blending th
 
 **ASSESSMENT**
 
-Looking pretty good overall....
+Looking pretty good overall.
+
+The Atari screen is wider than the arcade Breakout by the width of approximately one brick, which divided between both halves of the screen is half a brick width extra at the vertical borders.  If the Atari bricks were one color clock smaller then the Atari's screen would be two bricks smaller than the arcade.  So, this demo program presents the best size possible.
+
+The numbers all pretty well line up, though the Atari's are just a little thicker.
+
+The arcade game's Bricks are just a little thicker and wider than the Atari's and the  horizontal and vertical gaps between the arcade game's Bricks are just a little smaller than the Atari's.  So, there is a red halo visible around the bricks, though the Bricks do occupy the same amount of total screen space on both versions.
+
+The Paddle area on the Atari version is about one scan line lower than the arcade game's Paddle.  
 
 **ADDING COLOR**
 
