@@ -130,7 +130,7 @@ The game is output only in black and white video.  However, colored plastic stri
 
 ![Game Color Pixels](Breakout_cl_startup_crop_to_underscan.png?raw=true "Game Color Pixels")
 
-Clearly, the emulator's color levels are highly saturated beyond reasonable.  Nobody viewing a game in real-life would experience colors so deep.  The plastic strips merely provide a tint of color to the disply.  So, again, this will require approximation and compromise.
+Clearly, the emulator's color levels are highly saturated beyond reasonable.  Nobody viewing the arcade game in real-life would experience colors so deep.  The plastic strips merely provide a tint of color to the display.  So, again, this will require approximation and compromise.
 
 The Atari cannot saturate color to this degree.  So, the goal is to realistically capture the same hue , not the intensity level. 
 
