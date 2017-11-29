@@ -30,7 +30,28 @@ In the arcade game there is only a black and white display and plastic overlays 
 
 ![Test Screen Color](Breakout_cl_test_screen_cropped_with_border.png?raw=true "Test Screen Color")
 
-**SIDEBAR:** The first test program, br76-test_screen.asm, actually executes only one assembly language instruction; a JMP instruction as an infinite loop to prevent the program from returning imediately to the DOS menu.  Everything else about the program capitalizes on the Atari's structured, executable load file format.  The Display List and the screen data are loaded directly into defined locations in memory.  The same mechanism is used to update the Operating System shadow registers for the ANTIC controls for display width and Display List address, as well as the Shadow register for the color.   
+**EXTERNAL LABELS**
+
+The yellow text painted on the glass screen over the arcade game's display must be incorporated in the Atari Breakout76 game.  The best position is at in the top border.
+
+The first problem is that the text won't fit on the screen.  "PLAYER NUMBER" and "BALL IN PLAY" occupy 25 characters on screen without any extra spaces.  The Border area rendered on screen is the same width as 24 Mode 4 text characters (plus one extra color clock).
+
+The size problem can be accommodated by showing only one of the labels on the screen at a time when that information is most relevant:
+- When the player's turn begins display the "PLAYER NUMBER" prompt for a few seconds.
+- When the Ball Counter changes display the "BALL IN PLAY" prompt for a few seconds.
+- When the Ball is served and game play is in progress show only the top Border.
+
+This solves the problem of too much text and not enough screen space.   How should the text be rendered?   
+
+Mode 6 characters are 8 color clocks wide.  The "PLAYER NUMBER" text won't even fit within the border width using this mode.  Also, the overly wide characters are an ill fit for a screen where other objects and the game aspect itself are very tall.
+
+Mode 4 characters are 4 color clocks wide.  The text will fit, but four color clocks allow individual character to use only three color clocks for display and one as the blank space to separate characters.  This does not allow for good character definition.
+
+The game needs very few characters (about twenty characters rather than the 128 in a complete font).  Rather than 1:1 mapping screen characters to font characters treat the font as a bitmap for graphics and render the text across multiple characters as they fit.  This allows rendering characters proportionally using as many (or as few) horizontal color clocks as needed for the text.  A good middle ground that provides acceptable definition while not growing too large horizontally is five or six color clocks per letter.  (Even less for a character like "I" or "E" that need not be full width.)  This font image treatment allows use of ANTIC Mode 6 text which also reduces the required font space to 64 characters rather than the usual 128 characters.
+
+**SIDEBAR: Irrelevant Minutia** 
+
+The first test program, br76-test_screen.asm, actually executes only one assembly language instruction; a JMP instruction as an infinite loop to prevent the program from returning imediately to the DOS menu.  Everything else about the program capitalizes on the Atari's structured, executable load file format.  The Display List and the screen data are loaded directly into defined locations in memory.  The same mechanism is used to update the Operating System shadow registers for the ANTIC controls for display width and Display List address, as well as the Shadow register for the color.   
 
 If I recall correctly (and I may not), Mac/65 would keep the disk load segments in the order in which they are encountered in the code.  Therefore loads could be defined within the main program loading allowing the load file to set up graphics at specific points during the load.
 
