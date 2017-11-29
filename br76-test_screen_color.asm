@@ -221,7 +221,7 @@ SCREEN_BRICKS ; 14 bricks between left and right borders
 ; RED BRICKS
 DLI_1
 	pha
-	lda #$34
+	lda #$42 ; $34
 	sta WSYNC
 	sta COLPF0
 	lda #<DLI_2
@@ -243,7 +243,7 @@ DLI_2
 ; GREEN BRICKS
 DLI_3
 	pha
-	lda #$B4
+	lda #$C4 ; $B4
 	sta WSYNC
 	sta COLPF0
 	lda #<DLI_4
@@ -254,7 +254,7 @@ DLI_3
 ; YELLOW BRICKS
 DLI_4
 	pha
-	lda #$FC
+	lda #$1A ; $FC
 	sta WSYNC
 	sta COLPF0
 	lda #<DLI_5
