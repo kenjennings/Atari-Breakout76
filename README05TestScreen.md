@@ -36,9 +36,9 @@ The yellow text painted on the glass screen over the arcade game's display must 
 
 The first problem is that the text won't fit on the screen.  "PLAYER NUMBER" and "BALL IN PLAY" occupy 25 characters on screen without any extra spaces.  The Border area rendered on screen is the same width as 24 Mode 4 text characters (plus one extra color clock).
 
-The size problem can be accommodated by showing only one of the labels on the screen at a time when that information is most relevant:
-- When the player's turn begins display the "PLAYER NUMBER" prompt for a few seconds.
-- When the Ball Counter changes display the "BALL IN PLAY" prompt for a few seconds.
+The size problem can be accommodated by showing only one of the labels on screen at the time when that information is most relevant:
+- When the player's turn begins then display the "PLAYER NUMBER" prompt for a few seconds.
+- When the Ball Counter changes then display the "BALL IN PLAY" prompt for a few seconds.
 - When the Ball is served and game play is in progress show only the top Border.
 
 This solves the problem of too much text and not enough screen space.   How should the text be rendered?   
