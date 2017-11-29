@@ -130,16 +130,22 @@ The game is output only in black and white video.  However, colored plastic stri
 
 ![Game Color Pixels](Breakout_cl_startup_crop_to_underscan.png?raw=true "Game Color Pixels")
 
-I captured the averaged color in each area from the color screen grab of the Breakout emulator game (above).  I then compared each Breakout color to the closest apparent matching RGB equivalent in the Atari palette.  (Using the GIMP eyedropper tool, a reference picture grabbed from an Atari emulator of the entire pallette, and my eyeballs.)  The final result is the best matching color from the  Atari's 128 color palette: 
+Clearly, the emulator's color levels are highly saturated beyond reasonable.  Nobody viewing a game in real-life would experience colors so deep.  The plastic strips merely provide a tint of color to the disply.  So, again, this will require approximation and compromise.
+
+The Atari cannot saturate color to this degree.  So, the goal is to realistically capture the same hue , not the intensity level. 
+
+I captured the averaged color in each area from the color screen grab of the Breakout emulator game (above).  I then compared each Breakout color to the closest apparent matching RGB equivalent in the Atari palette -- an image of the entire Atari palette produced by a program running in the Atari800 emulator which is the same emulator I am using to develop Breakout 76.
+
+Between the GIMP eyedropper tool, a reference picture grabbed from an Atari emulator of the entire pallette, and my eyeballs the final result is the best matching colors I can determine from the  Atari's 128 color palette: 
 
 | Object     | Breakout RGB | Atari RGB  | Atari Palette |
 | ---------- | ------------ | ---------- | ------------- |
 | Borders    | cccccc       | c5c5c5     | $0C           |
 | Paddle     | 026f9d       | 1b6ad8     | $96           |
-| Red        | 94200f       | 931302     | $34           |
+| Red        | 94200f       | 5b161d     | $42           |
 | Orange     | c28712       | bf6d04     | $28           |
-| Green      | 0a8334       | 006b25     | $B4           |
-| Yellow     | c1c23d       | bfb200     | $FA           |
+| Green      | 0a8334       | 0e5b16     | $C4           |
+| Yellow     | c1c23d       | b7c95c     | $1A           |
 
 (Notes from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.) 
 
