@@ -65,8 +65,8 @@ Therefore, when building with atasm maximum effectiveness of the disk load featu
 
 =============================================================================
 
-**PREVIOUS Section 04: Implementation**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
+**PREVIOUS Section 04-2: Game Screen Implementation**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md )
 
 
 **NEXT Section 06: Game Screen**
