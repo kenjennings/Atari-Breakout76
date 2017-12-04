@@ -1,4 +1,4 @@
-# Atari-Breakout76 Choosing ATari Parts
+# Atari-Breakout76 Choosing Atari Parts
 
 **IMPLEMENTATION**
 
