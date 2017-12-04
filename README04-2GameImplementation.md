@@ -1,6 +1,6 @@
-# Atari-Breakout76 GAME SCREEN IMPLEMENTATION
+# Atari-Breakout76 GAME SCREEN ATARI PARTS
 
-**GAME SCREEN IMPLEMENTATION**
+**GAME SCREEN ATARI PARTS**
 
 **DEMO MODE**:
 
@@ -118,10 +118,10 @@ Observe the screen in detail.  Only one color is needed on any horizontal line. 
 
 =============================================================================
 
-**PREVIOUS Section 04-1: Title Screen Implementation**
+**PREVIOUS Section 04-1: Title Screen Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md )
 
-**NEXT Section 05: Test Screen**
+**NEXT Section 05: Atari Test Screen**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md )
 
 =============================================================================
