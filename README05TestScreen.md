@@ -1,6 +1,6 @@
-# Atari-Breakout76 TEST SCREEN
+# Atari-Breakout76 ATARI TEST SCREEN
 
-**TEST SCREEN**
+**ATARI TEST SCREEN**
 
 The test program, ![br76-test_screen.asm]( https://github.com/kenjennings/Atari-Breakout76/blob/master/br76-test_screen.asm "Test Program 1" ), builds a mock-up of the game screen using only pixels. (Every line is either ANTIC map mode B or C, where each displays pixels one color clock wide, and respectively, two scan lines, and one scan line tall).  The purpose is to verify the calculated size and placement of screen components is as correct as possible for the Atari screen v the original arcade aspect.  This is the result displayed in the Atari800 emulator:
 
@@ -65,7 +65,7 @@ Therefore, when building with atasm maximum effectiveness of the disk load featu
 
 =============================================================================
 
-**PREVIOUS Section 04-2: Game Screen Implementation**
+**PREVIOUS Section 04-2: Game Screen Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md )
 
 
