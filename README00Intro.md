@@ -20,10 +20,10 @@ An important fact here is that Breakout is a very early arcade game built from d
 **Section 04: Choosing Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
 
-**Section 04-1: Title Screen Implementation**
+**Section 04-1: Title Screen Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md )
 
-**Section 04-2: Game Screen Implementation**
+**Section 04-2: Game Screen Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md )
 
 **Section 05: Atari Test Screen**
