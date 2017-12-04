@@ -33,7 +33,7 @@ The display should be fairly simple to maintain a reasonable immitation of the o
 **Section 03: Gameplay**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md )
 
-**Section 04: Implementation**
+**Section 04: Choosing Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
 
 **Section 04-1: Title Screen Implementation**
