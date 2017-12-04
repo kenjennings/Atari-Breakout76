@@ -32,7 +32,7 @@ Basic input controls on the Title/Configuration screen:
 **PREVIOUS Section 04: Choosing Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
 
-**NEXT Section 04-2: Game Screen Atari Partsn**
+**NEXT Section 04-2: Game Screen Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md )
 
 =============================================================================
