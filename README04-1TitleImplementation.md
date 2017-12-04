@@ -1,6 +1,6 @@
-# Atari-Breakout76 TITLE SCREEN IMPLEMENTATION
+# Atari-Breakout76 TITLE SCREEN ATARI PARTS
 
-**TITLE SCREEN IMPLEMENTATION**
+**TITLE SCREEN ATARI PARTS**
 
 The Breakout arcade game does not have a title or configuration screen.  The title graphics are on the physical cabinet.  Physical buttons manage the number of players and game initiation.
 
@@ -29,10 +29,10 @@ Basic input controls on the Title/Configuration screen:
 
 =============================================================================
 
-**PREVIOUS Section 04: Implementation**
+**PREVIOUS Section 04: Choosing Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
 
-**NEXT Section 04-2: Game Screen Implementation**
+**NEXT Section 04-2: Game Screen Atari Partsn**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md )
 
 =============================================================================
