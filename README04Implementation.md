@@ -1,4 +1,4 @@
-# Atari-Breakout76 IMPLEMENTATION
+# Atari-Breakout76 Choosing ATari Parts
 
 **IMPLEMENTATION**
 
@@ -25,7 +25,7 @@ Also, the display hardware is generating a signal for NTSC with color informatio
 **PREVIOUS Section 03: Gameplay**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md )
 
-**NEXT Section 04-1: Title Screen Implementation**
+**NEXT Section 04-1: Title Screen Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md )
 
 =============================================================================
