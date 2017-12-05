@@ -43,13 +43,20 @@ The size problem can be accommodated by showing only one of the labels on screen
 
 This solves the problem of too much text and not enough screen space.   How should the text be rendered?   
 
-Mode 6 characters are 8 color clocks wide.  The "PLAYER NUMBER" text won't even fit within the border width using this mode.  Also, the overly wide characters are an ill fit for a screen where other objects and the game aspect itself are very tall.
+Mode 6 characters are 8 color clocks wide.  A full text character is 8x8 which is overkill and disproportionately large when comparing the painted letters on glass to the playfield screen.  The "PLAYER NUMBER" text won't even fit within the border width using this mode.  Also, the overly wide characters are an ill fit for a screen where other objects and the game aspect itself are very tall.
 
 Mode 4 characters are 4 color clocks wide.  The text will fit, but four color clocks allow individual character to use only three color clocks for display and one as the blank space to separate characters.  This does not allow for good character definition.
 
 The game needs very few characters (about twenty characters rather than the 128 in a complete font).  Rather than 1:1 mapping screen characters to font characters treat the font as a bitmap for graphics and render the text across multiple characters as they fit.  This allows rendering characters proportionally using as many (or as few) horizontal color clocks as needed for the text.  A good middle ground that provides acceptable definition while not growing too large horizontally is five or six color clocks per letter.  (Even less for a character like "I" or "E" that need not be full width.)  This font image treatment allows use of ANTIC Mode 6 text which also reduces the required font space to 64 characters rather than the usual 128 characters.
 
 Since we've made it to the point of treating the text like a bitmap image, why not actually implement the labels straight up as bitmap images and dispense with the character set entirely?  The character set for mode 6 text requires 512 bytes dedicated to it.  Eight lines of ANTIC mode C bitmap graphics for a text label image requires 16 bytes per line or 128 bytes totoal.  Two sets of labels then need 256 bytes which is half the memory needed for a character set.  Also, any blank lines can be replaced by ANTIC blank line instructions eliminating the need for screen data representing blank lines, so the memory requirements for a couple text labels is less than half the memory that must be dedicated to a font.  
+
+
+
+================ WIP
+  The minimum grid for a usable character glyph is 3x5 pixels.  A happy medium will be used.  Stylistically, the first and last columns of pixels will be doubled.  The text will occupy six scan lines from the top of the font.  The center line (i.e "H, F, E, B, P, A" etc. horizontal bar) will be the third scan line.  The seventh line will be blank, and the 8th will be solid maintaining the bottom of the horizontal border. This will make characters about 6 pixels wide including the blank column to separate letters.  The characters will be rendered non-proportionally, so rather than "P", "L", "A", "Y" glyphs in the characters "P", L", "A" and "Y" respectively, the glyphs will be written into several sequential custom characters placed as a group.. (e.g. the characters "RST" would contain the images for "PLAY".) 
+=============== WIP
+
 
 **SIDEBAR: Irrelevant Minutia** 
 
