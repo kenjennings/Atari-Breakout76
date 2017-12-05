@@ -24,11 +24,19 @@ Since multiple colors are not needed, the two-color modes, B or C, could be used
 
 **Top Border as Character Set**: Alternatively, the horizontal border could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
 
-**But That's Not All...**:  If this is all that needed to be considered then the ANTIC mode B graphics would be the easiest solution.  However, there is a real world display issue to resolve.  The top of the screen includes labels over the screen identifying the top line of numbers in the game.  This is text painted on glass which will have to be displayed on screen in the Atari computer version.  The nearest location to use is the actual border itself.
+**But That's Not All...**:  If this is all that needed to be considered then the ANTIC mode B graphics would be the easiest solution.  However, there is a real world display issue to resolve in the next topic immediately below.....  
 
-The text will be displayed in the border which means the border itself will be created as text characters.  Custom characters will display the labels.  To maintain the main screen appearance as consistently as possible the text labels will only appear when there is a ball or player transition.   During main game play after the serve the text will be removed leaving only the solid border.
+**EXTERNAL LABELS:**
 
+The arcade game has painted labels on the glass over the display identifying the purpose of the numbers in the top row.  "PLAYER NUMBER" and "BALL IN PLAY". These real world labels will have to be worked into the game display to provide necessary information to the player.  
+
+If the labels are inserted above or below the top border it will compromise the screen geometry.  Therefore, the labels must be rendered within the border area.  This is a visual change, but less intrusive than moving visual components to make space.  To maintain the main game screen appearance as consistently as possible the labels will only appear when there is a ball or player transition. When the game serves the ball the text would disappear leaving the top border a solid, blank barrier during game play.
+
+There are too many letters to implement the text as Player/Missiles.  The labels could be drawn in the border area as graphics.  They could also be drawn in as custom characters in a font.  
+
+================ WIP
 A full text character is 8x8 which is overkill and disproportionately large when comparing the painted letters on glass to the playfield screen.  The minimum grid for a usable character glyph is 3x5 pixels.  A happy medium will be used.  Stylistically, the first and last columns of pixels will be doubled.  The text will occupy six scan lines from the top of the font.  The center line (i.e "H, F, E, B, P, A" etc. horizontal bar) will be the third scan line.  The seventh line will be blank, and the 8th will be solid maintaining the bottom of the horizontal border. This will make characters about 6 pixels wide including the blank column to separate letters.  The characters will be rendered non-proportionally, so rather than "P", "L", "A", "Y" glyphs in the characters "P", L", "A" and "Y" respectively, the glyphs will be written into several sequential custom characters placed as a group.. (e.g. the characters "RST" would contain the images for "PLAY".) 
+=============== WIP
 
 **LEFT/RIGHT BORDERS**:
 
@@ -70,14 +78,6 @@ These numbers are very large, tall objects on screen. The numbers and the vertic
 
 
 ANTIC Mode 7 text is the nearest match at 16 scan lines tall.  The loss of a few scan lines should be acceptable with a custom font modeled after the appearance of the arcade Breakout numbers.  Alternatively, the score could be drawn as graphics.
-
-**EXTERNAL LABELS:**
-
-The arcade game has painted labels on the glass above the display identifying the purpose of the numbers in the top row.  "PLAYER NUMBER" and "BALL IN PLAY". These real world labels will have to be worked into the game display to provide necessary information to the player.  
-
-If the labels are inserted above or below the top border it will compromise the screen geometry.  Therefore, the lables must be rendered within the border area.  This is a visual change, but less intrusive than moving visual components to make space.  The labels could also be visible part of the time -- when the game switches players and serves the ball the text could be visible during this activity, and then disappear leaving the top border a solid, blank barrier.
-
-There are too many letters to implement the text as Player/Missiles.  The labels could be drawn in the border area as graphics.  They could also be drawn in as custom characters in a font.  
 
 **COLOR**:
 
