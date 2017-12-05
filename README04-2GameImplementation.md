@@ -24,7 +24,7 @@ Since multiple colors are not needed, the two-color modes, B or C, could be used
 
 **Top Border as Character Set**: Alternatively, the horizontal border could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
 
-**But That's Not All...**:  If this is all that needed to be considered then the ANTIC mode B graphics would be the easiest solution.  However, there is a real world display issue to resolve in the next topic immediately below.....  
+**But That's Not All...**:  If this is all that needed to be considered then the ANTIC mode B graphics would be the easiest solution.  However, there is a real world display issue to consider in the next topic immediately below.....  
 
 **EXTERNAL LABELS:**
 
@@ -32,11 +32,7 @@ The arcade game has painted labels on the glass over the display identifying the
 
 If the labels are inserted above or below the top border it will compromise the screen geometry.  Therefore, the labels must be rendered within the border area.  This is a visual change, but less intrusive than moving visual components to make space.  To maintain the main game screen appearance as consistently as possible the labels will only appear when there is a ball or player transition. When the game serves the ball the text would disappear leaving the top border a solid, blank barrier during game play.
 
-There are too many letters to implement the text as Player/Missiles.  The labels could be drawn in the border area as graphics.  They could also be drawn in as custom characters in a font.  
-
-================ WIP
-A full text character is 8x8 which is overkill and disproportionately large when comparing the painted letters on glass to the playfield screen.  The minimum grid for a usable character glyph is 3x5 pixels.  A happy medium will be used.  Stylistically, the first and last columns of pixels will be doubled.  The text will occupy six scan lines from the top of the font.  The center line (i.e "H, F, E, B, P, A" etc. horizontal bar) will be the third scan line.  The seventh line will be blank, and the 8th will be solid maintaining the bottom of the horizontal border. This will make characters about 6 pixels wide including the blank column to separate letters.  The characters will be rendered non-proportionally, so rather than "P", "L", "A", "Y" glyphs in the characters "P", L", "A" and "Y" respectively, the glyphs will be written into several sequential custom characters placed as a group.. (e.g. the characters "RST" would contain the images for "PLAY".) 
-=============== WIP
+There are too many letters to implement the text as Player/Missiles.  The labels could be drawn in the border area as graphics.  They could also be drawn in as custom characters in a font.  The decision on this will be explained in the next section.
 
 **LEFT/RIGHT BORDERS**:
 
