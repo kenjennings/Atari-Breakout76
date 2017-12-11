@@ -34,10 +34,10 @@ The Scores, Ball counter, and Player number are actually 3x5 "segments".  Each "
 | 8 - 15     |               | $70  |      |  Y  |    X   |        | DLI set COLPF0 to White/$0C or Yellow/$1A or black/$00 depending on state of Border or Labels |
 | **TOP BORDER**
 | JMP |   |   |   |   |   |   | Jump to DISPLAY_LIST_BORDER |
-| 16 - 17   | 1 - 2  | $0B | BORDER_LINE |  |  |  | Border |
-| 18 - 19   | 3 - 4  | $0B | BORDER_LINE |  |  |  | Border |
-| 20 - 21   | 5 - 6  | $0B | BORDER_LINE |  |  |  | Border |
-| 22 - 23   | 7 - 8  | $0B | BORDER_LINE |  |  |  | Border |
+| 16 - 17   | 1 - 2  | $0B | BORDER_LINE |  |  |  | Top Border |
+| 18 - 19   | 3 - 4  | $0B | BORDER_LINE |  |  |  | Top Border |
+| 20 - 21   | 5 - 6  | $0B | BORDER_LINE |  |  |  | Top Border |
+| 22 - 23   | 7 - 8  | $0B | BORDER_LINE |  |  |  | Top Border |
 | JMP       |   |   |   |   |   |   | Jump to RETURN_END_TOP_BORDER |
 | **OR EXTERNAL LABELS - PLAYER NUMBER**
 | JMP  |   |   |   |   |   |   | Jump to DISPLAY_LIST_PLAYER_LABEL |
@@ -133,11 +133,11 @@ The Scores, Ball counter, and Player number are actually 3x5 "segments".  Each "
 | 212 - 213   | 197 - 198  | $0B | BORDER_LINE |  |  |  | Bottom Border |
 | 214 - 215   | 199 - 200  | $0B | BORDER_LINE |  |  |  | Bottom Border |
 | 216 - 217   | 201 - 202  | $0B | BORDER_LINE |  |  |  | Bottom Border |
-| 218 - 219   | 203 - 204  | $0B | BORDER_LINE | X  |  |  | Bottom Border - DLI Return COLPF0, COLPF3 to White/$0C |
+| 218 - 219   | 203 - 204  | $0B | BORDER_LINE | Y | X | X | Bottom Border - DLI Return COLPF0, COLPF3 to White/$0C |
 | JMP         |   |   |   |   |   |   | Jump to RETURN_END_BOTOM_BORDER |
 | **OR NO BORDER**
-| JMP         |   |   |   |   |   |   | Jump to DISPLAY_LIST_BOTTOM_BORDER |
-| 212 - 219   | 197 - 204  | $70 | BORDER_LINE |  |  |  | Blank Lines - DLI Return COLPF0, COLPF3 to White/$0C |
+| JMP         |   |   |   |   |   |   | Jump to DISPLAY_LIST_BOTTOM_NO_BORDER |
+| 212 - 219   | 197 - 204  | $70 | BORDER_LINE | Y | X | X | 8 Blank Lines - DLI Return COLPF0, COLPF3 to White/$0C |
 | JMP         |   |   |   |   |   |   | Jump to RETURN_END_BOTOM_BORDER |
 | **RETURN_END_BOTTOM_BORDER** |
 | **THE END**
