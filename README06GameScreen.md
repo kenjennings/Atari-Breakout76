@@ -10,10 +10,9 @@ Single Line resolution Player/Missile Graphics.
 - Missile1 is Right Border.
 - Missile2 is Ball.
 - Player0 is Paddle.
+- Paddle/COLPM0 is Blue/$96. 
 
 Top Border, External Label Text, Numbers/Scores, Bricks, and Bottom Border uses ANTIC Modes B or C graphics and only COLPF0.
-
-Paddle/COLPM0 is Blue/$96. 
 
 VBI Establishes:
 - ANTIC Display Width Narrow + Playfield DMA + Player/Missile DMA.
@@ -24,7 +23,7 @@ To "Flash" external labels simply set COLPF0 in the DLI to black/$00.
 
 To "Flash" Scores, Player Number, or Ball counter the image must be drawn and erased, since each shares the same line with another value that may not be flashing.
 
-The Scores, Ball counter, and Player number are actually 3x5 "segments".  Each "segment" is vertically 3 scanlines tall. This is accomplished by one Mode C and one Mode B instruction using LMS to reference the same graphics memory.
+The Scores, Ball counter, and Player number are conceptually 3x5 "segments".  Each "segment" is vertically 3 scanlines tall. This is accomplished by one Mode C (1 scan line) and one Mode B (2 scan lines) instruction using LMS to reuse the same graphics memory for each mode line.
 
 **Main Display List**
 
@@ -173,12 +172,32 @@ The Scores, Ball counter, and Player number are actually 3x5 "segments".  Each "
 
 **OR NO BOTTOM BORDER (Paddle)**
 
-| Scan Lines | Display Lines | Mode | LMS         | DLI | COLPF0 | COLPF3 | Notes |
-| ---------- | ------------- | ---- | ----        | --- | ------ | ------ | ----- |
-|            |               |      |             |     |        |        | DISPLAY_LIST_BOTTOM_NO_BORDER |
-| 212 - 219  | 197 - 204     | $70  | BORDER_LINE | Y   | X      | X      | 8 Blank Lines - DLI Return COLPF0, COLPF3 to White/$0C |
-|            |               | JMP  |             |     |        |        | Jump to RETURN_END_BOTOM_BORDER |
+| Scan Lines | Display Lines | Mode | LMS  | DLI | COLPF0 | COLPF3 | Notes |
+| ---------- | ------------- | ---- | ---- | --- | ------ | ------ | ----- |
+|            |               |      |      |     |        |        | DISPLAY_LIST_BOTTOM_NO_BORDER |
+| 212 - 219  | 197 - 204     | $70  |      | Y   | X      | X      | 8 Blank Lines - DLI Return COLPF0, COLPF3 to White/$0C |
+|            |               | JMP  |      |     |        |        | Jump to RETURN_END_BOTOM_BORDER |
 
+
+**Player/Missile Graphics**
+
+Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
+
+Since the Player/Missile memory map skips 3 pages (768 byte) that reservation automatically creates a block of memory useful for other purposes, such as screen memory or the display list.
+
+Also, the game requires only the bitmaps for Missiles and Player0.  Three other players' bitmaps are unused, so that reserves another 3 pages (768 bytes) of aligned memory.
+
+Each line of bitmapped graphics requires 16 bytes.  The following resources are referenced by the display list:
+- 1 BORDER_LINE (solid horizontal line for border)
+- 7 LABEL_PLAYER_LINE (draw the external label for "Player Number")
+- 7 LABEL_BALL_LINE (draw the external label for "Ball In Play")
+- 5 PLAYER_AND_BALL_LINE (number "segments" drawn for Player Number and Ball In Play)
+- 5 SCORES_LINE (number "segments" drawn for player scores.)
+- 8 BRICKS_LINE (rows of bricks displayed on screen)
+
+Total screen memory is 33 lines * 16 bytes which is 528 bytes.
+
+The game needs backup of each Player's screen/bricks image when switching between players.  So, the game could simply copy the 8 lines of BRICKS_LINE data to equivalent backup buffers (another 128 bytes for backup.) This is not directly displayed, so it need not be precisely aligned.
 
 =============================================================================
 
