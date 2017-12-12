@@ -5,26 +5,26 @@
 The details of Game Screen arrangment:
 
 Single Line resolution Player/Missile Graphics.
-Use 5th player option to color all Missiles using COLPF3.
-Missile0 is Left Border.
-Missile1 is Right Border.
-Missile2 is Ball.
-Player0 is Paddle.
+- Use 5th player option to color all Missiles using COLPF3.
+- Missile0 is Left Border.
+- Missile1 is Right Border.
+- Missile2 is Ball.
+- Player0 is Paddle.
 
 Top Border, External Label Text, Numbers/Scores, Bricks, and Bottom Border uses ANTIC Modes B or C graphics and only COLPF0.
 
 Paddle/COLPM0 is Blue/$96. 
 
 VBI Establishes:
-ANTIC Display Width Narrow + Playfield DMA + Player/Missile DMA.
-GTIA GRACTL control for Player/Missile graphics.
-COLPF3 is white/$0C
+- ANTIC Display Width Narrow + Playfield DMA + Player/Missile DMA.
+- GTIA GRACTL control for Player/Missile graphics.
+- COLPF3 is white/$0C
 
 To "Flash" external labels simply set COLPF0 in the DLI to black/$00.
 
 To "Flash" Scores, Player Number, or Ball counter the image must be drawn and erased, since each shares the same line with another value that may not be flashing.
 
-The Scores, Ball counter, and Player number are actually 3x5 "segments".  Each "segment" is vertically 3 scanlines tall. This is accomplished by one Mode C and one Mode B instruction using LMS to reference the same graphics memeory.
+The Scores, Ball counter, and Player number are actually 3x5 "segments".  Each "segment" is vertically 3 scanlines tall. This is accomplished by one Mode C and one Mode B instruction using LMS to reference the same graphics memory.
 
 **Main Display List**
 
@@ -160,7 +160,7 @@ The Scores, Ball counter, and Player number are actually 3x5 "segments".  Each "
 | 23         | 8             | $00  |                  |     |        |        | Blank Line  |
 |            |               | JMP  |                  |     |        |        | Jump to RETURN_END_TOP_BORDER |
 
-**BOTTOM BORDER (or Paddle - No Bottom Border) **
+**BOTTOM BORDER (or Paddle - No Bottom Border)**
 
 | Scan Lines | Display Lines | Mode | LMS         | DLI | COLPF0 | COLPF3 | Notes |
 | ---------- | ------------- | ---- | ----        | --- | ------ | ------ | ----- |
