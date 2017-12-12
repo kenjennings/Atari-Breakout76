@@ -32,6 +32,12 @@ Each line of bitmapped graphics requires 16 bytes.  The following screen memory 
 
 Total screen memory needed is 33 lines * 16 bytes which is 528 bytes.
 
+A fun part of the Atari is the display programmability.  Graphics memory is needed only where graphics are displayed. Screen memory need not be contiguous and can be addressed beginning almost anywhere in memory for any line.  The only limitation is that a line of graphics cannot cross over a 4K boundary in the middle of a line -- an easy thing to avoid. Below is a map of the display screen indicating unique lines of graphics, repeated lines of graphics, and blank lines using no graphics memory:
+
+======
+gfx map of screen lines here.
+======
+
 The game will also need other reference data supporting the graphics display, but is not directly displayed, so it need not be in aligned memory:
 - a master bitmap of a full brick line for reloading bricks.
 - a mask table used for removing an individual brick from the display.
