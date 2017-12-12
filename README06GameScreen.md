@@ -1,8 +1,8 @@
-# Atari-Breakout76 Game Screen
+# Atari-Breakout76 Game Screen Details
 
-**GAME SCREEN**
+**GAME SCREEN DETAILS**
 
-The details of Game Screen arrangment:
+**Player/Missile Graphics**
 
 Single Line resolution Player/Missile Graphics.
 - Use 5th player option to color all Missiles using COLPF3.
@@ -12,14 +12,38 @@ Single Line resolution Player/Missile Graphics.
 - Player0 is Paddle.
 - Paddle/COLPM0 is Blue/$96. 
 
+Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
+
+Since the Player/Missile memory map skips 3 pages (768 byte) that reservation automatically creates a block of memory useful for other purposes, such as screen memory or the display list.
+
+Also, the game requires only the bitmaps for Missiles and Player0.  Three other players' bitmaps are unused, so that reserves another 3 pages (768 bytes) of aligned memory.
+
+**Screen Memory**
+
 Top Border, External Label Text, Numbers/Scores, Bricks, and Bottom Border uses ANTIC Modes B or C graphics and only COLPF0.
+
+Each line of bitmapped graphics requires 16 bytes.  The following screen memory resources are referenced by the Display List documented below:
+- 1 BORDER_LINE (solid horizontal line for border)
+- 7 LABEL_PLAYER_LINE (draw the external label for "Player Number")
+- 7 LABEL_BALL_LINE (draw the external label for "Ball In Play")
+- 5 PLAYER_AND_BALL_LINE (number "segments" drawn for Player Number and Ball In Play)
+- 5 SCORES_LINE (number "segments" drawn for player scores.)
+- 8 BRICKS_LINE (rows of bricks displayed on screen)
+
+Total screen memory needed is 33 lines * 16 bytes which is 528 bytes.
+
+**Vertical Blank Interrupt**
 
 VBI Establishes:
 - ANTIC Display Width Narrow + Playfield DMA + Player/Missile DMA.
 - GTIA GRACTL control for Player/Missile graphics.
 - COLPF3 is white/$0C
 
-To "Flash" external labels simply set COLPF0 in the DLI to black/$00.
+**Other Notes***
+
+The game needs backup of each Player's screen/bricks image when switching between players.  So, the game could simply copy the 8 lines of BRICKS_LINE data to equivalent backup buffers (another 128 bytes for backup.) This is not directly displayed, so it need not be precisely aligned.
+
+To "Flash" external labels simply toggle COLPF0 in the DLI between black/$00 and yellow/$1A
 
 To "Flash" Scores, Player Number, or Ball counter the image must be drawn and erased, since each shares the same line with another value that may not be flashing.
 
@@ -178,26 +202,6 @@ The Scores, Ball counter, and Player number are conceptually 3x5 "segments".  Ea
 | 212 - 219  | 197 - 204     | $70  |      | Y   | X      | X      | 8 Blank Lines - DLI Return COLPF0, COLPF3 to White/$0C |
 |            |               | JMP  |      |     |        |        | Jump to RETURN_END_BOTOM_BORDER |
 
-
-**Player/Missile Graphics**
-
-Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
-
-Since the Player/Missile memory map skips 3 pages (768 byte) that reservation automatically creates a block of memory useful for other purposes, such as screen memory or the display list.
-
-Also, the game requires only the bitmaps for Missiles and Player0.  Three other players' bitmaps are unused, so that reserves another 3 pages (768 bytes) of aligned memory.
-
-Each line of bitmapped graphics requires 16 bytes.  The following resources are referenced by the display list:
-- 1 BORDER_LINE (solid horizontal line for border)
-- 7 LABEL_PLAYER_LINE (draw the external label for "Player Number")
-- 7 LABEL_BALL_LINE (draw the external label for "Ball In Play")
-- 5 PLAYER_AND_BALL_LINE (number "segments" drawn for Player Number and Ball In Play)
-- 5 SCORES_LINE (number "segments" drawn for player scores.)
-- 8 BRICKS_LINE (rows of bricks displayed on screen)
-
-Total screen memory is 33 lines * 16 bytes which is 528 bytes.
-
-The game needs backup of each Player's screen/bricks image when switching between players.  So, the game could simply copy the 8 lines of BRICKS_LINE data to equivalent backup buffers (another 128 bytes for backup.) This is not directly displayed, so it need not be precisely aligned.
 
 =============================================================================
 
