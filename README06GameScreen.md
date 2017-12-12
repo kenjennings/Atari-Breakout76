@@ -115,7 +115,7 @@ The Scores, Ball counter, and Player number are actually 3x5 "segments".  Each "
 |            |               |      |                       |     |        |        | RETURN_END_BOTTOM_BORDER |
 | **THE END**
 | 220 - 223  | 205 - 208     | $30  |                       |     |        |        | 4 Blank Lines |
-| JVB        |               |      |                       |     |        |        | Jump Vertical Blank |
+|            |               | JVB  |                       |     |        |        | Jump Vertical Blank |
 
 **DISPLAY LIST "SUBROUTINES"**
 
