@@ -32,6 +32,10 @@ Each line of bitmapped graphics requires 16 bytes.  The following screen memory 
 
 Total screen memory needed is 33 lines * 16 bytes which is 528 bytes.
 
+The game will also need other reference data supporting the graphics display, but is not directly displayed, so it need not be in aligned memory:
+- a master bitmap of a full brick line for reloading bricks.
+- a mask table used for removing an individual brick from the display.
+
 **Vertical Blank Interrupt**
 
 VBI Establishes:
@@ -82,11 +86,11 @@ VBI Establishes:
 | PMBASE | +$300 - +$3FF |               | Missiles bitmap (Borders, Ball) |
 | PMBASE | +$400 - +$4FF |               | Player 0 bitmap (Paddle) |
 | PMBASE | +$500 - +$5FF |               | Player 1 bitmap UNUSED |
-|        |               | +$500 - +$5FF | Main Display List |
+|        |               | +$500 -       | Main Display List (approx 150 bytes) |
 | PMBASE | +$600 - +$6FF |               | Player 2 bitmap UNUSED |
-|        |               | +$600 - +$6FF | Display List "Subroutines"
+|        |               | +$600 -       | Display List "Subroutines" |
 | PMBASE | +$700 - +$7FF |               | Player 3 bitmap UNUSED |
-|        |               | +$500 - +$5FF |  |
+|        |               | +$700 -       | Backup of bricks buffer for other player.  |
 
 
 **Other Notes**
