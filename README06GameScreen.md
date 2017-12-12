@@ -35,6 +35,7 @@ Total screen memory needed is 33 lines * 16 bytes which is 528 bytes.
 The game will also need other reference data supporting the graphics display, but is not directly displayed, so it need not be in aligned memory:
 - a master bitmap of a full brick line for reloading bricks.
 - a mask table used for removing an individual brick from the display.
+- images and masks for the numbers 0 through 9 for Score, etc at the top of the display.
 
 **Vertical Blank Interrupt**
 
