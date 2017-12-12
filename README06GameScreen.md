@@ -36,10 +36,62 @@ Total screen memory needed is 33 lines * 16 bytes which is 528 bytes.
 
 VBI Establishes:
 - ANTIC Display Width Narrow + Playfield DMA + Player/Missile DMA.
-- GTIA GRACTL control for Player/Missile graphics.
+- GTIA GRACTL control for Player/Missile graphics + 5th Player 
 - COLPF3 is white/$0C
 
-**Other Notes***
+**Memory Map**
+
+| Base   | Memory        | Offset        | Notes |
+| ---    | ---           | ---           | ---   |
+| PMBASE | +$000 - +$0FF |               | Unused Page 0 |
+|        |               | +$000 - +$00F | LABEL_PLAYER_LINE1 |
+|        |               | +$010 - +$01F | LABEL_PLAYER_LINE2 |
+|        |               | +$020 - +$02F | LABEL_PLAYER_LINE3 |
+|        |               | +$030 - +$03F | LABEL_PLAYER_LINE4 |
+|        |               | +$040 - +$04F | LABEL_PLAYER_LINE5 |
+|        |               | +$050 - +$05F | LABEL_PLAYER_LINE6 |
+|        |               | +$060 - +$06F | LABEL_PLAYER_LINE7 |
+|        |               | +$070 - +$07F | LABEL_BALL_LINE1 |
+|        |               | +$080 - +$08F | LABEL_BALL_LINE2 |
+|        |               | +$090 - +$09F | LABEL_BALL_LINE3 |
+|        |               | +$0A0 - +$0AF | LABEL_BALL_LINE4 |
+|        |               | +$0B0 - +$0BF | LABEL_BALL_LINE5 |
+|        |               | +$0C0 - +$0CF | LABEL_BALL_LINE6 |
+|        |               | +$0D0 - +$0DF | LABEL_BALL_LINE7 |
+|        |               | +$0E0 - +$0EF | PLAYER_AND_BALL_LINE1 |
+|        |               | +$0F0 - +$0FF | PLAYER_AND_BALL_LINE2 |
+| PMBASE | +$100 - +$1FF |               | Unused Page 1 |
+|        |               | +$100 - +$10F | PLAYER_AND_BALL_LINE3 |
+|        |               | +$110 - +$11F | PLAYER_AND_BALL_LINE4 |
+|        |               | +$120 - +$12F | PLAYER_AND_BALL_LINE5 |
+|        |               | +$130 - +$13F | SCORES_LINE1 |
+|        |               | +$140 - +$14F | SCORES_LINE2 |
+|        |               | +$150 - +$15F | SCORES_LINE3 |
+|        |               | +$160 - +$16F | SCORES_LINE4 |
+|        |               | +$170 - +$17F | SCORES_LINE5 |
+|        |               | +$180 - +$18F | BRICKS_LINE1 |
+|        |               | +$190 - +$19F | BRICKS_LINE2 |
+|        |               | +$1A0 - +$1AF | BRICKS_LINE3 |
+|        |               | +$1B0 - +$1BF | BRICKS_LINE4 |
+|        |               | +$1C0 - +$1CF | BRICKS_LINE5 |
+|        |               | +$1D0 - +$1DF | BRICKS_LINE6 |
+|        |               | +$1E0 - +$1EF | BRICKS_LINE7 |
+|        |               | +$1F0 - +$1FF | BRICKS_LINE8 |
+| PMBASE | +$200 - +$2FF |               | Unused Page 2 |
+|        |               | +$200 - +$20F | BORDER_LINE |
+| PMBASE | +$300 - +$3FF |               | Missiles bitmap (Borders, Ball) |
+| PMBASE | +$400 - +$4FF |               | Player 0 bitmap (Paddle) |
+| PMBASE | +$500 - +$5FF |               | Player 1 bitmap UNUSED |
+|        |               | +$500 - +$5FF | Main Display List |
+| PMBASE | +$600 - +$6FF |               | Player 2 bitmap UNUSED |
+|        |               | +$600 - +$6FF | Display List "Subroutines"
+| PMBASE | +$700 - +$7FF |               | Player 3 bitmap UNUSED |
+|        |               | +$500 - +$5FF |  |
+
+
+**Other Notes**
+
+No Atari text modes are used in the Game Screen, so no character set is needed. The little "text" needed is more efficiently rendered as bitmaps than dedicating a custom font.
 
 The game needs backup of each Player's screen/bricks image when switching between players.  So, the game could simply copy the 8 lines of BRICKS_LINE data to equivalent backup buffers (another 128 bytes for backup.) This is not directly displayed, so it need not be precisely aligned.
 
