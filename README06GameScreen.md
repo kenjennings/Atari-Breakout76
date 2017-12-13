@@ -44,6 +44,15 @@ Below is a map of the display screen indicating:
 
 ![Screen RAM Use](ScreenMemoryUsage.png?raw=true "Screen RAM Use")
 
+The first red line is the top border.  The seven lines that follow are the same and repeat the same data.
+
+The next two sections with five red lines each make up the numbers at the top of the playfield.  There is only five rows of screen data each displayed three times to create numbers 15 scan lines tall.
+
+The next section are eight lines of bricks with one row of data repeated to make bricks thtee scan lines tall.
+
+At the bottom there is no red line for the bottom border/paddle area.  When visible this repeats the same data used for the top border. 
+
+
 The game will also need other reference data supporting the graphics display, but is not directly displayed, so it need not be in aligned memory:
 - a master bitmap of a full brick line for reloading bricks.
 - a mask table used for removing an individual brick from the display.
