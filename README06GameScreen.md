@@ -51,9 +51,16 @@ The game will also need other reference data supporting the graphics display, bu
 
 **Numbers**
 
-Numbers are aligned over bricks.  7 color clocks wide using six of those for the image, and one color clock as space between the numbers.  This means numbers at different positions on the screen are not aligned to the bytes of screen memory which will complicate drawing numbers on the screen
+Numbers are aligned over bricks.  7 color clocks wide using six of those for the image, and one color clock as space between the numbers.  This means numbers at different positions on the screen are not aligned to the bytes of screen memory which will complicate drawing numbers on the screen.
+
+The numbers are created as 3x5 segments.  The horizontal six color clocks put two color clocks into each segment.  The five vertical segments shown below each occupy 3 scan lines vertically, so the same image is repeated three times on the screen.  
 
 1111110 0011000 1111110 1111110 1100110 1111110 1100000 1111110 1111110 1111110
+1100110 0011000 0000110 1100000 1100110 1100000 1100000 0000110 1100110 1100110
+1100110 0011000 1111110 1111110 1111110 1111110 1111110 0000110 1111110 1111110
+1100110 0011000 1100000 1100000 0000110 0000110 1100110 0000110 1100110 0000110
+1111110 0011000 1111110 1111110 0000110 1111110 1111110 0000110 1111110 0000110
+
 
 **Vertical Blank Interrupt**
 
