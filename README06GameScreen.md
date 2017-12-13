@@ -52,6 +52,8 @@ The next section are eight lines of bricks with one row of data repeated to make
 
 At the bottom there is no red line for the bottom border/paddle area.  When visible this repeats the same data used for the top border. 
 
+The vast majority of the display is made of empty scan lines lines displaying no bitmapped graphics at all.
+
 
 The game will also need other reference data supporting the graphics display, but is not directly displayed, so it need not be in aligned memory:
 - a master bitmap of a full brick line for reloading bricks.
