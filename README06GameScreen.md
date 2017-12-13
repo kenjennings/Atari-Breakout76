@@ -49,6 +49,12 @@ The game will also need other reference data supporting the graphics display, bu
 - a mask table used for removing an individual brick from the display.
 - images and masks for the numbers 0 through 9 for Score, etc at the top of the display.
 
+**Numbers**
+
+Numbers are aligned over bricks.  7 color clocks wide using six of those for the image, and one color clock as space between the numbers.  This means numbers at different positions on the screen are not aligned to the bytes of screen memory which will complicate drawing numbers on the screen
+
+1111110 0011000 1111110 1111110 1100110 1111110 1100000 1111110 1111110 1111110
+
 **Vertical Blank Interrupt**
 
 VBI Establishes:
