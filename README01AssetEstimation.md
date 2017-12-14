@@ -50,11 +50,11 @@ The left and right Borders work out to two Atari pixels (color clocks) wide.
 
 ![Game Ball](Breakout_bw_startup_crop_ball.png?raw=true "Game Ball")
 
-The Ball is the smallest, visible, discrete object in Breakout and notably does not appear square -- it appears wider than it is tall.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between Bricks appear smaller than the Ball's width. 
+The Ball is the smallest, visible, discrete object in Breakout and is noticeable NOT square -- it appears wider than it is tall.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between Bricks appear smaller than the Ball's width. 
 
-On the screen grab the Ball is about six pixels wide by four pixels tall.  Per the Atari pixel scale it is approximately two scan lines tall.  Horizontally, that is one and a half color clocks wide.  Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball wider than tall, but noticeably larger than the ball appears in Breakout. 
+On the screen grab the Ball is about six pixels wide by four pixels tall.  Per the Atari pixel scale it is approximately two scan lines tall.  Horizontally, it is one and a half color clocks wide.  Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball wider than tall, but is then noticeably larger than the ball appears in Breakout. 
 
-So, this is where compromise is needed.  The choice is that the ball is displayed as only one color clock, one scan line tall to maintain its visual appearance relative to the dimensions of the screen, or two color clocks, two scan lines tall (four times larger).  The first choice may be too small to see easily.  The second may be too large per the look and feel of the arcade game.
+So, this is where compromise is needed.  The choice is that the ball is displayed as only one color clock, one scan line tall to maintain its visual appearance relative to the dimensions of the screen, or two color clocks, two scan lines tall (four times larger).  The first choice may be too small to see easily.  The second may be too large per the look and feel of the arcade game.  When the game reaches implementation we'll find out if 1x1 or 2x2 fits best.
 
 **BRICKS**:
 
@@ -64,7 +64,7 @@ There are eight rows of 14 Bricks each.  The area of the bricks is 63 pixels tal
 
 The area of the Bricks is 318 pixels wide. Scaled to the Atari color clocks this is 97.712 pixels wide which works out to 6.97948 color clocks per brick including one color clock for the gap between bricks.  Rounding up makes 7 color clocks per Brick.  So, a total of 98 pixels, less one for the unneeded gap after the last Brick is 97 color clocks.
 
-Side bar... 14 is such a weird number in computing terms.  Considering the discrete electronics nature of the game construction it would seem more sensible for there to be a base 2 number of bricks -- such as 16 bricks, not 14.  I can only theorize that the two missing bricks actually (or electronically?) represent the left and right borders.
+**Side bar...** 14 is such a weird number in computing terms.  Considering the discrete electronics nature of the game construction it would seem more sensible for there to be a base 2 number of bricks -- such as 16 bricks, not 14.  I can only theorize the left and right borders actually (or electronically) represent the two missing bricks.
 
 **PADDLE**:
 
@@ -72,33 +72,33 @@ Side bar... 14 is such a weird number in computing terms.  Considering the discr
 
 The Paddle at its widest is the same width as a Brick -- 6 visible pixels (color clocks).  When the Paddle switches to narrow width it is half the width, or three pixels (color clocks) wide.  The Paddle is visibly thicker than the height of a brick -- definitively four Atari scan lines tall. 
 
-When the game is over the Paddle is replaced by a solid horizontal Border the width of the screen.  This border acts as a giant Paddle during the game's demo mode keeping the ball rebounding up toward the Bricks. 
+When the game is a solid horizontal Border the width of the screen replaces the Paddle.  This border acts as a giant Paddle during the game's demo mode keeping the ball rebounding up toward the Bricks. 
 
 **PLAYER, BALL COUNTER, and SCORES**:
 
 ![Game Score](Breakout_bw_startup_crop_number_area.png?raw=true "Game Score")
 
-The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  This blank area occupies vertical space approximately equal height to the region of the eight Brick rows on the screen.  The Ball travels through this area and straight through any of the numbers without being deflected.  This maximizes use of the playfield's vertical space to nearly the entire CRT display height.
+The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  The Ball travels through this area and straight through any of the numbers without being deflected.  This maximizes use of the playfield's vertical space to nearly the entire CRT display height.
 
 ![Game Score](Breakout_bw_startup_crop_number.png?raw=true "Game Score")
 
-These numbers are large, tall objects on screen. The numbers and the space between them match the width of the bricks below them, so the math is already done -- horizontally, the numbers including the space between them are 7 color clocks wide.  The height of the number area is identical to the size of the bricks -- about 63 pixels tall.  Scaled to the Atari dimensions this is 32.76 scan lines per line of numbers which includes the blank space below each number.  Therefore the vertical size of a number will be 16 scan lines. 
+These numbers are large, tall objects on screen. The numbers and the space between them match the width of the bricks below them, so the math is already done -- horizontally, the numbers including the space between them are 7 color clocks wide.  The height of the number area is identical to the size of the bricks -- about 63 pixels tall.  Scaled to the Atari dimensions this is 32.76 scan lines per line of numbers which includes the blank space below each number.  Therefore the vertical size of a number will be 16 scan lines including a blank scan line to separate the numbers.
 
 **EXTERNAL LABELS**:
 
 ![Glass Labels](GlassLabels.png?raw=true "Glass Labels")
 
-The arcade game has labels painted in yellow on the glass over the display identifying the numbers in the top row.  The number on the left is the "PLAYER NUMBER", and the number on the right is the "BALL IN PLAY" counter.  These real world labels will have to be worked into the game display to provide necessary information to the player.  The best location for placement is the closest object on screen -- within the horizontal top border immediately above the Player number and Ball counter values.
+The arcade game has labels painted in yellow on the glass over the display identifying the numbers in the top row.  The number on the left is the "PLAYER NUMBER", and the number on the right is the "BALL IN PLAY" counter.  These real world labels must be presented in the game display to provide necessary information to the player.  The best location for placement is the closest location on screen -- within the horizontal top border immediately above the Player number and Ball counter values.
 
 **COLOR**:
 
-The game is output only in black and white video.  However, colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Each pair of Brick rows is provided a different color.  From top to bottom: red, orange, green, yellow.   A blue plastic overlay is provided for the Paddle's row.  The picture below is the color representation from an emulator:
+The Breakout arcade game is output only in black and white video.  However, colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Each pair of Brick rows is provided a different color.  From top to bottom: red, orange, green, yellow.   A blue plastic overlay is provided for the Paddle row.  The picture below is the color representation from an emulator:
 
 ![Game Color Pixels](Breakout_cl_startup_crop_to_underscan.png?raw=true "Game Color Pixels")
 
-Note from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows. 
+**Note from Capt Obvious**: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows. 
 
-Looking at the screen holistically leads to the conclusion that the game needs seven colors on the screen.  (background/black, white,  the four brick colors, and blue for the Paddle/bottom border.)  This is incorrect when the screen display is considered from the point of view of the Atari's graphics capabilities.  This will be discussed later in the Implementation section for its entertainment value.
+Looking at the screen holistically leads to the conclusion that the game needs seven colors on the screen.  (background/black, white, the four brick colors, and blue for the Paddle/bottom border.)  This is incorrect when the screen display is considered from the point of view of the Atari's graphics capabilities.  This will be discussed later in the Implementation section.
 
 =============================================================================
 
