@@ -14,15 +14,15 @@ Single Line resolution Player/Missile Graphics.
 
 Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
 
-Since the Player/Missile memory map skips 3 pages (768 byte) that reservation automatically creates a block of memory useful for other purposes, such as screen memory or the display list.
+The Player/Missile memory reservation and alignment automatically provides a block of memory useful for other purposes, such as screen memory or the display list, since the Player/Missile memory map skips the first 3 pages (768 byte). 
 
-Also, the game requires only the bitmaps for Missiles and Player0.  Three other players' bitmaps are unused, so that reserves another 3 pages (768 bytes) of aligned memory.
+The game requires only the bitmaps for Missiles and Player 0.  Three other players' bitmaps are unused, so that reserves another 3 pages (768 bytes) of aligned memory for other purposes.
 
 **Screen Memory**
 
-Top Border, External Label Text, Numbers/Scores, Bricks, and Bottom Border uses ANTIC Modes B or C graphics and only COLPF0.
+Top Border, External Label Text, Numbers/Scores, Bricks, and Bottom Border uses ANTIC Modes B and C graphics and only COLPF0.
 
-Each line of bitmapped graphics requires 16 bytes.  The following screen memory resources are referenced by the Display List documented below:
+In ANTIC's narrow playfield width bitmapped graphics Modes B and C require 16 bytes per line.  The following screen memory resources are referenced by the Display List documented below:
 - 1 BORDER_LINE (solid horizontal line for border)
 - 7 LABEL_PLAYER_LINE (draw the external label for "Player Number")
 - 7 LABEL_BALL_LINE (draw the external label for "Ball In Play")
@@ -34,7 +34,7 @@ Total screen memory needed is 33 lines * 16 bytes which is 528 bytes.
 
 Creating this display on typical computers of the 8-bit era would require dedicating a contiguous block of memory providing the bitmap display on every display line.  Assuming a system had the same kind of resolution/color as the Modes used for the Atari display this is 16 bytes times 208 scan lines, 3,328 bytes.  More likely 20 bytes per line, or 4,160 bytes for the full screen.
 
-A fun part of the Atari is the display programmability.  Graphics memory is needed only where graphics are displayed.  Screen memory need not be contiguous and can be addressed beginning almost anywhere in memory for any line.  The only limitation is that a line of graphics cannot cross over a 4K boundary in the middle of a line -- an easy thing to avoid.  Since the Atari can dedicate only the memory it needs to generate the display this works out to only the 528 bytes reported above.  Over half of this is for the bitmaps supporting the external text labels "Player Number", and "Ball In Play" (224 bytes total).  The working game screen needs only 304 bytes of screen memory.
+A fun part of the Atari is the display programmability.  Graphics memory is needed only where graphics are displayed.  Screen memory need not be contiguous and can be addressed beginning almost anywhere in memory for any line.  The only limitation is that a line of graphics cannot cross over a 4K boundary in the middle of a line -- an easy thing to avoid.  Since the Atari can dedicate only the memory it needs to generate the display this works out to only the 528 bytes reported above.  Over half of this is for the bitmaps supporting the external text labels "Player Number", and "Ball In Play" (224 bytes total).  The working game screen thus needs only 304 bytes of screen memory.
 
 Below is a map of the display screen indicating:
 
@@ -44,7 +44,7 @@ Below is a map of the display screen indicating:
 
 ![Screen RAM Use](ScreenMemoryUsage.png?raw=true "Screen RAM Use")
 
-The first red line is the top border.  The seven lines that follow are the same and repeat the same data.
+The first red line is the top border.  The seven lines that follow are the same and so repeat the same screen data.
 
 The next two sections with five red lines each make up the numbers at the top of the playfield.  There is only five rows of screen data each displayed three times to create numbers 15 scan lines tall.
 
@@ -55,7 +55,7 @@ At the bottom there is no red line for the bottom border/paddle area.  When visi
 The vast majority of the display is made of empty scan lines lines displaying no bitmapped graphics at all.
 
 
-The game will also need other reference data supporting the graphics display, but is not directly displayed, so it need not be in aligned memory:
+The game will also need other reference data supporting the graphics display, but this is not directly displayed, so it need not be in aligned memory:
 - a master bitmap of a full brick line for reloading bricks.
 - a mask table used for removing an individual brick from the display.
 - images and masks for the numbers 0 through 9 for Score, etc at the top of the display.
@@ -106,11 +106,11 @@ VBI Establishes:
 - GTIA GRACTL control for Player/Missile graphics + 5th Player 
 - COLPF3 is white/$0C
 
-**Memory Map**
+**Display Memory Map**
 
 | Base   | Memory        | Offset        | Notes |
 | ---    | ---           | ---           | ---   |
-| PMBASE | +$000 - +$0FF |               | Unused Page 0 |
+| PMBASE | +$000 - +$0FF |               | Unused Page 0, Player/Missile base address |
 |        |               | +$000 - +$00F | LABEL_PLAYER_LINE1 |
 |        |               | +$010 - +$01F | LABEL_PLAYER_LINE2 |
 |        |               | +$020 - +$02F | LABEL_PLAYER_LINE3 |
