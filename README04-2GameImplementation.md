@@ -68,11 +68,11 @@ When the game is over the Paddle is replaced by a solid horizontal Border the wi
 
 **PLAYER, BALL COUNTER, and SCORES**:
 
-The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  This blank area occupies vertical space approximately equal height to the region of the eight Brick rows on the screen.  (32 Atari scan lines)  The Ball travels through this area and straight through any of the numbers without being deflected.
+The current Player Number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  This blank area occupies vertical space approximately equal height to the region of the eight Brick rows on the screen.  (32 Atari scan lines)  The Ball travels through this area and straight through any of the numbers without being deflected.
 
-These numbers are very large, tall objects on screen. The numbers and the vertical gap between numbers are the same width as a brick.  So, horizontally, the numbers including the space between them are 7 pixels/color clocks wide.  The height is simple -- 32 scan lines divided by 2 is 16 scan lines for each number including one blank scan line to vertically separate the numbers.
+These numbers are very large, tall objects on screen. The numbers and the vertical gap between numbers are the same width as a brick.  So, horizontally, the numbers including the space between them are 7 pixels/color clocks wide.  The height is simple -- 32 scan lines divided by 2 is 16 scan lines for each number which includes one blank scan line to vertically separate the numbers.
 
-The complete size of a number is six color clocks wide by 15 scan lines tall.   This is actually very convenient.  The minimum grid size needed to display numbers is three horizontal blocks (or segments) by five vertical blocks.  This also appears to be the basis for the Breakout game's number display.  Example:
+The size of a number without spacing is 6 color clocks wide by 15 scan lines tall.  This is actually very convenient.  The minimum grid size needed to display numbers is three horizontal blocks (or segments) by five vertical blocks.  This arrangment also appears to be the basis for Breakout game's number display.  Example number "8" in 3x5 segments:
 
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square:
 - :black_medium_small_square::white_medium_small_square::black_medium_small_square:
@@ -80,7 +80,9 @@ The complete size of a number is six color clocks wide by 15 scan lines tall.   
 - :black_medium_small_square::white_medium_small_square::black_medium_small_square:
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square:
 
-ANTIC Mode 7 text is the nearest match at 16 scan lines tall.  The loss of a few scan lines should be acceptable with a custom font modeled after the appearance of the arcade Breakout numbers.  Alternatively, the score could be drawn as graphics.
+In the Atari screen rendering the 3x5 segments divide neatly into the available screen geometry.  Each pixel in the example above corresponds to two pixels/color clocks wide, and three scan lines tall, thus a complete number following this pattern is 6 pixels by 15 scan lines which is the exact size available.
+
+A text mode is the instinctive choice for rendering human readable information on screen.   However, the text characters in ANTIC Text Modes 6 and 7 are 8 color clocks wide, not the 7 needed.  This would complicate rendering the numbers across multiple characters.  It is easier to draw the characters on screen using graphics bitmaps.
 
 **COLOR**:
 
@@ -90,9 +92,9 @@ The game is output only in black and white video.  However, colored plastic stri
 
 Clearly, the emulator's color levels are highly saturated beyond reasonable.  Nobody viewing the arcade game in real-life would experience colors so deep.  The plastic strips merely provide a tint of color to the display.  So, again, this will require approximation and compromise.
 
-The Atari cannot saturate color to this degree.  So, the goal is to realistically capture the same hue , not the intensity level. 
+The Atari cannot saturate color to this degree.  So, the goal is to realistically capture the same hue, not the intensity level. 
 
-I captured the averaged color in each area from the color screen grab of the Breakout emulator game (above).  I then compared each Breakout color to the closest apparent equivalent in the Atari palette.  For the Atari palette I used an image grabbed from a program running in the Atari800 emulator which shows all the colors available to the Atari in one screen.  Atari800 is the same emulator being used to develop Breakout76, so the colors in the final result will match.
+I captured the averaged color in each area from the color screen grab of the Breakout emulator game (above).  I then compared each Breakout color to the closest apparent equivalent in the Atari palette.  For the Atari palette I used an image grabbed from a program running in the Atari800 emulator which shows all the colors available to the Atari in one screen.  Atari800 is the same emulator being used to develop Breakout76, so the colors in the final result will match (in the emulator).
 
 Between the GIMP eyedropper tool, a reference picture of the entire Atari pallette, and my eyeballs the final result is the best matching colors I can determine from the Atari's color palette: 
 
@@ -105,7 +107,7 @@ Between the GIMP eyedropper tool, a reference picture of the entire Atari pallet
 | Green      | 0a8334       | 0e5b16     | $C4           |
 | Yellow     | c1c23d       | b7c95c     | $1A           |
 
-(Notes from Capt Obvious: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.) 
+(**Notes from Capt Obvious**: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.) 
 
 Looking at the screen holistically leads to the conclusion that the game needs seven colors on the screen.  (background/black, white, the four brick colors, and the paddle.)  This is an incorrect point of view relative to the Atari's graphics capabilities.
 
@@ -113,7 +115,7 @@ GTIA pixel modes may be able to supply the necessary seven colors, but the GTIA 
 
 ANTIC text modes 4, 5, 6, and 7 allow five colors (including the background) -- nearly the seven colors needed.  Modes 5 and 7 character glyphs use pixel sizes that will not fit the brick dimensions, leaving only Modes 4, and 6 workable.  One line of either mode can accurately represent two lines of Bricks.  The Brick colors are applied in pairs of lines which conveniently fits these text mode geometries.  The default capabilities of these text modes provide four foreground colors, enough for the Bricks. However, this uses all the available playfield registers, so something else needs to be done about the white horizontal top border, and the blue horizontal bottom border displayed when the game is over.  In this case a couple of display list interrupts will be needed to re-use color registers twice on the screen.
 
-A problem with using a character set is that the Brick width does not match the character width.  Therefore several custom characters will be required to represent bricks at different horizontal positions on the screen, and to represent bricks removed between other bricks.  And these characters must be defined separately for each color.  This is not unworkable, but it introduces complexity.
+A problem with using a character set is that the Brick width does not match the character width.  Therefore several custom characters will be required to represent bricks at different horizontal positions on the screen, and to represent bricks removed between other bricks.  And these characters must be defined separately for each color.  This is not unworkable, but it introduces an unpleasant degree of complexity.
 
 Up to now it has looked like the preferred method to render the Bricks is direct pixel bitmapped graphics.  However, the best mode available allows only 3 playfield colors not including the background.  Character graphics are complicated and bitmaps do not provide enough color.  What to do?  
 
