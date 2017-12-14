@@ -62,20 +62,24 @@ The game will also need other reference data supporting the graphics display, bu
 
 **Top Border**
 
-============
-
-Top Border Bitmap here
-
-============
+```asm
+SCREEN_BORDER ; Solid horizontal border between left and right vertical borders. 
+ .byte ~00000000,~00000000 
+	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111 
+	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111
+	.byte ~10000000,~00000000, ; Last brick pixel 
+ ```
 
 **Bricks**
 
-============
-
-Bricks Bitmap here
-
-============
-
+```asm
+SCREEN_BRICKS ; 14 bricks between left and right borders 
+	.byte ~00000000,~00000000 ; Left border
+	.byte ~11111101,~11111011,~11110111,~11101111,~11011111,~10111111
+	.byte ~01111110,~11111101,~11111011,~11110111,~11101111,~11011111,
+	.byte ~10000000,~00000000, ; Last brick pixel
+ ```
+ 
 **Numbers**
 
 Numbers and bricks are 7 color clocks wide using six for the image, and one color clock as space between the numbers. The numbers are created as 3x5 segments.  The six color clocks are divided into pairs and each pair is the horizontal dimension of a segment.  The segment vertical dimension is three scan lines accomplished by displaying hte same line of screen memory three times.    The illustration below shows all the horizontal bits/pixels/color clocks.  Each row represents 3 scan lines vertically.  
