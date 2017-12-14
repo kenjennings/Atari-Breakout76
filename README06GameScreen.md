@@ -6,10 +6,10 @@
 
 Single Line resolution Player/Missile Graphics.
 - Use 5th player option to color all Missiles using COLPF3.
-- Missile0 is Left Border.
-- Missile1 is Right Border.
-- Missile2 is Ball.
-- Player0 is Paddle.
+- Missile 0 is Left Border.
+- Missile 1 is Right Border.
+- Missile 2 is Ball.
+- Player 0 is Paddle.
 - Paddle/COLPM0 is Blue/$96. 
 
 Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
