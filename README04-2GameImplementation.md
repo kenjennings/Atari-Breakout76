@@ -119,7 +119,9 @@ A problem with using a character set is that the Brick width does not match the 
 
 Up to now it has looked like the preferred method to render the Bricks is direct pixel bitmapped graphics.  However, the best mode available allows only 3 playfield colors not including the background.  Character graphics are complicated and bitmaps do not provide enough color.  What to do?  
 
-Observe the screen in detail.  Only one color is needed on any horizontal line.  Therefore the game does not need a graphics mode displaying all seven colors at a time.   It only needs one color register for display, and then the color effect would be implemented by multiple Display List Interrupts that change the color register parameters at different vertical locations on the screen.  The Display List Interrupts will need to change the Bricks, Borders, and Ball colors at the same time to appear convincing.  (And then also do the same lower on the screen to set the Paddle, Borders, and Ball colors.)
+Observe the screen in detail.  Only one color is needed on any horizontal line.  Therefore the game does not need a graphics mode displaying all seven colors at a time.  It only needs one color register for display, and then the color effect would be implemented by multiple Display List Interrupts that change the color register parameters at different vertical locations on the screen.  The Display List Interrupts will change the Bricks, Borders, and Ball colors at the same time to appear convincing.  (And then also do the same lower on the screen to set the Paddle, Borders, and Ball colors.) 
+
+Conceptually, the display list interrupts function similar to the plastic strips - they temporarily change the appearance of the only playfield color register at specific rows on the screen.
 
 =============================================================================
 
