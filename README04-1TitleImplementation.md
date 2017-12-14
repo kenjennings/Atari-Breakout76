@@ -6,11 +6,13 @@ The Breakout arcade game does not have a title or configuration screen.  The tit
 
 However, the Atari computer imitation of Breakout is free from the pay-for-play requirement and it can add configurability to game parameters.  This requires a minimal user interface which is best separated from the main game screen.  A separate set up screen also provides an opportunity for title graphics.
 
-Top of screen banner: The Breakout cabinet art does not use many colors -- primarily Yellow, Red, Black, White plus a limited amount of Purple and a darker shade of Yellow.  Reduction to four-colors should not significantly damage the image quality.  
+Top of screen banner: The Breakout cabinet art does not use many colors -- primarily Yellow, Red, Black, White plus a limited amount of Purple and a darker shade of Yellow.  Doing something with these colors in a title would be simple. 
 
 ANTIC graphics mode D (two scan line/pixel) and mode E (one scan line/pixel) both display 160 pixels/color clocks per line in four colors, so both could display a color-reduced version of the picture.  
 
-Also, text modes 4 and 5 display four colors in each character matrix with an option of swapping one color with a different color register.  This could allow retaining a fifth color (Purple) for the title screen.  
+Also, text modes 4 and 5 display four colors in each character matrix with an option of swapping one color with a different color register.  This could allow retaining a fifth color (Purple) for the title screen.
+
+Alternatively, a simple title using large text modes 6 or 7 would be acceptable.
 
 The configuration should be pre-set to the options closest to the arcade game experience.   Possible options may include:
 - Number of balls: 1, 3, 5 (default), 7 
