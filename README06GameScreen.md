@@ -63,13 +63,17 @@ The game will also need other reference data supporting the graphics display, bu
 **Top Border**
 
 ============
+
 Top Border Bitmap here
+
 ============
 
 **Bricks**
 
 ============
+
 Bricks Bitmap here
+
 ============
 
 **Numbers**
@@ -90,10 +94,14 @@ Numbers and bricks are 7 color clocks wide using six for the image, and one colo
 - :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
 
+(Yes, that's emoji's used as a bitmap.)
+
 Since screen memory represents a bitmap of 8 pixels/color clocks per byte, the numbers displayed at different positions on the screen are not aligned to the bytes of screen memory and may occupy parts of two bytes in screen memeory.  This complicates drawing numbers on the screen.  Rendering numbers requires masking and shifting number images together with screen memory.  The variations of calculation can be minimized by a lookup table that relates a number position on screen to an offset to screen memory, a mask to isolate the space the number occupies in screen memory, and shift information for the number image.
 
 ============
+
 explain lookup table
+
 ============
 
 
