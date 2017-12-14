@@ -74,7 +74,11 @@ These numbers are very large, tall objects on screen. The numbers and the vertic
 
 The complete size of a number is six color clocks wide by 15 scan lines tall.   This is actually very convenient.  The minimum grid size needed to display numbers is three horizontal blocks (or segments) by five vertical blocks.  This also appears to be the basis for the Breakout game's number display.  Example:
 
-
+- :black_medium_small_square::black_medium_small_square::black_medium_small_square:
+- :black_medium_small_square::white_medium_small_square::black_medium_small_square:
+- :black_medium_small_square::black_medium_small_square::black_medium_small_square:
+- :black_medium_small_square::white_medium_small_square::black_medium_small_square:
+- :black_medium_small_square::black_medium_small_square::black_medium_small_square:
 
 ANTIC Mode 7 text is the nearest match at 16 scan lines tall.  The loss of a few scan lines should be acceptable with a custom font modeled after the appearance of the arcade Breakout numbers.  Alternatively, the score could be drawn as graphics.
 
