@@ -14,9 +14,9 @@ Single Line resolution Player/Missile Graphics.
 
 Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
 
-The Player/Missile memory reservation and alignment automatically provides a block of memory useful for other purposes, such as screen memory or the display list, since the Player/Missile memory map skips the first 3 pages (768 byte). 
+The Player/Missile memory reservation and alignment automatically provides memory useful for other purposes,  since the Player/Missile memory map skips the first 3 pages (768 byte).  This can be used as screen memory or the display list.
 
-The game requires only the bitmaps for Missiles and Player 0.  Three other players' bitmaps are unused, so that reserves another 3 pages (768 bytes) of aligned memory for other purposes.
+The game requires only the bitmaps for Missiles and Player 0.  Three other players' bitmaps are unused, so that provides another 3 pages (768 bytes) of aligned memory for other purposes.
 
 **Screen Memory**
 
@@ -60,17 +60,9 @@ The game will also need other reference data supporting the graphics display, bu
 - a mask table used for removing an individual brick from the display.
 - images and masks for the numbers 0 through 9 for Score, etc at the top of the display.
 
-**Top Border**
-
-```asm
-SCREEN_BORDER ; Solid horizontal border between left and right vertical borders. 
- .byte ~00000000,~00000000 
-	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111 
-	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111
-	.byte ~10000000,~00000000, ; Last brick pixel 
- ```
-
 **Bricks**
+
+The bricks are centered on the screen, 7 bricks to the left, 7 to the right.  Since the last brick does not need a trailing space that makes the line an uneven number of pixels which cannot be centered perfectly.  In this case, the center is one pixel to the right of true center on the screen.  
 
 ```asm
 SCREEN_BRICKS ; 14 bricks between left and right borders 
@@ -80,9 +72,22 @@ SCREEN_BRICKS ; 14 bricks between left and right borders
 	.byte ~10000000,~00000000, ; Last brick pixel
  ```
  
+**Top Border**
+
+The Top Border is like the line of Bricks modified with the spaces between Bricks filled in.
+
+```asm
+SCREEN_BORDER ; Solid horizontal border between left and right vertical borders. 
+	.byte ~00000000,~00000000 ; Left border
+	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111 
+	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111
+	.byte ~10000000,~00000000, ; Last brick pixel 
+ ```
+
+
 **Numbers**
 
-Numbers and bricks are 7 color clocks wide using six for the image, and one color clock as space between the numbers. The numbers are created as 3x5 segments.  The six color clocks are divided into pairs and each pair is the horizontal dimension of a segment.  The segment vertical dimension is three scan lines accomplished by displaying hte same line of screen memory three times.    The illustration below shows all the horizontal bits/pixels/color clocks.  Each row represents 3 scan lines vertically.  
+Numbers and bricks are 7 color clocks wide using six for the image, and one as space between the numbers. The numbers are created as 3x5 segments.  The six color clocks are divided into pairs and each pair is the horizontal dimension of a segment.  The segment vertical dimension is three scan lines accomplished by displaying hte same line of screen memory three times.    The illustration below shows all the horizontal bits/pixels/color clocks.  Each row represents 3 scan lines vertically.  
 
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
 - :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
@@ -98,7 +103,7 @@ Numbers and bricks are 7 color clocks wide using six for the image, and one colo
 - :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
 
-(Yes, that's emoji's used as a bitmap.)
+(Yes, that's abusing gifthub's emoji to display a simulated bitmap.)
 
 Since screen memory represents a bitmap of 8 pixels/color clocks per byte, the numbers displayed at different positions on the screen are not aligned to the bytes of screen memory and may occupy parts of two bytes in screen memeory.  This complicates drawing numbers on the screen.  Rendering numbers requires masking and shifting number images together with screen memory.  The variations of calculation can be minimized by a lookup table that relates a number position on screen to an offset to screen memory, a mask to isolate the space the number occupies in screen memory, and shift information for the number image.
 
