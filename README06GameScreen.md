@@ -14,9 +14,9 @@ Single Line resolution Player/Missile Graphics.
 
 Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
 
-The Player/Missile memory reservation and alignment automatically provides memory useful for other purposes,  since the Player/Missile memory map skips the first 3 pages (768 byte).  This can be used as screen memory or the display list.
+Reserving memory for Player/Missile graphics automatically provides some memory useful for other purposes,  since the Player/Missile memory map leaves the first 3 pages (768 byte) unused.  This can instead be used for screen memory or the display list.
 
-The game requires only the bitmaps for Missiles and Player 0.  Three other players' bitmaps are unused, so that provides another 3 pages (768 bytes) of aligned memory for other purposes.
+The game requires only the bitmaps for Missiles and Player 0.  Three other Players' bitmaps are unused providing another 3 pages (768 bytes) of aligned memory for other purposes.
 
 **Screen Memory**
 
@@ -32,9 +32,9 @@ In ANTIC's narrow playfield width bitmapped graphics Modes B and C require 16 by
 
 Total screen memory needed is 33 lines * 16 bytes which is 528 bytes.
 
-Creating this display on typical computers of the 8-bit era would require dedicating a contiguous block of memory providing the bitmap display on every display line.  Assuming a system had the same kind of resolution/color as the Modes used for the Atari display this is 16 bytes times 208 scan lines, 3,328 bytes.  More likely 20 bytes per line, or 4,160 bytes for the full screen.
+Creating this display on typical computers of the 8-bit era would require dedicating a contiguous block of memory providing the bitmap display on every display line.  Assuming a system had the same kind of resolution/color as the Atari graphics Modes the display requires 16 bytes times 208 scan lines, 3,328 bytes.  More likely 20 bytes per line, or 4,160 bytes for the full screen.
 
-A fun part of the Atari is the display programmability.  Graphics memory is needed only where graphics are displayed.  Screen memory need not be contiguous and can be addressed beginning almost anywhere in memory for any line.  The only limitation is that a line of graphics cannot cross over a 4K boundary in the middle of a line -- an easy thing to avoid.  Since the Atari can dedicate only the memory it needs to generate the display this works out to only the 528 bytes reported above.  Over half of this is for the bitmaps supporting the external text labels "Player Number", and "Ball In Play" (224 bytes total).  The working game screen thus needs only 304 bytes of screen memory.
+A fun part of the Atari is the display programmability.  Graphics memory is needed only where graphics are displayed.  Screen memory need not be contiguous and can be addressed beginning almost anywhere in memory for any line.  The only limitation is that a line of graphics cannot cross over a 4K boundary in the middle of a line -- an easy thing to avoid.  Since the Atari can dedicate only the memory it needs to generate the display this works out to only the 528 bytes reported above.  About half of this is for the bitmaps supporting the external text labels "Player Number", and "Ball In Play" (224 bytes total).  The working game screen thus needs only 304 bytes of screen memory.
 
 Below is a map of the display screen indicating:
 
@@ -62,13 +62,14 @@ The game will also need other reference data supporting the graphics display, bu
 
 **Bricks**
 
-The bricks are centered on the screen, 7 bricks to the left, 7 to the right.  Since the last brick does not need a trailing space that makes the line an uneven number of pixels which cannot be centered perfectly.  In this case, the center is one pixel to the right of true center on the screen.  
+The bricks are centered on the screen, 7 bricks to the left, 7 to the right.  Since the last brick does not need a trailing space that makes the line an uneven number of pixels which cannot be centered perfectly.  The center for the game is defines one pixel to the right of true center on the screen.  
 
 ```asm
 SCREEN_BRICKS ; 14 bricks between left and right borders 
 	.byte ~00000000,~00000000 ; Left border
 	.byte ~11111101,~11111011,~11110111,~11101111,~11011111,~10111111
-	.byte ~01111110,~11111101,~11111011,~11110111,~11101111,~11011111,
+	; Center of display
+	.byte ~01111110,~11111101,~11111011,~11110111,~11101111,~11011111, 
 	.byte ~10000000,~00000000, ; Last brick pixel
  ```
  
@@ -80,6 +81,7 @@ The Top Border is like the line of Bricks modified with the spaces between Brick
 SCREEN_BORDER ; Solid horizontal border between left and right vertical borders. 
 	.byte ~00000000,~00000000 ; Left border
 	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111 
+	; Center of display
 	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111
 	.byte ~10000000,~00000000, ; Last brick pixel 
  ```
@@ -107,6 +109,11 @@ Numbers are sized like bricks -- 7 color clocks wide using six for the image, an
 
 Since screen memory represents a bitmap of 8 pixels/color clocks per byte, the numbers displayed at different positions on the screen are not aligned to the bytes of screen memory and may occupy parts of two bytes in screen memeory.  This complicates drawing numbers on the screen.  Rendering numbers requires masking and shifting number images together with screen memory.  The variations of calculation can be minimized by a lookup table that relates a number position on screen to an offset to screen memory, a mask to isolate the space the number occupies in screen memory, and shift information for the number image.
 
+Observe the third brick in the row defined here:
+
+```asm
+	.byte ~11111101,~111110 **11,~1111** 0111,~11101111,~11011111,~10111111
+ ```
 ============
 
 explain lookup table
