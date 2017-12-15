@@ -105,15 +105,20 @@ Numbers are sized like bricks -- 7 color clocks wide using six for the image, an
 - :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
 
-(Yes, that's abusing gifthub's emoji to display a simulated bitmap.)
+(Yes, that's abusing github's emoji to display a simulated bitmap.)
 
 Since screen memory represents a bitmap of 8 pixels/color clocks per byte, the numbers displayed at different positions on the screen are not aligned to the bytes of screen memory and may occupy parts of two bytes in screen memeory.  This complicates drawing numbers on the screen.  Rendering numbers requires masking and shifting number images together with screen memory.  The variations of calculation can be minimized by a lookup table that relates a number position on screen to an offset to screen memory, a mask to isolate the space the number occupies in screen memory, and shift information for the number image.
 
 Observe the third brick in the row defined here:
 
 ```asm
-	.byte ~11111101,~111110 **11,~1111** 0111,~11101111,~11011111,~10111111
+	.byte ~11111101,~11111011,~11110111,~11101111,~11011111,~10111111
+	                 ------^^  ^^^^----
  ```
+ 
+The indicated brick overlaps two separate bytes.  Removing the brick from the screen requires manipulating two bytes of memory.  Also notice that both bytes include the data for other bricks.  Removing the brick from the screen requires manipulating only the parts of the two bytes of memeory without disturbing the parts belonging to the other bricks.   This problem of different offset and differnt masks varies for each brick.
+
+
 ============
 
 explain lookup table
