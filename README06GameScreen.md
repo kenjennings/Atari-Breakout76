@@ -220,7 +220,7 @@ SCREEN_BORDER ; Solid horizontal border between left and right vertical borders.
 	.byte ~10000000,~00000000, ; Last brick pixel 
  ```
 
-Alternatively, the area of the top Border presents the external labels "PLAYER NUMBER" and "BALL IN PLAY".  These are pre-determined bit-mapped images.  Also, a dedicated Display List "subroutine" is created to display the image for the three states of the Top Border.  This is done with a JMP instruction pointing to one of the other three Display Lists.  (Located in the Main Display List at JMP_TOP_BORDER (+2).) Simply changing the low byte in the main Display List to point to one of the three Border image Display Lists "subroutines" causes the next frame to display the intended image.  Only the low byte changes in the Display List, so there can never be a partial/incorrect address in the Main Display List.  Therefore there is no need to synchronize the change to ANTIC's current beam position.
+The area of the top Border also presents the external labels for "PLAYER NUMBER" and "BALL IN PLAY".  These are pre-determined bit-mapped images.  Display List "subroutines" display the image(s) for the three states of the Top Border.  This is done with a JMP instruction in the main Display List pointing to one of the other three Display Lists.  (Located in the Main Display List at JMP_TOP_BORDER (+2).) Simply changing the low byte in the main Display List to point to one of the three Border image Display Lists "subroutines" causes the next frame to display the intended image.  Only the low byte changes in the Display List, so there can never be a partial/incorrect address in the Main Display List.  Therefore there is no need to synchronize the change to ANTIC's current beam position.
 
 | State         | MAIN LMS                  | DLI COLPF0 | DLI COLPF0 Flash |
 | ------------- | ------------------------- | ---------- | ---------------- |
@@ -256,10 +256,31 @@ explain lookup table for numbers
 
 ============
 
+**Bottom Border**
 
+The Bottom Border is identical to the Top Border and uses the same screen data:
 
+```asm
+SCREEN_BORDER ; Solid horizontal border between left and right vertical borders. 
+	.byte ~00000000,~00000000 ; Left border
+	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111 
+	; Center of display
+	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111
+	.byte ~10000000,~00000000, ; Last brick pixel 
+ ```
 
+The Bottom Border has two states, visible, or not visible.  When the Bottom Border is not visible the Paddle is visible.  When the border is visible there is no need to change any display character istics of the  Paddle.  The Paddle and the border are the same color, so they cover (blend in) with each other.
 
+The states could be managed by changing the color of the Bottom border using Blue/$96 when visible, and Black/$00 when not.  Provided Player/Missile priorities put Player/Missile graphics above Playfield pixels this would work successfully. 
+
+The game will use the same management for the Bottom Border as the Top Border.  Display List "subroutines" exist for each state of the Bottom Border, and the main Display List points to one of the routines (address at JMP_BOTTOM_BORDER (+2)).
+
+Again, since only the low byte changes in the Display List, there can never be a partial/incorrect address in the Main Display List which means it is not necessary to synchronize the change to ANTIC's current beam position.
+
+| State         | MAIN LMS                      | DLI COLPF0 | 
+| ------------- | ----------------------------- | ---------- | 
+| Border        | DISPLAY_LIST_BOTTOM_BORDER    | Blue/$96  | 
+| No Border     | DISPLAY_LIST_NO_BOTTOM_BORDER | N/A | 
 
 **Vertical Blank Interrupt**
 
