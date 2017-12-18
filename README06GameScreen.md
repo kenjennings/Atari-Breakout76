@@ -220,6 +220,13 @@ SCREEN_BORDER ; Solid horizontal border between left and right vertical borders.
 	.byte ~10000000,~00000000, ; Last brick pixel 
  ```
 
+Alternatively, the area of the top Border presents the external labels "PLAYER NUMBER" and "BALL IN PLAY".  These are pre-determined bit-mapped images.  Also, a dedicated Display List "subroutine" is created to display the image for the three states of the Top Border.  This is done with a JMP instruction pointing to one of the other three Display Lists.  (Located in the Main Display List at JMP_TOP_BORDER (+2).) Simply changing the low byte in the main Display List to point to one of the three Border image Display Lists "subroutines" causes the next frame to display the intended image.  Also, since only the low byte changes there can never be a partial/incorrect address in the Main Display List, so there is no need to synchronize the change to ANTIC's current beam position.
+
+| State         | MAIN LMS                  | DLI COLPF0 | DLI COLPF0 Flash |
+| ------------- | ------------------------- | ---------- | ---------------- |
+| Border        | DISPLAY_LIST_BORDER       | White/$0C  | N/A |
+| Player Number | DISPLAY_LIST_PLAYER_LABEL | Yellow/$1A | Black/$00 |
+| Ball In Play  | DISPLAY_LIST_BALL_LABEL   | Yellow/$1A | Black/$00 |
 
 **Numbers**
 
@@ -330,6 +337,7 @@ The Scores, Ball counter, and Player number are conceptually 3x5 "segments".  Ea
 | **TOP SPACING**  
 | 0 - 7      |               | $70  |                       |     |        |        | Necessary Spacing | 
 | 8 - 15     |               | $70  |                       |  Y  |    X   |        | DLI set COLPF0 to White/$0C or Yellow/$1A or black/$00 depending on state of Border or Labels |
+|            |               |      |                       |     |        |        | JMP_TOP_BORDER (+2) |
 | **TOP BORDER**
 | 16 - 23    | 1 - 8         | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BORDER |
 | **OR EXTERNAL LABELS - PLAYER NUMBER**
@@ -404,6 +412,7 @@ The Scores, Ball counter, and Player number are conceptually 3x5 "segments".  Ea
 | 193 - 200  | 178 - 185     | $70  |                       |     |        |        | 8 Blank Lines  |
 | 201 - 208  | 186 - 193     | $70  |                       |     |        |        | 8 Blank Lines  |
 | 209 - 211  | 194 - 196     | $20  |                       | Y   |     X  |     X  | 3 Blank Lines -- 123 total - DLI Set COLPF0, COLPF3 to Blue/$96 |
+|            |               |      |                       |     |        |        | JMP_BOTTOM_BORDER (+2) |
 | **PADDLE-BOTTOM BORDER**
 | 212 - 219  |  197 - 204    | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BOTTOM_BORDER |
 | **OR NO BOTTOM BORDER**
