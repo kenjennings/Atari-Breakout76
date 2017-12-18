@@ -202,7 +202,7 @@ At the end the Accumulator contains a Brick number 0 through 13, or the value $F
 
 IF X >= BRICK_X_START AND X <= BRICK_X_START+5 THEN ... this is a brick.
 
-This looks simply in pseudo-BASIC, but in 6502 assembly this requires several comparison instruction and branch instructions.  The lookup table uses 7 bytes of data for each brick.  A single round of comparisons for one brick cannot fit inside seven bytes, so explicit code testing each range of Brick positions would be much larger and slower than the direct lookup method.   
+This looks simple in pseudo-BASIC, but in 6502 assembly this requires several comparison instruction and branch instructions.  The lookup table uses 7 bytes of data for each brick.  A single round of comparisons for one brick cannot fit inside seven bytes, so explicit code testing each range of Brick positions would be much larger and slower than the direct lookup method.   
 
 The comparison tests could be more memory efficient by reducing the test to a subroutine using different inputs per each brick. The tests would be driven by a table with less data per Brick than the direct lookup method. But in the end, this would still be far more execution time than the direct lookup method, and this routine is needed repeatedly per TV frame to evaluate Ball v Brick pixel collisions.
 
