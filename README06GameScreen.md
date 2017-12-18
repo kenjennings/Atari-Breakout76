@@ -11,6 +11,7 @@ Single Line resolution Player/Missile Graphics.
 - Missile 2 is Ball.
 - Player 0 is Paddle.
 - Paddle/COLPM0 is Blue/$96. 
+- Player/Missile highest priority above (on top of) Playfield.
 
 Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
 
