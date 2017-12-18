@@ -349,7 +349,6 @@ To "Flash" external labels simply toggle COLPF0 in the DLI between black/$00 and
 
 To "Flash" Scores, Player Number, or Ball counter the image must be drawn and erased, since each shares the same line with another value that may not be flashing.
 
-The Scores, Ball counter, and Player number are conceptually 3x5 "segments".  Each "segment" is vertically 3 scanlines tall. This is accomplished by one Mode C (1 scan line) and one Mode B (2 scan lines) instruction using LMS to reuse the same graphics memory for each mode line.
 
 **Main Display List**
 
