@@ -50,7 +50,7 @@ The next two sections with five red lines each make up the numbers at the top of
 
 The next section are eight lines of bricks with one row of data repeated to make bricks thtee scan lines tall.
 
-At the bottom there is no red line for the bottom border/paddle area.  When visible this repeats the same data used for the top border. 
+At the bottom there is no red line for the bottom border/paddle area.  When this is visible it repeats the same data used for the top border. 
 
 The vast majority of the display is made of empty scan lines lines displaying no bitmapped graphics at all.
 
