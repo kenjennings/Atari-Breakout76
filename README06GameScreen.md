@@ -122,9 +122,9 @@ BRICK_MASKS
 	.byte 12,~11110000,~00111111,13,~11100000,~01111111
 ```
 
-Bricks 0, 6, 7, 8 fit completely within the first byte of screen mememory, therefore the mask for the second byte turns off no bits.  The value of that mask ($FF) may be used as the trigger to skip masking the second byte.  Or if the same algorithm applies to all conditions the $FF mask value insures no change occurs to the second byte in screen memory.
+Bricks 0, 6, 7, 8 fit completely within the first byte of screen memory, therefore the mask for the second byte turns off no bits.  The value of that mask ($FF) may be used as the trigger to skip masking the second byte.  Or if the same algorithm applies to all conditions the $FF mask value insures no change occurs to the second byte in screen memory.
 
-Solving one issue causes another. Each array entry is three bytes, so the brick number has to be multiplied by 3 on the 6502 which does not have a multiplication instruction.  In this case, it takes only a few steps to multiply by 3, so it is a reasonable amount of code to do this directly.  If this were a value such as 42 a larger, slower, more generlized routine would be better.  Multiplication by three can be done by adding to itself:
+Solving one issue causes another. Each array entry is three bytes, so the brick number has to be multiplied by 3 to acquire the correct offset to the array entry for the row.  This is complicated by the fact the 6502 does not have a multiplication instruction.  In this case, it takes only a few steps to multiply by 3, so it is a reasonable amount of code to do this directly.  If this were a value such as 42, then a larger, slower, more generalized routine would be better.  Multiplication by 3 can be done by adding to itself:
 
 ```asm
 ; Assume brick number is in Accumulator
