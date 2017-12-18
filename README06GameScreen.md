@@ -82,11 +82,11 @@ Removing bricks is a different problem.  This must be done on an individual, bri
 	                 ------^^  ^^^^----
  ```
  
-The indicated brick overlaps two separate bytes.  Removing the brick from the screen requires manipulating two bytes of memory.  Also notice that both bytes include the data for other bricks.  Removing the brick from the screen requires manipulating only the parts of the two bytes of memory without disturbing the parts belonging to the other bricks.   This problem of different offset and different masks varies for each brick.
+The indicated brick overlaps two separate bytes and the two bytes also include the data for other bricks. Removing the brick from the screen requires manipulating two bytes of memory and manipulating only the parts of the two bytes without disturbing the parts belonging to the other bricks.  This problem of different offset and different masks varies for each brick.
 
 So, given a mask to remove the six bits of one brick: ~00000011   Each brick position needs a shift value to move the mask left or right depending on its position within each byte.  Any excess bits shifted into the mask that are not to be removed must be shifted in as "1" bits.  The 6502 does not have variable distance bit shifting, or 16-bit shifting, so this mask calculation activity will be time consuming to work out the correct alignment of two different masks.
 
-Rather than listing the mask shift directions for each Brick, manually calculate the final mask values and use these for the table.
+To improve the table and simplify the supporting logic, rather than listing the mask shift directions for each Brick, pre-calculate the final mask values and use these for the table.
 
 Given Brick identification (i.e. the number of the Brick in the horizontal row) these are the variables: 
 - First byte offset from the beginning of the row.  
