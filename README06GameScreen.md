@@ -62,7 +62,7 @@ The game will also need other reference data supporting the graphics display, bu
 
 **Bricks**
 
-The bricks are centered on the screen, 7 bricks to the left, 7 to the right.  Since the last brick does not need a trailing space that makes the line an uneven number of pixels which cannot be centered perfectly.  The center for the game is defines one pixel to the right of true center on the screen.  
+The bricks are centered on the screen, 7 bricks to the left, 7 to the right.  Since the last brick does not need a trailing space that makes the line an uneven number of pixels which cannot be centered perfectly.  The center for the game is defined one pixel to the right of true center on the screen.  
 
 ```asm
 SCREEN_BRICKS ; 14 bricks between left and right borders 
@@ -72,6 +72,43 @@ SCREEN_BRICKS ; 14 bricks between left and right borders
 	.byte ~01111110,~11111101,~11111011,~11110111,~11101111,~11011111, 
 	.byte ~10000000,~00000000, ; Last brick pixel
  ```
+ 
+Drawing bricks to the screen requires no exceptional behavior.  There is no need to add bricks to the display individually.  New Bricks are always added when the game refreshes the entire screen with a complete set of 8 rows of Bricks. This is easy to do by copying from a master reference (as defined above) to the screen memory for each row.
+
+Removing bricks is a different problem.  This must be done on an individual, brick-by-brick basis.  Observe the third brick in the row defined here:
+
+```asm
+	.byte ~11111101,~11111011,~11110111,~11101111,~11011111,~10111111
+	                 ------^^  ^^^^----
+ ```
+ 
+The indicated brick overlaps two separate bytes.  Removing the brick from the screen requires manipulating two bytes of memory.  Also notice that both bytes include the data for other bricks.  Removing the brick from the screen requires manipulating only the parts of the two bytes of memory without disturbing the parts belonging to the other bricks.   This problem of different offset and differnt masks varies for each brick.
+
+Given a brick these are the variables: 
+- First byte offset from the beginning of the row.  
+- Mask to remove the target brick from the byte.
+- Optional mask to remove the target brick from the second byte.
+
+Given a target brick number (0 to 13) a table can be created with the entries:
+
+| Brick | Offset | Mask 1    | Mask 2 |
+| ----- | ------ | ------    | ------ | 
+| 0     | +2     | ~00000011 | ~11111111 |
+| 1     | +2     | ~11111110 | ~00000111 |
+| 2     | +3     | ~11111100 | ~00001111 |
+| 3     | +4     | ~11111000 | ~00011111 |
+| 4     | +5     | ~11110000 | ~00111111 |
+| 5     | +6     | ~11100000 | ~01111111 |
+| 6     | +7     | ~11000000 | ~11111111 |
+| 7     | +8     | ~10000001 | ~11111111 |
+| 8     | +9     | ~00000011 | ~11111111 |
+| 9     | +9     | ~11111110 | ~00000111 |
+| 10    | +10    | ~11111100 | ~00001111 |
+| 11    | +11    | ~11111000 | ~00011111 |
+| 12    | +12    | ~11110000 | ~00111111 |
+| 12    | +13    | ~11100000 | ~01111111 |
+
+Bricks 0, 6, 7, 8 fit completely within the first byte of screen mememory, therefore the mask for the second byte turns off no bits.  The value of that mask ($FF) could be used as a trigger to skip masking the second byte.  Or if the same algorithm applies to all conditions the $FF mask value insures no change occurs to the second byte in screen memory.
  
 **Top Border**
 
@@ -107,23 +144,15 @@ Numbers are sized like bricks -- 7 color clocks wide using six for the image, an
 
 (Yes, that's abusing github's emoji to display a simulated bitmap.)
 
-Since screen memory represents a bitmap of 8 pixels/color clocks per byte, the numbers displayed at different positions on the screen are not aligned to the bytes of screen memory and may occupy parts of two bytes in screen memeory.  This complicates drawing numbers on the screen.  Rendering numbers requires masking and shifting number images together with screen memory.  The variations of calculation can be minimized by a lookup table that relates a number position on screen to an offset to screen memory, a mask to isolate the space the number occupies in screen memory, and shift information for the number image.
-
-Observe the third brick in the row defined here:
-
-```asm
-	.byte ~11111101,~11111011,~11110111,~11101111,~11011111,~10111111
-	                 ------^^  ^^^^----
- ```
- 
-The indicated brick overlaps two separate bytes.  Removing the brick from the screen requires manipulating two bytes of memory.  Also notice that both bytes include the data for other bricks.  Removing the brick from the screen requires manipulating only the parts of the two bytes of memeory without disturbing the parts belonging to the other bricks.   This problem of different offset and differnt masks varies for each brick.
-
+Since screen memory represents a bitmap of 8 pixels/color clocks per byte, the numbers displayed at different positions on the screen are not aligned to the bytes of screen memory and may occupy parts of two bytes in screen memeory.  Like the problem with removing Bricks, this arrangement complicates drawing numbers on the screen.  Rendering numbers requires masking and shifting number images together with screen memory.  The variations of calculation can be minimized by a lookup table that relates a number position on screen to an offset to screen memory, a mask to isolate the space the number occupies in screen memory, and shift information for the number image.
 
 ============
 
-explain lookup table
+explain lookup table for numbers
 
 ============
+
+
 
 
 
