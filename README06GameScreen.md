@@ -124,7 +124,7 @@ BRICK_MASKS
 
 Bricks 0, 6, 7, 8 fit completely within the first byte of screen memory, therefore the mask for the second byte turns off no bits.  The value of that mask ($FF) may be used as the trigger to skip masking the second byte.  Or if the same algorithm applies to all conditions the $FF mask value insures no change occurs to the second byte in screen memory.
 
-Solving one issue causes another. Each array entry is three bytes, so the brick number has to be multiplied by 3 to acquire the correct offset to the array entry for the row.  This is complicated by the fact the 6502 does not have a multiplication instruction.  In this case, it takes only a few steps to multiply by 3, so it is a reasonable amount of code to do this directly.  If this were a value such as 42, then a larger, slower, more generalized routine would be better.  Multiplication by 3 can be done by adding to itself:
+Solving one issue causes another. Each array entry is three bytes, so the brick number has to be multiplied by 3 to acquire the correct offset to the array entry for the row.  This is complicated by the fact the 6502 does not have an explicit multiplication instruction.  In this case, it takes only a few steps to multiply by 3, so it is a reasonable amount of code to do this directly.  If this were a value such as 42, then a larger, slower, more generalized routine would be better.  Multiplication by 3 can be done by adding to itself:
 
 ```asm
 ; Assume brick number is in Accumulator
@@ -152,9 +152,9 @@ Alternatively, multiplication times 3 could be done like the code below which is
 ; . . .
 ``` 
 
-ASL, Arithmetic Shift Left, effectively multiplies the value of the accumulator by 2.  Adding the original value (saved in TEMP_3) to the shifted result then is the same as multiplying times 3.  Again, like the previous example carry would not be an issue for the ASL or the ADC.
+ASL, Arithmetic Shift Left, shifts all the bits in the Accumulator left one position which effectively multiplies the value of the accumulator by 2.  Adding the original value (saved in TEMP_3) to the shifted result then is the same as multiplying times 3.  Again, like the previous example carry would not be an issue for the ASL or the ADC in this code.
 
-There is always a different wat to get from point A to point B. Because the Brick values are small, contiguous, and begin at 0, the fastest possible conversion from Brick number to array index can be done by direct lookup from another array:
+There is always a different way to get from point A to point B. Because the Brick values are small, contiguous, and begin at 0, the fastest possible conversion from Brick number to array index can be done by direct lookup from another array:
 
 ```asm
 ; Assume brick number is in Accumulator
@@ -166,19 +166,19 @@ TIMES_3
 	.byte 0,3,6,9,12,15,18,21,24,27,30,33,36,39
 ``` 
 
-The executable code is 3 or 4 bytes depending on the memory location of the TIMES_3 lookup table. This makes it the smallest, fastest code for execution.  However, the lookup table is 14 bytes, so at a total 17 or 18 bytes, this requires the most memory.  Complicated examples requiring more code would benefit have greater execution v memory usage with the table lookup method.
+The executable code is 3 or 4 bytes depending on the memory location of the TIMES_3 lookup table. This makes it the smallest, fastest code for execution.  However, the lookup table is 14 bytes, so at a total 17 or 18 bytes, this requires the most memory.  Complicated examples requiring more code would benefit with a greater execution v memory  ratio using the table lookup method.
 
-The next question is how does the code go from a screen coordinate, effectively a pixel number in the row to the identification of a specific brick?  A nearly usable formula for this is:
+The next question is how does the code go from a screen coordinate -- effectively a pixel number in the row -- to the identification of a specific brick?  A nearly usable formula for this is:
 
 (PIXEL_COORDINATE - LEFT_EDGE_OF_PLAYFIELD) / 7
 
-Almost, but not quite. There is an empty pixel between each brick which should not be counted as a brick.  In order to distinguish Brick from blank space the actual pixel position must be tested and if a pixel is present then it can be treated as a brick number.  The master data for a filled-in row of bricks is exactly the test data needed for this test.
+Almost, but not quite. There is an empty pixel between each brick which should not be counted as a brick.  In order to distinguish Brick from blank space the actual pixel position must be tested and if a pixel is present then it can be treated as a brick number.  The master data for a filled-in row of bricks is exactly the data needed for this test.
 
-However, this line of thinking is going down a rabbit trail that leads to suffering.  Since the bricks are not aligned to bytes then converting horizontal coordinates to a byte in screen memory isn't accomplishing much more than adding confusion.  The conversion from horizontal coordinates to a brick number is easiest to solve and understand by simply creating a lookup table that provides the Brick number at each horizontal coordinate or a flag value for the blank spaces to indicate it is not a brick. 
+However, this line of thinking is going down a rabbit trail that leads to suffering.  Since bricks are not aligned to bytes then converting horizontal coordinates to a byte offset in screen memory isn't accomplishing much more than adding confusion.  The conversion from horizontal coordinates to a brick number is easiest to solve and understand by simply creating a lookup table that provides the Brick number at each horizontal coordinate or a flag value for the blank spaces to indicate it is not a Brick. 
 
 On the surface this would seem to require a table with an entry for every possible screen coordinate (0 to 127) for pixels.   However, the game aspect skips the first two bytes (16 pixels) of screen memory and since those coordinates will never be used, then they need not appear in the lookup table.
 
-Additionally, in the game's implementation the coordinate lookup is based on the position of Player/Missile graphics (the position of the ball).  This differs from pixel coordinates, but the same rule applies as for the screen memory horizontal coordinates -- there is a fixed, minimum coordinate for the left side of the screen.  Positions further left cannot be used, and so this coordinate can be treated as the base or zero value to normalize the coordinates.  This base will is referred to as "LEFT_EDGE_OF_PLAYFIELD".  Subtracting this from the current coordinate (of the ball) converts the coordinate to match the screen dimensions where the base or 0 is the left coordinate.
+Additionally, in the game's implementation the coordinate lookup is based on the position of Player/Missile graphics (the position of the ball).  This differs from pixel coordinates, but the same rule applies as for the screen memory horizontal coordinates -- there is a fixed, minimum coordinate for the left side of the screen.  Positions further left cannot be used, and so this position can be treated as the base or zero value to normalize the coordinates.  This base will is referred to as "LEFT_EDGE_OF_PLAYFIELD".  Subtracting this from the current coordinate (of the ball) converts the coordinate to match the screen dimensions where the base is the left edge coordinate.
 
 Therefore, the code to convert a horizontal coordinate to a Brick number is this (almost the same as the lookup code for multiplying times 3):
 
@@ -196,15 +196,15 @@ POS_TO_BRICK
 	.byte 2,2,2,2,2,2,$FF
 	. . .
 	.byte 12,12,12,12,12,12,$FF
-	.byte 13,13,13,13,13,13,$FF
+	.byte 13,13,13,13,13,13
 ``` 
 At the end the Accumulator contains a Brick number 0 through 13, or the value $FF indicating the pixel is not a brick value. This implementation will be large(ish) requiring one byte for each pixel coordinate on screen (97 bytes).  However, the alternative is fourteen tests for the coordinates...   The assembly equivalent of:
 
 IF X >= BRICK_X_START AND X <= BRICK_X_START+5 THEN ... this is a brick.
 
-Comparisons require several 6502 instructions along with branching.  The lookup table uses 7 bytes of data for each brick.  A single round of comparisons for one brick cannot fit inside seven bytes, so explicit code testing each range of Brick positions would be much larger and slower than the direct lookup method.   
+This looks simply in pseudo-BASIC, but in 6502 assembly this requires several comparison instruction and branch instructions.  The lookup table uses 7 bytes of data for each brick.  A single round of comparisons for one brick cannot fit inside seven bytes, so explicit code testing each range of Brick positions would be much larger and slower than the direct lookup method.   
 
-The comparison tests could be more memory efficient by reducing the test to a subroutine using different inputs per each brick. The tests would be driven by a table with less data per Brick than the direct lookup method. But in the end, this would still be far more execution time than the direct lookup method, and this routine is needed repeatedly per TV frame to evaluate ball v Brick pixel collisions.
+The comparison tests could be more memory efficient by reducing the test to a subroutine using different inputs per each brick. The tests would be driven by a table with less data per Brick than the direct lookup method. But in the end, this would still be far more execution time than the direct lookup method, and this routine is needed repeatedly per TV frame to evaluate Ball v Brick pixel collisions.
 
 
 **Top Border**
