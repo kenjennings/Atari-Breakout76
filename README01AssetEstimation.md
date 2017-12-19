@@ -76,11 +76,11 @@ When the game is a solid horizontal Border the width of the screen replaces the 
 
 **PLAYER, BALL COUNTER, and SCORES**:
 
-![Game Score](Breakout_bw_startup_crop_number_area.png?raw=true "Game Score")
+![Numbers](Breakout_bw_startup_crop_number_area.png?raw=true "Numbers")
 
 The current Player number, the Ball Counter, and the Scores appear in the blank area above the Bricks.  The Ball travels through this area and straight through any of the numbers without being deflected.  This maximizes use of the playfield's vertical space to nearly the entire CRT display height.
 
-![Game Score](Breakout_bw_startup_crop_number.png?raw=true "Game Score")
+![A Number](Breakout_bw_startup_crop_number.png?raw=true "A Number")
 
 These numbers are large, tall objects on screen. The numbers and the space between them match the width of the bricks below them, so the math is already done -- horizontally, the numbers including the space between them are 7 color clocks wide.  The height of the number area is identical to the size of the bricks -- about 63 pixels tall.  Scaled to the Atari dimensions this is 32.76 scan lines per line of numbers which includes the blank space below each number.  Therefore the vertical size of a number will be 16 scan lines including a blank scan line to separate the numbers.
 
