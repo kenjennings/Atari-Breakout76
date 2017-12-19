@@ -199,11 +199,18 @@ POS_TO_BRICK
 	.byte 12,12,12,12,12,12,$FF
 	.byte 13,13,13,13,13,13
 ``` 
-At the end the Accumulator contains a Brick number 0 through 13, or the value $FF indicating the pixel is not a brick value. This implementation will be large(ish) requiring one byte for each pixel coordinate on screen (97 bytes).  However, the alternative is fourteen tests for the coordinates...   The assembly equivalent of:
+At the end the Accumulator contains a Brick number 0 through 13, or the value $FF indicating the pixel is not a brick value. This implementation will be large(ish) requiring one byte for each pixel coordinate on screen (97 bytes).  However, the alternative is logic performing fourteen sequential tests for the coordinates...   It would be the equivalent of doing this comparison for each of the 14 Bricks:
 
-IF X >= BRICK_X_START AND X <= BRICK_X_START+5 THEN ... this is a brick.
+```asm
+	IF X >= BRICK_X_START AND X <= BRICK_X_START+5 THEN ... this is a Brick.
+```
 
-This looks simple in pseudo-BASIC, but in 6502 assembly this requires several comparison instruction and branch instructions.  Depending on how this is actually done -- roughly 10 bytes of code to evaluate if coordinates are in a specific brick.
+This looks simple in pseudo-BASIC, but in 6502 assembly it requires several comparison instruction and branch instructions.  Depending on how this is actually done it is roughly 10 bytes of code to evaluate if coordinates are in a specific brick.  Reversing the logic to exclude a coordinate from consideration as a brick rather than checking for inclusion saves comparisons, since "Less Than OR Equal To" requires two comparison instructions. The statement above with reversed logic would be:   
+```asm
+	IF X < BRICK_X_START AND X > BRICK_X_START+5 THEN ... this is NOT a Brick.
+```
+
+The same in 6502 assembly:
 
 ```asm
 ; Assume horizontal coordinate is in Accumulator.
@@ -211,7 +218,7 @@ This looks simple in pseudo-BASIC, but in 6502 assembly this requires several co
 ; . . .
 	cmp #14
 	bcc NOT_BRICK_2 ; Less than 14, so not brick 2.
-	cmp #20
+	cmp #20         ; Note, 20 not 19.  If 19 was used then another comparison is needed for equality.
 	bcs NOT_BRICK_2 ; Greater than or equal to 20, so not brick 2.
 	lda #2          ; Tell caller it is brick 2.
 	jmp SOMEPLACE_USEFUL
@@ -221,7 +228,7 @@ NOT_BRICK_2
 	jmp SOMEPLACE_USEFUL
 ```
 
-The lookup table uses 7 bytes of data for each brick.  A single round of comparisons for one brick cannot fit inside seven bytes, so explicit code testing each range of Brick positions would be larger and quite a bit slower than the direct lookup method.
+By comparison, the lookup table method uses 7 bytes of data for each brick.  A single round of comparisons for one brick would be toough to fit inside seven bytes.  Explicit code testing each range of Brick positions is unavoidably much slower than the direct lookup method.
 
 The comparison tests could be more memory efficient by reducing the test to a subroutine using different inputs per each brick. The tests would be driven by a table with less data per Brick than the direct lookup method. But in the end, this would still be far more execution time than the direct lookup method, and this routine is needed repeatedly per TV frame to evaluate Ball v Brick pixel collisions.
 
