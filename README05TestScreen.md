@@ -67,7 +67,7 @@ But, it appears atasm optimizes load file segments by sorting and consolidating 
 
 Use with caution.  Your Mileage Will Definitely Vary.
 
-Therefore, when building with atasm maximum effectiveness of the disk load feature to enable Title screens, animation, music, etc. during program load time requires separate builds of the parts and concatenating the programs together. 
+Therefore, when building with atasm the maximum effective use of the disk load feature to enable Title screens, animation, music, etc. during program load time requires separate builds of the parts and concatenating the resulting load files together. 
 
 =============================================================================
 
