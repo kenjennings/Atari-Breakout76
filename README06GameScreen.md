@@ -79,8 +79,8 @@ Drawing bricks to the screen requires no exceptional behavior.  There is no need
 Removing bricks is a different problem.  This must be done on an individual, brick-by-brick basis.  Observe the third brick in the row defined here:
 
 ```asm
-	.byte ~11111101,~11111011,~11110111,~11101111,~11011111,~10111111
-	                 ------^^  ^^^^----
+	11111101 11111011 11110111 11101111 11011111 10111111
+	         ------^^ ^^^^----
  ```
  
 The indicated Brick overlaps two separate bytes and the two bytes also include the data for other Bricks. Removing the brick from the screen requires manipulating two bytes of memory and altering only the bits for ythe target Brick without disturbing the bits belonging to the other Bricks.  The Bricks are in various positions within the bitmaps and require different masks.
@@ -266,13 +266,64 @@ Numbers are sized like bricks -- 7 color clocks wide using six for the image, an
 
 (Yes, that's abusing github's emoji to display a simulated bitmap.)
 
-Since screen memory represents a bitmap of 8 pixels/color clocks per byte, the numbers displayed at different positions on the screen are not aligned to the bytes of screen memory and may occupy parts of two bytes in screen memeory.  Like the problem with removing Bricks, this arrangement complicates drawing numbers on the screen.  Rendering numbers requires masking and shifting number images together with screen memory.  The variations of calculation can be minimized by a lookup table that relates a number position on screen to an offset to screen memory, a mask to isolate the space the number occupies in screen memory, and shift information for the number image.
+Unlike Bricks, the Numbers have the problem of individually drawing AND removing them from the screen where Bricks only need to be removed.  Since screen memory represents a bitmap of 8 pixels/color clocks per byte, the numbers displayed at different positions on the screen are not aligned to the bytes of screen memory and may occupy parts of two bytes in screen memeory.  Like the problem with removing Bricks, this arrangement complicates drawing numbers on the screen.  Rendering numbers requires masking and shifting number images together with screen memory.  
 
-============
+The numbers are conveniently aligned to Brick positions, which allows reusing significant parts of the Brick masking logic for the numbers:
 
-explain lookup table for numbers
+![Numbers](Breakout_bw_startup_crop_number_area.png?raw=true "Numbers")
 
-============
+The "Player Number" value is in Brick position 0.  The "Ball In Play" value is in Brick position 8.  Interestingly, (and conveniently), both positions use the same mask values in the Bricks' mask table. 
+
+The Player One score on the left uses Brick positions 0, 1, 2 and 3.   The positions 1, 2, and 3 display default to "0".  The arcade game uses position 0 when the score overflows past 999 points.  It is not possible for the arcade version to exceed 9,999 points due to a bug.  The Atari computer version will allow the game to continue as long as there are balls left, so it will be possible to exceed 9,999.  In this case the displayed score will roll over to 000.
+
+The Player Two score on the left uses Brick positions 8, 9, 10, and 11.   Like Player One, the positions 9, 10, and 11 display default  "0".  The arcade game uses position 8 when the score overflows past 999 points.  Score handling and roll over is the same as Player One.
+
+Given the number "4" image in a series of bytes:
+```asm
+	11001100 
+	11001100
+	11111100
+	00001100
+	00001100
+```
+
+Aligning the number to the third Brick position on screen requires shifting the image across two bytes:
+```asm
+	11111101 11111011 11110111 11101111 11011111 10111111
+	         ------^^ ^^^^----
+	               11 001100 
+	               11 001100
+	               11 111100
+	               00 001100
+	               00 001100
+```
+
+In this case the value is shifted 6 bits right for the first byte, and the same image shifted shifted left two bits for the second byte.
+
+Also note that the "image" is actually only the first 6 bits of the 8 bit byte.  The last two zeros would be masked out when writing in screen memory, so they do not overwrite other Number images in screen memeory.
+
+Drawing a number requires managing the following information relative to a target position on the screen:
+- First byte offset from the beginning of the row of screen memory.  
+- Pre-calculated mask to remove the target number from the byte.
+- Optional mask to remove the target number from the second byte.
+- Number of bits to Right Shift the number bitmap image in the first byte. 
+- Number of bits to Left Shift the number bitmap image in the second byte.
+
+| Position | Offset | Mask 1    | Mask 2    | First Byte Right Shift | Second Byte Left Shift |
+| -------- | ------ | ------    | --------- | ---------------------- | ---------------------- |
+| 0        | +2     | ~00000011 | ~11111111 | 0                      | $FF  (N/A)             |
+| 1        | +2     | ~11111110 | ~00000111 | 7                      | 1                      |
+| 2        | +3     | ~11111100 | ~00001111 | 6                      | 2                      |
+| 3        | +4     | ~11111000 | ~00011111 | 5                      | 3                      |
+| . . . |  |     |  |  |  |
+| 8        | +9     | ~00000011 | ~11111111 | 0                      | $FF  (N/A)             |
+| 9        | +9     | ~11111110 | ~00000111 | 7                      | 1                      |
+| 10       | +10    | ~11111100 | ~00001111 | 6                      | 2                      |
+| 11       | +11    | ~11111000 | ~00011111 | 5                      | 3                      |
+
+Conveniently, the masks and shifting for positions 0, 1, 2, and 3 are identical to the data for positions 8, 9, 10, and 11 which provides an opportunity for optimization.
+
+Removing the shifting work would require creating pre-shifted images of all the numbers for direct lookup.  Ten numbers, times 5 bytes of screen data per number, times two possible shifted byte results for each original byte, times the four shifted positions needed is a total of 400 bytes for a direct lookup table.  
 
 **Bottom Border**
 
