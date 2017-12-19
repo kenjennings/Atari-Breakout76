@@ -367,6 +367,8 @@ VBI Establishes:
 
 **Display Memory Map**
 
+The Atari game only needs to use the Missiles and Player 0 in the Player/Missile memory map.  Most of the memory map, six pages, or 1.5K is unused.  These conveniently reserved pages of memory house the playfield memory assets:
+
 | Base   | Memory        | Offset        | Notes |
 | ---    | ---           | ---           | ---   |
 | PMBASE | +$000 - +$0FF |               | Unused Page 0, Player/Missile base address |
