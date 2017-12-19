@@ -330,7 +330,36 @@ Drawing a number requires managing the following information relative to a targe
 
 Conveniently, the masks and shifting for positions 0, 1, 2, and 3 are identical to the data for positions 8, 9, 10, and 11 which provides an opportunity for optimization.
 
-Removing the shifting work would require creating pre-shifted images of all the numbers for direct lookup.  Ten numbers, times 5 bytes of screen data per number, times two possible shifted byte results for each original byte, times the four shifted positions needed is a total of 400 bytes for a direct lookup table.  
+Writing a number is then:
+
+SCREEN MEMORY:
+```asm
+	11111101 11111011 11110111 11101111 11011111 10111111
+```
+
+AND MASK
+```asm
+	         11111100 00001111
+```
+
+RESULT
+```asm
+	11111101 11111000 00000111 11101111 11011111 10111111
+```
+
+NUMBER SHIFTED
+```asm
+	               11 001100 
+```
+
+OR SCREEN MEMORY, RESULT
+```asm
+	11111101 11111011 00110111 11101111 11011111 10111111
+```
+
+Removing the shifting work would require creating pre-shifted images of all the numbers for direct lookup.  Ten numbers, times 5 bytes of screen data per number, times two possible shifted byte results for each original byte, times the four shifted positions needed is a total of 400 bytes for a direct lookup table.  This is more than a full page, so the table would need to be subdivided and/or more calculation needed to find the appropriate elements which negates some of the execution efficiency.
+
+The hybrid algorithmic solution with some lookup tables is a reasonable amount of memory use combined with code.
 
 **Bottom Border**
 
