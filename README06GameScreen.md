@@ -385,7 +385,7 @@ VBI Establishes:
 |        |               | +$0C0 - +$0CF | LABEL_BALL_LINE6 |
 |        |               | +$0D0 - +$0DF | LABEL_BALL_LINE7 |
 |        |               | +$0E0 - +$0EF | BORDER_LINE |
-|        |               | +$0F0 - +$0FF | Unused |
+|        |               | +$0F0 - +$0FF | Unused 16 bytes|
 | PMBASE | +$100 - +$1FF |               | Unused Page 1 |
 |        |               | +$100 - +$10F | PLAYER_AND_BALL_LINE1 |
 |        |               | +$110 - +$11F | PLAYER_AND_BALL_LINE2 |
@@ -397,7 +397,7 @@ VBI Establishes:
 |        |               | +$170 - +$17F | SCORES_LINE3 |
 |        |               | +$180 - +$18F | SCORES_LINE4 |
 |        |               | +$190 - +$19F | SCORES_LINE5 |
-|        |               | +$1A0 - +$1FF | unused |
+|        |               | +$1A0 - +$1FF | Unused 96 bytes |
 | PMBASE | +$200 - +$2FF |               | Unused Page 2 |
 |        |               | +$200 - +$20F | BRICKS_LINE1 |
 |        |               | +$210 - +$21F | BRICKS_LINE2 |
@@ -407,18 +407,19 @@ VBI Establishes:
 |        |               | +$250 - +$25F | BRICKS_LINE6 |
 |        |               | +$260 - +$26F | BRICKS_LINE7 |
 |        |               | +$270 - +$27F | BRICKS_LINE8 |
-|        |               | +$280 - +$2FF | unused |
+|        |               | +$280 - +$2FF | Backup of bricks buffer for other player. |
 | PMBASE | +$300 - +$3FF |               | Missiles bitmap (Borders, Ball) |
 | PMBASE | +$400 - +$4FF |               | Player 0 bitmap (Paddle) |
 | PMBASE | +$500 - +$5FF |               | Player 1 bitmap UNUSED |
 |        |               | +$500 -       | Main Display List (approx 150 bytes) |
 | PMBASE | +$600 - +$6FF |               | Player 2 bitmap UNUSED |
 |        |               | +$600 -       | Display List "Subroutines" |
-| PMBASE | +$700 - +$7FF |               | Player 3 bitmap UNUSED |
-|        |               | +$700 - +$77F | Backup of bricks buffer for other player.  |
-|        |               | +$780 - +$7FF | unused |
+| PMBASE | +$700 - +$7FF |               | Player 3 bitmap UNUSED | |
+|        |               | +$700 - +$7FF | Unused 256 bytes|
 
 Related lines of screen data occur within the same page in memory.  Code moving between adjacent rows of screen memeory only need to alter the low byte of addesses to reference the next row. 
+
+After laying out the graphics resources over the Player/Missile memory map there is still 112 bytes in two pages unused plus the full 256 bytes of the Player 3 bitmap is untouched.  Other game resources and variables may be placed there. 
 
 **Other Notes**
 
