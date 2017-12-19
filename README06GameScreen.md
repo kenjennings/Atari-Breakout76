@@ -83,7 +83,7 @@ Removing bricks is a different problem.  This must be done on an individual, bri
 	                 ------^^  ^^^^----
  ```
  
-The indicated brick overlaps two separate bytes and the two bytes also include the data for other bricks. Removing the brick from the screen requires manipulating two bytes of memory and manipulating only the parts of the two bytes without disturbing the parts belonging to the other bricks.  This problem of different offset and different masks varies for each brick.
+The indicated Brick overlaps two separate bytes and the two bytes also include the data for other Bricks. Removing the brick from the screen requires manipulating two bytes of memory and altering only the bits for ythe target Brick without disturbing the bits belonging to the other Bricks.  The Bricks are in various positions within the bitmaps and require different masks.
 
 So, given a mask to remove the six bits of one brick: ~00000011   Each brick position needs a shift value to move the mask left or right depending on its position within each byte.  Any excess bits shifted into the mask that are not to be removed must be shifted in as "1" bits.  The 6502 does not have variable distance bit shifting, or 16-bit shifting, so this mask calculation activity will be time consuming to work out the correct alignment of two different masks.
 
@@ -167,17 +167,17 @@ TIMES_3
 	.byte 0,3,6,9,12,15,18,21,24,27,30,33,36,39
 ``` 
 
-The executable code is 3 or 4 bytes depending on the memory location of the TIMES_3 lookup table. This makes it the smallest, fastest code for execution.  However, the lookup table is 14 bytes, so at a total 17 or 18 bytes, this requires the most memory.  Complicated examples requiring more code would benefit with a greater execution v memory  ratio using the table lookup method.
+The executable code is 3 or 4 bytes depending on the memory location of the TIMES_3 lookup table. (Though it would be rather wasteful to occupy so much space in page 0 with this table.)  This makes it the smallest, fastest code for execution.  However, the lookup table is 14 bytes, so at a total 17 or 18 bytes, this requires the most memory.  Complicated examples requiring more code would benefit from a greater execution v memory ratio using the table lookup method.
 
 The next question is how does the code go from a screen coordinate -- effectively a pixel number in the row -- to the identification of a specific brick?  A nearly usable formula for this is:
 
 (PIXEL_COORDINATE - LEFT_EDGE_OF_PLAYFIELD) / 7
 
-Almost, but not quite. There is an empty pixel between each brick which should not be counted as a brick.  In order to distinguish Brick from blank space the actual pixel position must be tested and if a pixel is present then it can be treated as a brick number.  The master data for a filled-in row of bricks is exactly the data needed for this test.
+Almost, but not quite. There is an empty pixel between each Brick which should not be counted as a Brick.  In order to distinguish Brick from blank space the actual pixel position must be tested and if a pixel is present then it can be treated as a Brick number.  The master data for a filled-in row of Bricks is exactly the data needed for this test.
 
-However, this line of thinking is going down a rabbit trail that leads to suffering.  Since bricks are not aligned to bytes then converting horizontal coordinates to a byte offset in screen memory isn't accomplishing much more than adding confusion.  The conversion from horizontal coordinates to a brick number is easiest to solve and understand by simply creating a lookup table that provides the Brick number at each horizontal coordinate or a flag value for the blank spaces to indicate it is not a Brick. 
+However, this line of thinking is going down a rabbit trail that leads to suffering.  Since Bricks are not aligned to bytes then converting horizontal coordinates to a byte offset in screen memory isn't accomplishing much more than adding confusion.  The conversion from horizontal coordinates to a Brick number is easiest to solve and understand by simply creating a lookup table that provides the Brick number at each horizontal coordinate or a flag value for the blank spaces to indicate it is not a Brick. 
 
-On the surface this would seem to require a table with an entry for every possible screen coordinate (0 to 127) for pixels.   However, the game aspect skips the first two bytes (16 pixels) of screen memory and since those coordinates will never be used, then they need not appear in the lookup table.
+On the surface this would seem to require a table with an entry for every possible screen coordinate (0 to 127) for pixels.   However, the game screen aspect skips the first two bytes (16 pixels) of screen memory and since those coordinates will never be used, then they need not appear in the lookup table.
 
 Additionally, in the game's implementation the coordinate lookup is based on the position of Player/Missile graphics (the position of the ball).  This differs from pixel coordinates, but the same rule applies as for the screen memory horizontal coordinates -- there is a fixed, minimum coordinate for the left side of the screen.  Positions further left cannot be used, and so this position can be treated as the base or zero value to normalize the coordinates.  This base will is referred to as "LEFT_EDGE_OF_PLAYFIELD".  Subtracting this from the current coordinate (of the ball) converts the coordinate to match the screen dimensions where the base is the left edge coordinate.
 
@@ -203,10 +203,27 @@ At the end the Accumulator contains a Brick number 0 through 13, or the value $F
 
 IF X >= BRICK_X_START AND X <= BRICK_X_START+5 THEN ... this is a brick.
 
-This looks simple in pseudo-BASIC, but in 6502 assembly this requires several comparison instruction and branch instructions.  The lookup table uses 7 bytes of data for each brick.  A single round of comparisons for one brick cannot fit inside seven bytes, so explicit code testing each range of Brick positions would be much larger and slower than the direct lookup method.   
+This looks simple in pseudo-BASIC, but in 6502 assembly this requires several comparison instruction and branch instructions.  Depending on how this is actually done -- roughly 10 bytes of code to evaluate if coordinates are in a specific brick.
+
+```asm
+; Assume horizontal coordinate is in Accumulator.
+; Test for Brick 2 which has coordinates from 14 to 19.
+; . . .
+	cmp #14
+	bcc NOT_BRICK_2 ; Less than 14, so not brick 2.
+	cmp #20
+	bcs NOT_BRICK_2 ; Greater than or equal to 20, so not brick 2.
+	lda #2          ; Tell caller it is brick 2.
+	jmp SOMEPLACE_USEFUL
+; . . .
+NOT_BRICK_2
+	lda #$FF       ; Tell caller this is not a brick.
+	jmp SOMEPLACE_USEFUL
+```
+
+The lookup table uses 7 bytes of data for each brick.  A single round of comparisons for one brick cannot fit inside seven bytes, so explicit code testing each range of Brick positions would be larger and quite a bit slower than the direct lookup method.
 
 The comparison tests could be more memory efficient by reducing the test to a subroutine using different inputs per each brick. The tests would be driven by a table with less data per Brick than the direct lookup method. But in the end, this would still be far more execution time than the direct lookup method, and this routine is needed repeatedly per TV frame to evaluate Ball v Brick pixel collisions.
-
 
 **Top Border**
 
