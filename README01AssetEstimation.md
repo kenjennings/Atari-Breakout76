@@ -100,15 +100,15 @@ The Breakout arcade game is output only in black and white video.  However, colo
 
 Looking at the screen holistically leads to the conclusion that the game needs seven colors on the screen.  (background/black, white, the four brick colors, and blue for the Paddle/bottom border.)  This is incorrect when the screen display is considered from the point of view of the Atari's graphics capabilities.  This will be discussed later in the Implementation section.
 
-=============================================================================
-
-**PREVIOUS Section 00: Introduction**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README00Intro.md )
+---
 
 **NEXT Section 02: Audio**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md )
 
-=============================================================================
+**PREVIOUS Section 00: Introduction**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README00Intro.md )
+
+---
 
 **Back To Beginning**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
