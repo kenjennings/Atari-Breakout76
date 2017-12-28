@@ -1,8 +1,8 @@
 # Atari-Breakout76 INTRODUCTION
 
-. | **START** | .
---- | :---: | ---:
- | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | 
+ . | **START** | . 
+--- | :---: | ---: 
+. | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | .
  
 ---
 
