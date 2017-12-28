@@ -29,15 +29,15 @@ Basic input controls on the Title/Configuration screen:
 - Start key: Start game
 - Paddle button: Start game
 
-=============================================================================
-
-**PREVIOUS Section 04: Choosing Atari Parts**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
+---
 
 **NEXT Section 04-2: Game Screen Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md )
 
-=============================================================================
+**PREVIOUS Section 04: Choosing Atari Parts**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
+
+---
 
 **Back To Beginning**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
