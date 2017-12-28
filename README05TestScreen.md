@@ -79,5 +79,4 @@ Therefore, when building with atasm the maximum effective use of the disk load f
 
 ---
 
-**Back To Beginning**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
+**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
