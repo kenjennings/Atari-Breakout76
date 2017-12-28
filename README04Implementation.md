@@ -1,5 +1,11 @@
 # Atari-Breakout76 Choosing Atari Parts
 
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Gameplay]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md "Gameplay" ) | [. . . README . . .]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README" ) | [Title Screen Atari Parts . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md "Title Screen Atari Parts" ) 
+
+---
+
 **IMPLEMENTATION**
 
 The Atari is a highly flexible system and lends itself to creative thinking.  The playfield display is completely programmable allowing a game to easily mix graphics and text modes and blank lines at any vertical position of the screen.  Graphics and text on adjacent lines need not be contiguous in memory.  
@@ -22,12 +28,6 @@ Also, the display hardware is generating a signal for NTSC with color informatio
 
 ---
 
-**NEXT Section 04-1: Title Screen Atari Parts**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md )
-
-**PREVIOUS Section 03: Gameplay**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md )
-
----
-
-**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Gameplay]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md "Gameplay" ) | [. . . README . . .]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README" ) | [Title Screen Atari Parts . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md "Title Screen Atari Parts" ) 
