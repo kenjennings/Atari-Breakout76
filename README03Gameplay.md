@@ -1,5 +1,11 @@
 # Atari-Breakout76 GAMEPLAY
 
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Audio]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md "Audio" ) | [. . . README . . .]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README" ) | [Implementation . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md "Implementation" ) 
+
+---
+
 **GAMEPLAY**:
 
 **OVERVIEW**:
@@ -28,12 +34,6 @@ Breakout is so often immitated, because the game concept is so simple.  Breakout
 
 ---
 
-**NEXT Section 04: Implementation**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
-
-**PREVIOUS Section 02: Audio**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md )
-
----
-
-**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Audio]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md "Audio" ) | [. . . README . . .]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README" ) | [Implementation . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md "Implementation" ) 
