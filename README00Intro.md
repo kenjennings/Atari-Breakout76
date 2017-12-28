@@ -6,7 +6,7 @@ According to Wikipedia ( https://en.wikipedia.org/wiki/Breakout_(video_game)), t
 
 An important fact here is that Breakout is a very early arcade game built from digital logic chips.  There is no CPU, no program executing, so no source code.  Therefore any programmable system is only simualting the behaviors.  I have no Breakout system of my own, and even if I did I have inadequate electronics background to dissect the electronics.  This limits me to guesses from watching how the game behaves in pictures and videos on the internet.
 
-=============================================================================
+---
 
 **Section 01: Display Asset Estimation**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README01AssetEstimation.md )
@@ -35,7 +35,7 @@ An important fact here is that Breakout is a very early arcade game built from d
 **Section 07: Title Screen**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md )
 
-=============================================================================
+---
 
 **Back To Beginning**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
