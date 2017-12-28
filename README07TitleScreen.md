@@ -30,8 +30,7 @@ The screen needs a couple interrupts for management.  The Vertical Blank Interru
 
 ---
 
-**PREVIOUS Section 06: Game Screen**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md )
+**PREVIOUS Section 06:** [Game Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen")
 
 ---
 
