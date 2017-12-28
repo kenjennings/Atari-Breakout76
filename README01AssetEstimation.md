@@ -110,5 +110,4 @@ Looking at the screen holistically leads to the conclusion that the game needs s
 
 ---
 
-**Back To Beginning**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
+**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
