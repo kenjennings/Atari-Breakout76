@@ -30,5 +30,4 @@ Also, the display hardware is generating a signal for NTSC with color informatio
 
 ---
 
-**Back To Beginning**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
+**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
