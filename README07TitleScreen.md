@@ -12,7 +12,7 @@ THe title "B R E A K O U T" will be written in the four game colors.  (Yellow, g
 
 Prompts/directions:
 
-- USE JOYSTICK OR KEYS
+- USE PADDLE OR BUTTONS
 - OPTION CHOOSES TOPIC
 - SELECT CHOOSES VALUE
 - START TO BEGIN GAME
@@ -28,12 +28,11 @@ No custom character set.
 
 The screen needs a couple interrupts for management.  The Vertical Blank Interrupt will manage the title animation (color cycling).  A Display List interrupt will switch colors between the title area, and the user interface area.
 
-=============================================================================
+---
 
 **PREVIOUS Section 06: Game Screen**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md )
 
-=============================================================================
+---
 
-**Back To Beginning**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
+**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
