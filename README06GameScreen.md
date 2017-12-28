@@ -1,7 +1,7 @@
 # Atari-Breakout76 Game Screen Details
 
 **PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
---- | :---: | ---:
+:--- | :---: | ---:
 [:arrow_left: . . . Test Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md "Test Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | [Title Screen . . . :arrow_right:](https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen") 
  
 ---
@@ -628,6 +628,6 @@ To "Flash" Scores, Player Number, or Ball counter the image must be drawn and er
 ---
 
 **PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
---- | :---: | ---:
+:--- | :---: | ---:
 [:arrow_left: . . . Test Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md "Test Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | [Title Screen . . . :arrow_right:](https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen") 
  
