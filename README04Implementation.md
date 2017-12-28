@@ -20,15 +20,15 @@ Also, the display hardware is generating a signal for NTSC with color informatio
 
 **Sidebar:** Color artifacts at resolutions greater than the television color clock is a concerning visual defect common to all systems which generate pixels smaller than the color clock timing.  The degree and amount of color fringing depends on how well the pixel divides into the color clock.  These visual behaviors seen on CRT displays are often NOT addressed by modern emulators on high resultion LCD monitors.  Emulators usually present impossibly perfect displays that do not occur in the real world on the original hardware.  Systems like the Atari, Amiga, Apple, etc. that evenly divide pixels into the color clock timing produce consistent color artifacts.  Other systems with oddly timed pixels that disregard the color clock standard produce color artifacts that vary depending on where the pixels occur on the screen (C64, NES, etc.)
 
-=============================================================================
-
-**PREVIOUS Section 03: Gameplay**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md )
+---
 
 **NEXT Section 04-1: Title Screen Atari Parts**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md )
 
-=============================================================================
+**PREVIOUS Section 03: Gameplay**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md )
+
+---
 
 **Back To Beginning**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
