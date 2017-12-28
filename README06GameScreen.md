@@ -629,5 +629,4 @@ To "Flash" Scores, Player Number, or Ball counter the image must be drawn and er
 
 ---
 
-**Back To Beginning**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
+**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
