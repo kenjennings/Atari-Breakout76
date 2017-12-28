@@ -1,5 +1,11 @@
 # Atari-Breakout76 Title Screen
 
+**PREVIOUS SECTION** | **START** | **NEXT SECTION**
+--- | :---: | ---:
+[:arrow_left: . . . Game Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") |  
+ 
+---
+
 **TITLE SCREEN**
 
 I am so tempted to embellish this to stupid extremes, but that is the intention for Breakout-GECE.  (Control!  You must learn control!  -Yoda)
@@ -30,8 +36,8 @@ The screen needs a couple interrupts for management.  The Vertical Blank Interru
 
 ---
 
-**PREVIOUS Section 06:** [Game Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen")
-
+**PREVIOUS SECTION** | **START** | **NEXT SECTION**
+--- | :---: | ---:
+[:arrow_left: . . . Game Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") |  
+ 
 ---
-
-**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
