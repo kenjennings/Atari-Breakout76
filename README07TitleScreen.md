@@ -1,6 +1,6 @@
 # Atari-Breakout76 Title Screen
 
-**PREVIOUS SECTION** | **START** 
+**PREVIOUS SECTION** | **Back To START** 
 --- | :---: 
 [:arrow_left: . . . Game Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") 
  
@@ -36,8 +36,7 @@ The screen needs a couple interrupts for management.  The Vertical Blank Interru
 
 ---
 
-**PREVIOUS SECTION** | **START** 
+**PREVIOUS SECTION** | **Back To START** 
 --- | :---: 
 [:arrow_left: . . . Game Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") 
  
----
