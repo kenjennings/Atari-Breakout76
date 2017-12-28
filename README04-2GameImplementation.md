@@ -123,15 +123,15 @@ Observe the screen in detail.  Only one color is needed on any horizontal line. 
 
 Conceptually, the display list interrupts function similar to the plastic strips - they temporarily change the appearance of the only playfield color register at specific rows on the screen.
 
-=============================================================================
-
-**PREVIOUS Section 04-1: Title Screen Atari Parts**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md )
+---
 
 **NEXT Section 05: Atari Test Screen**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md )
 
-=============================================================================
+**PREVIOUS Section 04-1: Title Screen Atari Parts**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md )
+
+---
 
 **Back To Beginning**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
