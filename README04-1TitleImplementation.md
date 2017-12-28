@@ -35,6 +35,8 @@ Basic input controls on the Title/Configuration screen:
 - Start key: Start game
 - Paddle button: Start game
 
+Paddle rotation may also be used to select the values.  Without a "Back" button it is not practical to represent heirarchical input.  So, the entire set of configurable items would be treated as a flat list for the sake of paddle input.  The paddle position would move immediately to any item on the list and the paddle button chooses the selection.  The interface code will need to enforce mutual exclusion of choices under the same configuration item. 
+
 ---
 
 **PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
