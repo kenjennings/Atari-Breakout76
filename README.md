@@ -21,32 +21,23 @@ The display should be fairly simple to maintain a reasonable immitation of the o
 
 ---
 
-**Section 00: Introduction**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README00Intro.md )
+**Section 00:** [Introduction]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README00Intro.md "Introduction")
 
-**Section 01: Display Asset Estimation**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README01AssetEstimation.md )
+**Section 01:** [Display Asset Estimation]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README01AssetEstimation.md "Display Asset Estimation" )
 
-**Section 02: Audio**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md )
+**Section 02:** [Audio]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md "Audio" )
 
-**Section 03: Gameplay**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md )
+**Section 03:** [Gameplay]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md "Gameplay" )
 
-**Section 04: Choosing Atari Parts**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md )
+**Section 04:** [Choosing Atari Parts]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04Implementation.md "Choosing Atari Parts" )
 
-**Section 04-1: Title Screen Atari Parts**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md )
+**Section 04-1:** [Title Screen Atari Parts]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md "Title Screen Atari Parts" )
 
-**Section 04-2: Game Screen Atari Parts**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md )
+**Section 04-2:** [Game Screen Atari Parts]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md "Game Screen Atari Parts" )
 
-**Section 05: Atari Test Screen**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md )
+**Section 05:** [Atari Test Screen]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md "Atari Test Screen" )
 
-**Section 06: Game Screen**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md )
+**Section 06:** [Game Screen]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen" )
 
-**Section 07: Title Screen**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md )
+**Section 07:** [Title Screen]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen" )
+
