@@ -619,16 +619,15 @@ To "Flash" Scores, Player Number, or Ball counter the image must be drawn and er
 |            |               | JMP  |      |     |        |        | Jump to RETURN_END_BOTOM_BORDER |
 
 
-=============================================================================
-
-**PREVIOUS Section 05: Test Screen**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md )
-
+---
 
 **NEXT Section 07: Title Screen**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md )
 
-=============================================================================
+**PREVIOUS Section 05: Test Screen**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md )
+
+---
 
 **Back To Beginning**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
