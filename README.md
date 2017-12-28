@@ -1,7 +1,7 @@
 # Atari-Breakout76
 Currently Work In Progress..
 
-=============================================================================
+---
 
 This is a simple Breakout clone for Atari 8-bit computers approximating the look and feel of the original arcade Breakout released by Atari in 1976 (without the bugs).
 
@@ -9,7 +9,7 @@ The overarching goal here is to maintain visual presentation and play action as 
 
 Or, you could just get an emulator to play the original game.
 
-=============================================================================
+---
 
 The real purpose of this is to create a modular framework for working on game projects that I can understand and sustain. (Your Mileage May Vary.)  
 
@@ -19,7 +19,7 @@ Therefore, the idea here is to force a more stringent modularization of the code
 
 The display should be fairly simple to maintain a reasonable immitation of the original arcade Breakout video game.  The scope of Atari's bells and whistles will be focused on implementing visuals, sound, and behavior as similar as possible to the original game rather than on unnecessary embellishments.
 
-=============================================================================
+---
 
 **Section 00: Introduction**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README00Intro.md )
