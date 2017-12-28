@@ -1,5 +1,11 @@
 # Atari-Breakout76 GAME SCREEN ATARI PARTS
 
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Title Screen Atari Parts]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md "Title Screen Atari Parts") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | [Atari Test Screen . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md "Atari Test Screen") 
+
+---
+
 **GAME SCREEN ATARI PARTS**
 
 **DEMO MODE**:
@@ -125,12 +131,7 @@ Conceptually, the display list interrupts function similar to the plastic strips
 
 ---
 
-**NEXT Section 05: Atari Test Screen**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md )
-
-**PREVIOUS Section 04-1: Title Screen Atari Parts**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md )
-
----
-
-**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Title Screen Atari Parts]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-1TitleImplementation.md "Title Screen Atari Parts") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | [Atari Test Screen . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md "Atari Test Screen") 
+ 
