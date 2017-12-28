@@ -622,8 +622,8 @@ To "Flash" Scores, Player Number, or Ball counter the image must be drawn and er
 ---
 
 **PREVIOUS SECTION** | :heavy_minus_sign: :heavy_minus_sign: :heavy_minus_sign: | **NEXT SECTION**
---- | --- | ---:
-:Left_Arrow: [Test Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md "Test Screen") | | [Title Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen") :Right_Arrow:
+:--- | --- | ---:
+:left_arrow: [Test Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md "Test Screen") | | [Title Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen") :right_arrow:
  
 ---
 
