@@ -69,16 +69,15 @@ Use with caution.  Your Mileage Will Definitely Vary.
 
 Therefore, when building with atasm the maximum effective use of the disk load feature to enable Title screens, animation, music, etc. during program load time requires separate builds of the parts and concatenating the resulting load files together. 
 
-=============================================================================
-
-**PREVIOUS Section 04-2: Game Screen Atari Parts**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md )
-
+---
 
 **NEXT Section 06: Game Screen**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md )
 
-=============================================================================
+**PREVIOUS Section 04-2: Game Screen Atari Parts**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md )
+
+---
 
 **Back To Beginning**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
