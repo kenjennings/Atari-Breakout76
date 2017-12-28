@@ -1,5 +1,11 @@
 # Atari-Breakout76 DISPLAY ASSET ESTIMATION
 
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Introduction]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README00Intro.md "Introduction" ) | [. . . README . . .]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README" ) | [Audio . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md "Audio" ) 
+
+---
+
 **DISPLAY ASSET ESTIMATION**:
 
 Arcade Breakout's screen display is black and white, but is not an ordinary black and white television.  It is a specialized, dedicated monitor with a very tall aspect.  The display exhibits the expected CRT behavior just like a TV -- "pixels" are drawn in horizontal scan lines.  Vertically stacked scan lines create the complete display.  "Pixels" may be stretching what the Breakout hardware actually does as the modern use of the word implies a memory value directly related to each dot on the display. The dedicated digital logic does not implement memory-mapped pixels in this sense.  "Pixels" are signals triggered by logic conditions.  (I saw a video of Woz discussing the game wherein he reveals the game had 256 bits of memory -- enough to count the bricks.)  
@@ -102,12 +108,6 @@ Looking at the screen holistically leads to the conclusion that the game needs s
 
 ---
 
-**NEXT Section 02: Audio**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md )
-
-**PREVIOUS Section 00: Introduction**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README00Intro.md )
-
----
-
-**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Introduction]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README00Intro.md "Introduction" ) | [. . . README . . .]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README" ) | [Audio . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README02Audio.md "Audio" ) 
