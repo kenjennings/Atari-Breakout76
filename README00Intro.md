@@ -1,6 +1,6 @@
 # Atari-Breakout76 INTRODUCTION
 
- . | **START** | . 
+ . | **Back To START** | . 
 --- | :---: | ---: 
 . | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | .
  
@@ -43,7 +43,7 @@ An important fact here is that Breakout is a very early arcade game built from d
 
 ---
 
-. | **START** | .
+. | **Back To START** | .
 --- | :---: | ---:
 . | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | .
  
