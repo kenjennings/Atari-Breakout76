@@ -1,7 +1,7 @@
 # Atari-Breakout76 ATARI TEST SCREEN
 
 **PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
---- | :---: | ---:
+:--- | :---: | ---:
 [:arrow_left: . . . Game Screen Atari Parts]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md "Game Screen Atari Parts") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | [Game Screen . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen") 
 
 ---
@@ -78,6 +78,6 @@ Therefore, when building with atasm the maximum effective use of the disk load f
 ---
 
 **PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
---- | :---: | ---:
+:--- | :---: | ---:
 [:arrow_left: . . . Game Screen Atari Parts]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README04-2GameImplementation.md "Game Screen Atari Parts") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | [Game Screen . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen") 
  
