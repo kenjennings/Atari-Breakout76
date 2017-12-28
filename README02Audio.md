@@ -1,5 +1,11 @@
 # Atari-Breakout76 AUDIO
 
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Display Asset Estimation]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README01AssetEstimation.md "Display Asset Estimation" ) | [. . . README . . .]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README" ) | [Gameplay . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md "Gameplay" ) 
+
+---
+
 **AUDIO**:
 
 So far three apparent sounds ....
@@ -18,12 +24,6 @@ Some emulators play a  tone with a slight warble, click, or interruption in the 
 
 ---
 
-**NEXT Section 03: Gameplay**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md )
-
-**PREVIOUS Section 01: Display Asset Estimation**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README01AssetEstimation.md )
-
----
-
-**Back To Beginning** [README](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Display Asset Estimation]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README01AssetEstimation.md "Display Asset Estimation" ) | [. . . README . . .]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README" ) | [Gameplay . . . :arrow_right:]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md "Gameplay" ) 
