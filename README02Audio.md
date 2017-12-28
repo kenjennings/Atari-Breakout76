@@ -16,15 +16,15 @@ The change in score is immediate, but the tones play while the ball continues mo
 
 Some emulators play a  tone with a slight warble, click, or interruption in the audio.  This could be an artifact of slow emulation of the hardware rather than actual hardware behavior.
 
-=============================================================================
-
-**PREVIOUS Section 01: Display Asset Estimation**
-- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README01AssetEstimation.md )
+---
 
 **NEXT Section 03: Gameplay**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README03Gameplay.md )
 
-=============================================================================
+**PREVIOUS Section 01: Display Asset Estimation**
+- ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README01AssetEstimation.md )
+
+---
 
 **Back To Beginning**
 - ( https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md )
