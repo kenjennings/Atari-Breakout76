@@ -1,5 +1,11 @@
 # Atari-Breakout76 Game Screen Details
 
+**PREVIOUS SECTION** | **START** | **NEXT SECTION**
+--- | :---: | ---:
+[:arrow_left: . . . Test Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md "Test Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | [Title Screen . . . :arrow_right:](https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen") 
+ 
+---
+
 **GAME SCREEN DETAILS**
 
 **Player/Missile Graphics**
