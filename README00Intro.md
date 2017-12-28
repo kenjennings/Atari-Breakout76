@@ -37,8 +37,8 @@ An important fact here is that Breakout is a very early arcade game built from d
 
 ---
 
- | **START** | 
+. | **START** |  
 --- | :---: | ---:
- | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | 
+. | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | .
  
 ---
