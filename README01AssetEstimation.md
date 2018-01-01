@@ -56,7 +56,7 @@ The left and right Borders work out to two Atari pixels (color clocks) wide.
 
 ![Game Ball](Breakout_bw_startup_crop_ball.png?raw=true "Game Ball")
 
-The Ball is the smallest, visible, discrete object in Breakout and is noticeable NOT square -- it appears wider than it is tall.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between Bricks appear smaller than the Ball's width. 
+The Ball is the smallest, visible, discrete object in Breakout and is noticeably NOT square -- it appears wider than it is tall.  While it is the smallest "lit" object it does not correspond to the smallest visible signal control for Breakout.  The vertical gaps between Bricks appear smaller than the Ball's width. 
 
 On the screen grab the Ball is about six pixels wide by four pixels tall.  Per the Atari pixel scale it is approximately two scan lines tall.  Horizontally, it is one and a half color clocks wide.  Rounding to one color clock makes the ball appear taller than wide which is the wrong effect.  Rounding to two color clocks makes the ball wider than tall, but is then noticeably larger than the ball appears in Breakout. 
 
