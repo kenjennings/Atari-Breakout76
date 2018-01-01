@@ -16,17 +16,36 @@ This is a brutal game of violence and terror*.  The game is simple in concept an
 
 The game begins at a difficulty level any child could handle and quickly progresses to a speed only the twitchiest paddle jockey can survive.  But, oddly, people still love to play this game and to be humiliated by it over and over.  This is a good indicator that the game play is nicely balanced between human play time vs difficulty progression.  An easy game becomes boring.  A game perceived as impossible or that feels like it cheats the player discourages repeat play.  Many games with poor play planning simply overwhelm the player with enemies to the point where it is literally impossible to progress or win by either a human or a computer.  However, the mechanics of Breakout make it feel like it is the player's responsibility for losing the game, not that the game robbed the player.  The player can clearly see the ball, but doesn't turn the Paddle controller in time to hit the Ball.  The player is trying to hit the Ball on the edge of the Paddle to change the Ball's direction and misses.  The only one to blame is the player.
 
-Breakout is so often immitated, because the game concept is so simple.  Breakout implementations have been a frequent rite of passage for thousands of programmers from beginners learning programming to experienced programmers learning a new language, to commercial game production houses looking to squeeze more money from a concept that refuses to die.  But, as often as not, the result can be poor or clumsy compared to the original Breakout.  Programmers, especially new ones, often over-think the game play and implement behavior that is not in the game.  Simple alterations in the game play can make the game too easy to be interesting.  Sloppy play handling and inconsistent collision detection can make the game too difficult to be playable.  The arcade game playability topics are visited below. . .  
+Breakout is so often immitated, because the game concept is so simple.  Breakout implementations have been a frequent rite of passage for thousands of programmers from beginners learning programming to experienced programmers learning a new language, to commercial game production houses looking to squeeze more money from a concept that refuses to die.  But, as often as not, the result can be poor or clumsy compared to the original Breakout.  Programmers, especially new ones, often over-think the game play and implement behavior that is not in the game.  Simple alterations in the game play can make the game too easy to be interesting.  Sloppy play handling and inconsistent collision detection can make the game criminally difficult to be playable.   The arcade game playability topics are visited below. . .  
 
 
 **SERVE**:
 
+TBD: 
+Player number flashes
+
+Ball Number flashes.
+
+Serve is automatic or requires pressing serve button?
+
 
 **BRICKS, POINTS**:
 
+Bricks in the Yellow row are worth 1 point.
+
+Bricks in the Green row are worth 3 points.
+
+Bricks in the Orance row are worth 5 points.
+
+Bricks in the Red row are worth 7 points.
+
+The game plays one tone for each point added.  However, the game adds all the points to the player's score immediately.  Therefore, for high point bricks the game will need to multi-task the tones over a number of frames.
 
 **PADDLE**
 
+The paddle starts at normal width when the ball is served.  When the ball strikes the Top Border it changes to half size for the remainder of that turn.
+
+TBD: ??? Does the paddle support influencing the ball angle?  
 
 **REBOUNDs, COLLISIONS**:
 
