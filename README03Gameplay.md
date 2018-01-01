@@ -30,6 +30,15 @@ Breakout is so often immitated, because the game concept is so simple.  Breakout
 
 **REBOUNDs, COLLISIONS**:
 
+The arcade implementation is simple: 
+- When the Ball strikes the Left or Right vertical borders the Ball is deflected in the horizontal directions.  
+- When the Ball strikes a Brick it is deflected in the opposite vertical direction.  
+- After striking a Brick the Ball will not be deflected by another Brick until it first rebounds from the Top Border or the Paddle.
+
+Most of the time the Breakout game behavior requires the player rebound the Ball with the Paddle for each Brick destroyed. 
+
+Many implementations overthink the collision behavior and make everything deflect the ball all the time.  This allows the ball to rebound repetetively between bricks.  At the least it severely reduces the game difficulty depriving the player of an authentic Breakout experience.  In some situations these games have a ball size, brick size, and motion direction that can work together to trap a ball in the line between two rows creating a zipper effect that wipes out two rows at a time.
+
 ---
 
 **PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
