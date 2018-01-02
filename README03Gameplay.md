@@ -10,7 +10,7 @@
 
 **OVERVIEW**:
 
-This is a brutal game of violence and terror*.  The game is simple in concept and unforgiving in execution.  Conceived at a time when most "arcade" games were electromechanical tests of skill this game is designed to suction a quarter out of the player's pocket as fast as the player's feeble skills permit.  A typical player is not expected to clear all the bricks from one screen, much less two. In fact, the real game hardware only lasts through the second screen and then glitches out after that.
+This is a brutal game of violence and terror*.  The game is simple in concept and unforgiving in execution.  Breakout was conceived at a time when most "arcade" games were electromechanical tests of skill on a timer.  This game is not timed, but still succeeds in suctioning a quarter out of the player's pocket as fast as the player's feeble skills permit.  In theory, a great player can play forever.  In the case of Breakout it is only theory.  A typical player is not expected to clear all the bricks from one screen, much less two.  There is no way to earn more balls.  In fact, the real game hardware only lasts through the second screen and then glitches out after that.  Every game is finite.
 
 (* not really)
 
