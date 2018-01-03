@@ -35,7 +35,7 @@ Bricks in the Yellow row are worth 1 point.
 
 Bricks in the Green row are worth 3 points.
 
-Bricks in the Orance row are worth 5 points.
+Bricks in the Orange row are worth 5 points.
 
 Bricks in the Red row are worth 7 points.
 
