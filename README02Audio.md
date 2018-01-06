@@ -10,11 +10,11 @@
 
 So far three apparent sounds ....
 
-| Object  | Sound Pitch |
-| ------- | ----------- |
-| Paddle  | High        | 
-| Borders | Medium      | 
-| Bricks  | Low         | 
+Object  | Sound  | Pitch/Freq
+------- | ----------- | ---------
+Paddle  | High        | ? 
+Borders | Medium      | B/987.767 Hz
+Bricks  | Low         | ?
 
 The score counter increment relates to the sounds played. One strike on a Yellow Brick causes one point added to the score, and one tone.  One strike to a Green Brick adds three points to the score, and plays three tones. And so forth: Five tones for Orange, and 7 tones for Red.  
 
