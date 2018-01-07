@@ -14,11 +14,11 @@ The individual tones were isolated from a YouTube video of gameplay on actual ha
 
 This was a very dodgy process.  I expected to find a sine or square wave, but in most cases the samples are filled with tremendous noise.  The sample for the Paddle barely has shape.  The sample for the Border is a marvelous sine.  The sample for the Bricks/score increment seems like a very sloppy sawtooth.  In the end, this has involved more guessing than expected:  
 
-Object  | Sound  | Pitch/Freq | Duration
-------- | ------- | --------- | ----
-Paddle  | High    | B6/2010 Hz | 31 ms (2 frames)
-Borders | Medium  | B5/987 Hz | 85 ms (5 frames)
-Bricks  | Low     | B4/488 Hz | 31 ms (2 frames)
+Object  | Sound  | Pitch/Freq | Duration | POKEY AUDF at 64KHz
+--- | --- | --- | ---- | ---
+Paddle  | High    | B6/2010 Hz | 31 ms (2 frames)  | 14
+Borders | Medium  | B5/987 Hz | 85 ms (5 frames) | 31
+Bricks  | Low     | B4/488 Hz | 31 ms (2 frames) | 64
 
 The score counter increment relates to the sounds played. One strike on a Yellow Brick causes one point added to the score, and one tone.  One strike to a Green Brick adds three points to the score, and plays three tones. And so forth: Five tones for Orange, and 7 tones for Red.  
 
