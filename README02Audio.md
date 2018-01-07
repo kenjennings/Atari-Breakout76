@@ -22,7 +22,7 @@ Bricks  | Low     | B4/488 Hz | 31 ms (2 frames) | 64
 
 The score counter increment relates to the sounds played. One strike on a Yellow Brick causes one point added to the score, and one tone.  One strike to a Green Brick adds three points to the score, and plays three tones. And so forth: Five tones for Orange, and 7 tones for Red.  
 
-The change in score is immediate, but the tones play while the ball continues moving.  The ball movement does not stop for the audio. The multiple-tone playback will need to be multi-tasking to continue.
+The change in score is immediate, but the tones play while the ball continues moving.  The ball movement does not stop for the audio. The multiple-tone playback will need a multi-tasking sound system to allow game movement to continue simultaneously during sound management over multiple frames.
 
 ---
 
