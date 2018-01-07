@@ -14,7 +14,7 @@ The individual tones were isolated from a YouTube video of gameplay on actual ha
 
 Object  | Sound  | Pitch/Freq
 ------- | ----------- | ---------
-Paddle  | High        | B6/2000 Hz 
+Paddle  | High        | B6/2010 Hz 
 Borders | Medium      | B5/987 Hz
 Bricks  | Low         | B4/488 Hz
 
