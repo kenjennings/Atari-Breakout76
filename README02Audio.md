@@ -10,11 +10,13 @@
 
 So far three apparent sounds ....
 
+The individual tones were isolated from a YouTube video of gameplay on actual hardware.  The mono waveform was analyzed in Audacity and the loudest/dominant frequency is reported below.
+
 Object  | Sound  | Pitch/Freq
 ------- | ----------- | ---------
-Paddle  | High        | ? 
-Borders | Medium      | B/987.767 Hz
-Bricks  | Low         | ?
+Paddle  | High        | B6/2000 Hz 
+Borders | Medium      | B5/987 Hz
+Bricks  | Low         | B4/488 Hz
 
 The score counter increment relates to the sounds played. One strike on a Yellow Brick causes one point added to the score, and one tone.  One strike to a Green Brick adds three points to the score, and plays three tones. And so forth: Five tones for Orange, and 7 tones for Red.  
 
