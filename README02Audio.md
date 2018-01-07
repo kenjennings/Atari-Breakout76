@@ -16,7 +16,7 @@ This was a very dodgy process.  I expected to find a sine or square wave, but in
 
 Object  | Sound  | Pitch/Freq | Duration | POKEY AUDF at 64KHz
 --- | --- | --- | ---- | ---
-Paddle  | High    | B6/2010 Hz | 31 ms (2 frames)  | 14
+Paddle  | High    | B6/2010 Hz | 31 ms (2 frames)  | 15
 Borders | Medium  | B5/987 Hz | 85 ms (5 frames) | 31
 Bricks  | Low     | B4/488 Hz | 31 ms (2 frames) | 64
 
