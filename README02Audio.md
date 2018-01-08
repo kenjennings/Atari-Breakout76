@@ -16,9 +16,9 @@ Analysis in Audacity was a very dodgy process.  One would expect primitive hardw
 
 Since the the Border tone waveform shape appears so well formed I theorize that the Breakout hardware has an oscillator/clock to generate the Border sound to which it then applies other digital logic manipulating that into the higher and lower frequencies for the Paddle and Brick/Score sounds.
 
-A test program on the Atari that repeatedly plays short tones and uses the keyboard to change the pitch was used while simultaneously playing the game samples in Audacity to compare the tones on the Atari to the Breakout game.  This confirmed the dominant pitch reported in Audacity is the correct tone.
+A test program on the Atari that repeatedly plays short tones and uses the keyboard to change the pitch was used while simultaneously playing the game samples in Audacity.  Comparing the tones confirmed the dominant pitch reported in Audacity is the correct frequency.
 
-In the end, the guessing session determined:   
+In the end, the audio guessing session determined:   
 
 Object  | Sound  | Pitch/Freq | Duration | POKEY AUDF at 64KHz
 --- | --- | --- | ---- | ---
