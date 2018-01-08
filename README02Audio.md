@@ -12,11 +12,11 @@ So far three apparent sounds ....
 
 The individual tones were isolated from a YouTube video of gameplay on actual hardware.  The mono waveform was analyzed in Audacity and the loudest/dominant frequency is determined to be the correct tone.  
 
-Analysis in Audacity was a very dodgy process.  I expected to find a sine or square wave, but in two out of three samples there is an amazing amount of noise.  Only the sample for the Border has a nice, recognizeable sine wave.  The sample for the Paddle barely has shape. The sample for the Bricks/score increment seems like a very sloppy triangle or sawtooth.  
+Analysis in Audacity was a very dodgy process.  One would expect primitive hardware from the 70s to generate a plain square wave, or at best a sine wave, but in two out of three samples there is an amazing amount of aberrant noise.  Only the sample for the Border has a nice, recognizeable sine wave.  The sample for the Paddle barely has shape. The sample for the Bricks/score increment seems like a very sloppy triangle or sawtooth.  
 
-Based on how well the shape for the Border tone appears I theorize that the Breakout hardware has an oscillator/clock to generate the Border sound and then applies other digital logic to manipulate that into the higher and lower frequencies for the Paddle and Brick/Score sounds.
+Since the the Border tone waveform shape appears so well formed I theorize that the Breakout hardware has an oscillator/clock to generate the Border sound to which it then applies other digital logic manipulating that into the higher and lower frequencies for the Paddle and Brick/Score sounds.
 
-I wrote a test program on the Atari that repeatedly plays short tones and uses the keyboard to change the pitch.  While running this program I also played the game samples in Audacity and compared the tones from the Atari to the Breakout game.  This confirmed the dominant pitch reported in Audacity is the correct tone.
+A test program on the Atari that repeatedly plays short tones and uses the keyboard to change the pitch was used while simultaneously playing the game samples in Audacity to compare the tones on the Atari to the Breakout game.  This confirmed the dominant pitch reported in Audacity is the correct tone.
 
 In the end, the guessing session determined:   
 
