@@ -8,7 +8,7 @@
 
 **ATARI TEST SCREEN**
 
-The test program, ![br76-test_screen.asm]( https://github.com/kenjennings/Atari-Breakout76/blob/master/br76-test_screen.asm "Test Program 1" ), builds a mock-up of the game screen using only pixels. (Every line is either ANTIC map mode B or C, where each displays pixels one color clock wide, and respectively, two scan lines, and one scan line tall).  The purpose is to verify the calculated size and placement of screen components is as correct as possible for the Atari screen v the original arcade aspect.  This is the result displayed in the Atari800 emulator:
+The test program, [br76-test_screen.asm]( https://github.com/kenjennings/Atari-Breakout76/blob/master/br76-test_screen.asm "Test Program 1"), builds a mock-up of the game screen using only pixels. (Every line is either ANTIC map mode B or C, where each displays pixels one color clock wide, and respectively, two scan lines, and one scan line tall).  The purpose is to verify the calculated size and placement of screen components is as correct as possible for the Atari screen v the original arcade aspect.  This is the result displayed in the Atari800 emulator:
 
 ![Test Screen](Breakout_bw_test_screen_cropped_with_border.png?raw=true "Test Screen")
 
@@ -30,7 +30,7 @@ The Paddle area on the Atari version is about one scan line lower than the arcad
 
 **ADDING COLOR**
 
-The second program, ![br76-test_screen_color.asm]( https://github.com/kenjennings/Atari-Breakout76/blob/master/br76-test_screen_color.asm "Test Program 2" ), adds to the original program by implementing display list interrupts to color the bricks and paddle line.  This requires assembly code for the display list interrupt.  The program also uses a vertical blank interrupt to force the display list interrupts to remain in sync with the screen.
+The second program, [br76-test_screen_color.asm]( https://github.com/kenjennings/Atari-Breakout76/blob/master/br76-test_screen_color.asm "Test Program 2" ), adds to the original program by implementing display list interrupts to color the bricks and paddle line.  This requires assembly code for the display list interrupt.  The program also uses a vertical blank interrupt to force the display list interrupts to remain in sync with the screen.
 
 In the arcade game there is only a black and white display and plastic overlays change the color at vertical rows on the screen tinting the lit, white pixels to another color.  It is mild irony that the display list interrupt is conceptually similar - this is only a two-color display on the Atari, and the display list interrupts execute at specific rows on the screen to change the color of the lit, white pixels temporarily to another color.  Here is the result:
 
@@ -65,15 +65,17 @@ Since we've made it to the point of treating the text like a bitmap image, why n
 
 **SIDEBAR: Irrelevant Minutia** 
 
-The first test program, br76-test_screen.asm, actually executes only one assembly language instruction; a JMP instruction as an infinite loop to prevent the program from returning imediately to the DOS menu.  Everything else about the program capitalizes on the Atari's structured, executable load file format.  The Display List and the screen data are loaded directly into defined locations in memory.  The same mechanism is used to update the Operating System shadow registers for the ANTIC controls for display width and Display List address, as well as the Shadow register for the color.   
+The first test program, [br76-test_screen.asm]( https://github.com/kenjennings/Atari-Breakout76/blob/master/br76-test_screen.asm "Test Program 1"), actually executes only one assembly language instruction; a JMP instruction as an infinite loop to prevent the program from returning imediately to the DOS menu.  Everything else about the program capitalizes on the Atari's structured, executable load file format.  The Display List and the screen data are loaded directly into defined locations in memory.  The same mechanism is used to update the Operating System shadow registers for the ANTIC controls for display width and Display List address, as well as the Shadow register for the color.   
 
-If I recall correctly (and I may not), Mac/65 would keep the disk load segments in the order in which they are encountered in the code.  Therefore loads could be defined within the main program loading allowing the load file to set up graphics at specific points during the load.
+Here is where Mac/65 and atasm behavior deviate.  Mac/65 would keep the disk load segments in the order in which they are encountered in the code.  Therefore loads from disk could be defined within the main program allowing the load file to set up graphics and execute code at specific points during the file loading.
 
-But, it appears atasm optimizes load file segments by sorting and consolidating address changes into related groups.  Because of this it is remotely possible that register changes setting the display occur out of sync with frame/VBI updates.  This has the potential to cause ANTIC to begin using different memory values for a Display List before the actual Display list loads into memory resulting in a trashed display.  This also has the remote possibility of crashing the Atari.
+But, atasm's default behavior optimizes load file segments by sorting and consolidating address changes into related groups.  Because of this it is remotely possible that register changes setting the display occur out of sync with the data loading for the display.  This has the potential to cause ANTIC to begin using memory for a Display List before the actual Display list loads into memory resulting in a trashed display.  This also has the remote possibility of crashing the Atari.
 
 Use with caution.  Your Mileage Will Definitely Vary.
 
-Therefore, when building with atasm the maximum effective use of the disk load feature to enable Title screens, animation, music, etc. during program load time requires separate builds of the parts and concatenating the resulting load files together. 
+Therefore, when building with atasm the maximum effective use of the disk load feature to enable Title screens, animation, music, etc. during program load time requires special consideration:
+- separate builds of the parts and concatenate the resulting load files together.
+- OR use the .bank and .set directives when a new memory load block is required to be loaded after prior data.
 
 ---
 
