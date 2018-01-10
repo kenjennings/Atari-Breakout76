@@ -46,7 +46,7 @@ Left and Right Borders extend the entire height of the screen.  Each is two colo
 
 Drawn as pixels, the borders require building the entire display of contiguous lines of graphics.  Likewise, if custom characters are used it requires the entire game screen must be built of character set graphics.  
 
-Player/Missile graphics can extend the height of the screen and go into the vertical overscan area.  It would require one Player or even just one Missile for each left and right border.  This would free the playfield for customization and variable graphics modes going down the screen.
+Player/Missile graphics can extend the height of the screen and go into the vertical overscan area.  It would require one Player or even just one Missile for each left and right border.  This will free the playfield for customization and variable graphics modes going down the screen.
 
 **BALL**:
 
@@ -54,7 +54,7 @@ The Ball should be two scan lines tall per scale.  Rounding the width to one col
 
 If the Ball is implemented as a drawn, pixel object, then the entire display must be produced with contiguous lines of graphics to allow placing the ball consistently anywhere on the playfield.
 
-If the Ball is implemented as a Player or Missile it may be positioned wherever needed on the screen without a contiguous graphics mode for the entire display.
+The Ball will be implemented as a Player or Missile, since it can be positioned wherever needed on the screen without a contiguous graphics mode for the entire display.
 
 **BRICKS**:
 
@@ -68,9 +68,9 @@ Bitmapped graphics would be best.  Since the bricks are three scan lines tall wi
 
 **PADDLE**:
 
-The Paddle at its widest is the same width as a Brick -- 6 visible pixels (color clocks).  When the Paddle switches to narrow width it is about three pixels (color clocks) wide.  The Paddle is visibly thicker than the height of a brick -- four Atari scan lines tall.  The Paddle would likely be implemented as Player/Missile graphics.
+The Paddle at its widest is the same width as a Brick -- 6 visible pixels (color clocks).  When the Paddle switches to narrow width it is about three pixels (color clocks) wide.  The Paddle is visibly thicker than the height of a brick -- four Atari scan lines tall.  The Paddle will be implemented as a Player.
 
-When the game is over the Paddle is replaced by a solid horizontal Border the width of the screen.  This border acts as a giant Paddle during the game's demo mode keeping the ball rebounding up toward the Bricks.  The solid Border would be mapped graphics just like the Top Border.
+When the game is over a solid horizontal Border the width of the screen replaces the Paddle.  This border acts as a giant Paddle during the game's demo/attract mode keeping the ball rebounding up toward the Bricks.  The solid Border will be mapped graphics just like the Top Border.
 
 **PLAYER, BALL COUNTER, and SCORES**:
 
@@ -78,7 +78,7 @@ The current Player Number, the Ball Counter, and the Scores appear in the blank 
 
 These numbers are very large, tall objects on screen. The numbers and the vertical gap between numbers are the same width as a brick.  So, horizontally, the numbers including the space between them are 7 pixels/color clocks wide.  The height is simple -- 32 scan lines divided by 2 is 16 scan lines for each number which includes one blank scan line to vertically separate the numbers.
 
-The size of a number without spacing is 6 color clocks wide by 15 scan lines tall.  This is actually very convenient.  The minimum grid size needed to display numbers is three horizontal blocks (or segments) by five vertical blocks.  This arrangment also appears to be the basis for Breakout game's number display.  Example number "8" in 3x5 segments:
+The size of a number without spacing is 6 color clocks wide by 15 scan lines tall.  This is actually very convenient.  The minimum grid size needed to display numbers is three horizontal blocks (or segments) by five vertical blocks.  This arrangement also appears to be the basis for the real Breakout arcade game's number display.  Example number "8" in 3x5 segments:
 
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square:
 - :black_medium_small_square::white_medium_small_square::black_medium_small_square:
@@ -86,7 +86,7 @@ The size of a number without spacing is 6 color clocks wide by 15 scan lines tal
 - :black_medium_small_square::white_medium_small_square::black_medium_small_square:
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square:
 
-In the Atari screen rendering the 3x5 segments divide neatly into the available screen geometry.  Each pixel in the example above corresponds to two pixels/color clocks wide, and three scan lines tall, thus a complete number following this pattern is 6 pixels by 15 scan lines which is the exact size available.
+In the Atari screen rendering the 3x5 segments neatly divides into the available screen geometry.  Each pixel in the example above corresponds to two pixels/color clocks wide, and three scan lines tall, thus a complete number following this pattern is 6 pixels by 15 scan lines which is the exact size available.
 
 A text mode is the instinctive choice for rendering human readable information on screen.   However, the text characters in ANTIC Text Modes 6 and 7 are 8 color clocks wide, not the 7 needed.  This would complicate rendering the numbers across multiple characters.  It is easier to draw the characters on screen using graphics bitmaps.
 
