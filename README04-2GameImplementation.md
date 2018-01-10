@@ -8,21 +8,21 @@
 
 **GAME SCREEN ATARI PARTS**
 
-**DEMO MODE**:
+**DEMO/ATTRACT MODE**:
 
-The game does have a kind of demo mode.  When there is no game in progress the paddle is replaced by a horizontal border and the ball continues to bounce between the borders and the bricks without destroying any bricks.  This implementation may enhance this to a self-played game where the ball is served and the computer plays without sound or score tracking.
+When there is no game in progress the paddle is replaced by a horizontal border and the ball continues to bounce between the borders and the bricks without destroying any bricks.  There is no sound during the attract mode.
 
 **GAME SCREEN**:
 
-The game screen scaled to the Atari's dimensions fits within the Atari's narrow playfield horizontal width.  Utilizing ANTIC's narrow width reduces the RAM requirements for graphics.
+The visible playfield will be 208 scan lines tall.
 
-The screen entire visible playfield  will be 208 scan lines.  
+The game screen scaled to the Atari's dimensions fits within the Atari's narrow playfield horizontal width.  Utilizing ANTIC's narrow width reduces the RAM requirements for graphics.
 
 **TOP BORDER**:
 
 The game displays a visible Border at the top of the screen 8 scan lines thick.  Depending on the vertical border implementation the top border may need to cover the width of the bricks (97 color clocks), or the width of the bricks plus the vertical borders (97 + 4 color clocks = 101).
 
-**Top Border As Map Graphics**: This is easy to do with ANTIC modes B, C, D or E which each support pixels one color clock wide.  (If this were an even number of color clocks then the mode 9 or mode A lower resolution modes could be used.)
+**Top Border As Map Graphics**: This is easy to do with ANTIC modes B, C, D or E which each support pixels one color clock wide.  (If this required an even number of color clocks then the mode 9 or mode A lower resolution modes could be used.)
 
 Since multiple colors are not needed, the two-color modes, B or C, could be used.  Since the data displayed on each scan line is the same, and the number of scan lines is an even number, then this can be done using four lines of mode B graphics.  Each line would use LMS to redisplay the same data, so the entire top border line could be displayed using only 16 bytes of screen memory.
 
@@ -30,11 +30,11 @@ Since multiple colors are not needed, the two-color modes, B or C, could be used
 
 **Top Border as Character Set**: Alternatively, the horizontal border could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
 
-**But That's Not All...**:  If this is all that needed to be considered then the ANTIC mode B graphics would be the easiest solution.  However, there is a real world display issue to consider in the next topic immediately below.....  
+**But That's Not All...**:  If this is the only condiseration then the ANTIC mode B graphics would be the easiest solution.  However, the next topic also has a display issue to acommodate in the Top Border region.....  
 
 **EXTERNAL LABELS:**
 
-The arcade game has painted labels on the glass over the display identifying the purpose of the numbers in the top row.  "PLAYER NUMBER" and "BALL IN PLAY". These real world labels will have to be worked into the game display to provide necessary information to the player.  
+The arcade game has painted labels on the glass over the display identifying the purpose of the numbers in the top row.  "PLAYER NUMBER" and "BALL IN PLAY". These real world labels will have to be worked into the game display to provide necessary information to the player.
 
 If the labels are inserted above or below the top border it will compromise the screen geometry.  Therefore, the labels must be rendered within the border area.  This is a visual change, but less intrusive than moving visual components to make space.  To maintain the main game screen appearance as consistently as possible the labels will only appear when there is a ball or player transition. When the game serves the ball the text would disappear leaving the top border a solid, blank barrier during game play.
 
