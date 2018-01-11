@@ -24,7 +24,15 @@ The game displays a visible Border at the top of the screen 8 scan lines thick. 
 
 **Top Border As Map Graphics**: This needs the ability to draw horizontal lines that can be stacked to 8 scan lines tall.  This is easy with ANTIC map modes 8 through E.  The requirement is fitting within the horizontal limits of 97 to 101 color clocks, and aligning to the proper start/end positions on screen. 
 
-Since multiple colors are not needed, the two-color modes, B or C, could be used.  Since the data displayed on each scan line is the same, and the number of scan lines is an even number, then this can be done using four lines of mode B graphics.  Each line would use LMS to redisplay the same data, so the entire top border line could be displayed using only 16 bytes of screen memory.
+Since multiple colors are not needed, the multi-color modes 8, A, D, and E are overkill.  This leaves the two-color modes, 9, B, and C.  All three can fit within the line position parameters.  All three are evenly divisible into the 8 scan lines needed for the border.  Therefore mode 9 with the lowest memory requirements will be used. For reference:  
+
+
+Pixels Per Mode Line (narrow/normal/wide)	| TV Scan Lines per Mode Line	| Bytes per Mode Line (narrow/normal/wide)	| Bits per Pixel	| Colors	| Color Clocks per Pixel
+--- |	---	| ---	| ---	| --- |	---
+64/80/96 |	4	| 8/10/12	| 1	| 2 |	2
+
+
+Since the data displayed on each scan line is the same, and the number of scan lines in mode 9 fits evenly is an even number, then this can be done using four lines of mode B graphics.  Each line would use LMS to redisplay the same data, so the entire top border line could be displayed using only 16 bytes of screen memory.
 
 **Top Border as Player-Missile Graphics**: Player/Missile graphics could cover the same area.   Three Players set for quadruple width can cover 32 color clocks each, or 96 color clocks when lined up next to each other. The remaining color clock for the playfield, plus the four for the vertical borders could be covered by one more Player, or several Missiles.  The actual image of the border requires setting 4 or 8 bytes per player depending on Player/Missile resolution. If Player/Missile graphics are used for other components later on the display, then a Display List interrupt is needed to reset the sizes and reposition the objects' horizontal positions. 
 
