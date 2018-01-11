@@ -16,13 +16,13 @@ When there is no game in progress the paddle is replaced by a horizontal border 
 
 The visible playfield will be 208 scan lines tall.
 
-The game screen scaled to the Atari's dimensions fits within the Atari's narrow playfield horizontal width.  Utilizing ANTIC's narrow width reduces the RAM requirements for graphics.
+The game screen scaled to the Atari's dimensions fits within the Atari's narrow playfield horizontal width (128 color clocks).  Utilizing ANTIC's narrow width reduces the RAM requirements for graphics.
 
 **TOP BORDER**:
 
-The game displays a visible Border at the top of the screen 8 scan lines thick.  Depending on the vertical border implementation the top border may need to cover the width of the bricks (97 color clocks), or the width of the bricks plus the vertical borders (97 + 4 color clocks = 101).
+The game displays a visible Border at the top of the screen 8 scan lines thick.  Depending on the vertical Border implementation the top border may need to cover the width of the Bricks (97 color clocks), or up to the width of the Bricks plus the vertical Borders (97 + 4 color clocks = 101).
 
-**Top Border As Map Graphics**: This is easy to do with ANTIC modes B, C, D or E which each support pixels one color clock wide.  (If this required an even number of color clocks then the mode 9 or mode A lower resolution modes could be used.)
+**Top Border As Map Graphics**: This needs the ability to draw horizontal lines that can be stacked to 8 scan lines tall.  This is easy with ANTIC map modes 8 through E.  The requirement is fitting within the horizontal limits of 97 to 101 color clocks, and aligning to the proper start/end positions on screen. 
 
 Since multiple colors are not needed, the two-color modes, B or C, could be used.  Since the data displayed on each scan line is the same, and the number of scan lines is an even number, then this can be done using four lines of mode B graphics.  Each line would use LMS to redisplay the same data, so the entire top border line could be displayed using only 16 bytes of screen memory.
 
@@ -30,7 +30,7 @@ Since multiple colors are not needed, the two-color modes, B or C, could be used
 
 **Top Border as Character Set**: Alternatively, the horizontal border could be drawn with custom character set graphics.  One line of mode 6 text is eight can lines tall.  It would take 16 bytes of memory to specify the line of text characters.  Three custom characters in the character set would be needed to correctly draw the left position of the border, the right end of the border, and then a full block character for everything between. 
 
-**But That's Not All...**:  If this is the only condiseration then the ANTIC mode B graphics would be the easiest solution.  However, the next topic also has a display issue to acommodate in the Top Border region.....  
+**But That's Not All...**:  If this is the only consideration then the ANTIC mode B graphics would be the easiest solution.  However, the next topic also has a display issue to acommodate in the Top Border region.....  
 
 **EXTERNAL LABELS:**
 
