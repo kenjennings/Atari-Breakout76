@@ -36,15 +36,15 @@ Pixels Per Mode Line (narrow/normal/wide)	| TV Scan Lines per Mode Line	| Bytes 
 
 Since the data displayed on each scan line is the same, then this can be done using just 2 lines of mode 9 graphics.  Each line would use LMS to redisplay the same data, so the entire top border line could be displayed using only 8 bytes of screen memory.
 
-**But That's Not All...**:  More consideration is needed. The next topic also has a display issue to acommodate in the Top Border region on screen.....  
+**But That's Not All...**:  More consideration is needed in the Top Border.  The next section explains the issue of incorporating the arcade game's external labels into the Top Border region on screen.....  
 
 **EXTERNAL LABELS:**
 
-The arcade game has painted labels on the glass over the display identifying the purpose of the numbers in the top row.  "PLAYER NUMBER" and "BALL IN PLAY". These real world labels will have to be worked into the game display to provide necessary information to the player.
+The arcade game has painted labels on the glass over the display identifying the purpose of the numbers in the top row.  "PLAYER NUMBER" and "BALL IN PLAY". These real world labels will be worked into the game display to provide necessary information to the player.
 
-If the labels are inserted above or below the top border it will compromise the screen geometry.  Therefore, the labels must be rendered within the border area.  This is a visual change, but less intrusive than moving visual components to make space.  To maintain the main game screen appearance as consistently as possible the labels will only appear when there is a ball or player transition. When the game serves the ball the text would disappear leaving the top border a solid, blank barrier during game play.
+The labels will compromise the screen geometry if inserted above or below the top border.  Therefore, they must be rendered within the Border area.  This is a visual change, but less intrusive than moving visual components to make space.  To maintain the main game screen appearance as consistently as possible the labels will only appear when there is a ball or player transition.  When the game serves the ball the text would disappear leaving the Top Border a solid, blank barrier during game play.
 
-There are too many letters to implement the text as Player/Missiles.  The labels could be drawn as custom characters in a font.  They could also be drawn in the Border area as graphics.  In the following section the decision to use bitmapped graphics rather than a custom font is explained.
+There are too many letters to implement the text as Player/Missiles.  The labels could be drawn as custom characters in a font.  They could also be drawn in the Border area as graphics.  The next page, [Atari Test Screen]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README05TestScreen.md "Atari Test Screen"), explains the decision to use bitmapped graphics rather than a custom font.
 
 **LEFT/RIGHT BORDERS**:
 
@@ -52,7 +52,7 @@ Left and Right Borders extend the entire height of the screen.  Each is two colo
 
 Drawn as pixels, the borders require building the entire display of contiguous lines of graphics.  Likewise, if custom characters are used it requires the entire game screen must be built of character set graphics.  
 
-Player/Missile graphics can extend the height of the screen and go into the vertical overscan area.  It would require one Missile object for each left and right border.  This frees the playfield for customization and variable graphics modes going down the screen.
+Player/Missile graphics can be the height of the screen and conveniently extend into the vertical overscan area.  One Missile object will be used as the left Border and one Missile for the Right Border.  This frees the playfield for customization and variable graphics modes going down the screen.
 
 **BALL**:
 
@@ -66,7 +66,7 @@ The Ball will be implemented as a Player or Missile, since it can be positioned 
 
 There are eight rows of 14 Bricks each determined to be 7 color clocks per brick -- six visible color clocks, and one blank to separate it from the next brick.  There are 4 scan lines per brick, three visible, and one blank to separate it from the next row.
 
-Player/Missile graphics can't be used for bricks.  While they may be able to cover the distance across the screen the width setting necessary makes it impossible to represent the gap between bricks.
+Player/Missile graphics can't be used for bricks.  While Player/Missile objects at maximum width may be able to cover the distance across the screen the width setting necessary makes it impossible to represent the gap between bricks.
 
 Custom characters are not optimal either.  Since character set graphics are 4 or 8 color clocks wide, then drawing and erasing 7 color clock bricks in series adds difficult bit shifting and merging into multiple characters.  Due to geometry character graphics provide no benefits to justify the work.
 
@@ -84,40 +84,40 @@ The current Player Number, the Ball Counter, and the Scores appear in the blank 
 
 These numbers are very large, tall objects on screen. The numbers and the vertical gap between numbers are the same width as a brick.  So, horizontally, the numbers including the space between them are 7 pixels/color clocks wide.  The height is simple -- 32 scan lines divided by 2 is 16 scan lines for each number which includes one blank scan line to vertically separate the numbers.
 
-The size of a number without spacing is 6 color clocks wide by 15 scan lines tall.  This is actually very convenient.  The minimum grid size needed to display numbers is three horizontal blocks (or segments) by five vertical blocks.  This arrangement also appears to be the basis for the real Breakout arcade game's number display.  Example number "8" in 3x5 segments:
+The size of a number without spacing is 6 color clocks wide by 15 scan lines tall.  This dimensions are actually very convenient.  The minimum grid size needed to display numbers is three horizontal blocks (or segments) by five vertical blocks.  This arrangement also appears to be the basis for the real Breakout arcade game's number display.  Example number "9" in 3x5 segments:
 
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square:
 - :black_medium_small_square::white_medium_small_square::black_medium_small_square:
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square:
-- :black_medium_small_square::white_medium_small_square::black_medium_small_square:
-- :black_medium_small_square::black_medium_small_square::black_medium_small_square:
+- :white_medium_small_square::white_medium_small_square::black_medium_small_square:
+- :white_medium_small_square::white_medium_small_square::black_medium_small_square:
 
-In the Atari screen rendering the 3x5 segments neatly divides into the available screen geometry.  Each pixel in the example above corresponds to two pixels/color clocks wide, and three scan lines tall, thus a complete number following this pattern is 6 pixels by 15 scan lines which is the exact size available.
+Rendering the 3x5 segments neatly divides into the Atari's screen geometry for the number area. Each pixel in the example above corresponds to two pixels/color clocks wide, and three scan lines tall, thus a complete number following this pattern is 6 pixels by 15 scan lines which is the exact size available.
 
-A text mode is the instinctive choice for rendering human readable information on screen.   However, the text characters in ANTIC Text Modes 6 and 7 are 8 color clocks wide, not the 7 needed.  This would complicate rendering the numbers across multiple characters.  It is easier to draw the characters on screen using graphics bitmaps.
+A text mode is the instinctive choice for rendering human-readable information on screen.   However, the text characters in ANTIC Text Modes 6 and 7 are 8 color clocks wide, not the 7 needed.  This would complicate rendering the numbers across multiple characters.  It is easier to draw the characters on screen using graphics bitmaps.
 
 **COLOR**:
 
-The game is output only in black and white video.  However, colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Each pair of Brick rows is provided a different color.  From top to bottom: red, orange, green, yellow.   A blue plastic overlay is provided for the Paddle's row.  The picture below is the color representation from an emulator:
+The arcade game is output only in black and white video.  However, colored plastic strips placed horizontally on the screen over the Bricks add "color" to the display.  Each pair of Brick rows is provided a different color.  From top to bottom: red, orange, green, yellow. A blue plastic overlay is provided for the Paddle's row. The picture below is the color representation from an emulator:
 
 ![Game Color Pixels](Breakout_cl_startup_crop_to_underscan.png?raw=true "Game Color Pixels")
 
 Clearly, the emulator's color levels are highly saturated beyond reasonable.  Nobody viewing the arcade game in real-life would experience colors so deep.  The plastic strips merely provide a tint of color to the display.  So, again, this will require approximation and compromise.
 
-The Atari cannot saturate color to this degree.  So, the goal is to realistically capture the same hue, not the intensity level. 
+NTSC cannot saturate color to this degree.  So, the goal is to realistically capture the same hue, not the intensity level. 
 
-I captured the averaged color in each area from the color screen grab of the Breakout emulator game (above).  I then compared each Breakout color to the closest apparent equivalent in the Atari palette.  For the Atari palette I used an image grabbed from a program running in the Atari800 emulator which shows all the colors available to the Atari in one screen.  Atari800 is the same emulator being used to develop Breakout76, so the colors in the final result will match (in the emulator).
+I captured the averaged color in each area from the color screen grab of the Breakout emulator game (above).  I then compared each Breakout color to the closest apparent equivalent in the Atari palette.  For the Atari palette I used an image grabbed from a program running in the Atari800 emulator which shows all the Atari's colors on one screen.  Atari800 is the same emulator being used to develop Breakout76, so the colors in the final game will match the test.  (Matching colors for NTSC in general has all of the precision of cat herding, but at least it will match in the emulator.)
 
 Between the GIMP eyedropper tool, a reference picture of the entire Atari pallette, and my eyeballs the final result is the best matching colors I can determine from the Atari's color palette: 
 
-| Object     | Breakout RGB | Atari RGB  | Atari Palette |
-| ---------- | ------------ | ---------- | ------------- |
-| Borders    | cccccc       | c5c5c5     | $0C           |
-| Paddle     | 026f9d       | 1b6ad8     | $96           |
-| Red        | 94200f       | 5b161d     | $42           |
-| Orange     | c28712       | bf6d04     | $28           |
-| Green      | 0a8334       | 0e5b16     | $C4           |
-| Yellow     | c1c23d       | b7c95c     | $1A           |
+Object | Breakout RGB | Atari RGB  | Atari Palette 
+--- | --- | --- | --- 
+Borders    | cccccc       | c5c5c5     | $0C           
+Paddle     | 026f9d       | 1b6ad8     | $96           
+Red        | 94200f       | 5b161d     | $42           
+Orange     | c28712       | bf6d04     | $28           
+Green      | 0a8334       | 0e5b16     | $C4           
+Yellow     | c1c23d       | b7c95c     | $1A           
 
 (**Notes from Capt Obvious**: Since the plastic overlay covers the width of the screen, the Borders are also colored at those row positions, and the Ball is colored when it passes through those rows.) 
 
