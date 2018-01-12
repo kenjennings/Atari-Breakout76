@@ -69,13 +69,13 @@ The first test program, [br76-test_screen.asm]( https://github.com/kenjennings/A
 
 Here is where Mac/65 and atasm behavior deviate.  Mac/65 would keep the disk load segments in the order in which they are encountered in the code.  Therefore loads from disk could be defined within the main program allowing the load file to set up graphics and execute code at specific points during the file loading.
 
-But, atasm's default behavior optimizes load file segments by sorting and consolidating address changes into related groups.  Because of this it is remotely possible that register changes setting the display occur out of sync with the data loading for the display.  This has the potential to cause ANTIC to begin using memory for a Display List before the actual Display list loads into memory resulting in a trashed display.  This also has the remote possibility of crashing the Atari.
+But, atasm's default behavior optimizes load file segments by sorting and consolidating memory updates by address.  Because of this it is remotely possible that register changes setting the display occur out of sync with the data loading for the display.  This has the potential to cause ANTIC to begin using memory for a Display List before the actual Display list loads into memory resulting in a trashed display.  This also has the remote possibility of crashing the Atari.
 
 Use with caution.  Your Mileage Will Definitely Vary.
 
 Therefore, when building with atasm the maximum effective use of the disk load feature to enable Title screens, animation, music, etc. during program load time requires special consideration:
 - separate builds of the parts and concatenate the resulting load files together.
-- OR use the .bank and .set directives when a new memory load block is required to be loaded after prior data.
+- OR use the .bank and .set directives to begin new memory load blocks when separating the data is required.
 
 ---
 
