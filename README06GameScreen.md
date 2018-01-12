@@ -39,7 +39,7 @@ In ANTIC's narrow playfield width bitmapped graphics Modes B and C require 16 by
 - 5 SCORES_LINE (number "segments" drawn for player scores.)
 - 8 BRICKS_LINE (rows of bricks displayed on screen)
 
-Total screen memory needed is 1 line * 8 bytes plus 32 lines * 16 bytes which is 520 bytes.
+Total screen memory needed is 1 line * 8 bytes, plus 32 lines * 16 bytes which is 520 bytes.
 
 Creating this display on typical computers of the 8-bit era would require dedicating a contiguous block of memory providing the bitmap display on every display line.  Assuming a system had the same kind of resolution/color as the Atari graphics Modes the display requires 16 bytes times 208 scan lines, 3,328 bytes.  More likely 20 bytes per line, or 4,160 bytes for the full screen.
 
@@ -62,7 +62,6 @@ The next section are eight lines of bricks with one row of data repeated to make
 At the bottom there is no red line for the bottom border/paddle area.  When this is visible it repeats the same data used for the top border. 
 
 The vast majority of the display is made of empty scan lines lines displaying no bitmapped graphics at all.
-
 
 The game will also need other reference data supporting the graphics display, but this is not directly displayed, so it need not be in aligned memory:
 - a master bitmap of a full brick line for reloading bricks.
@@ -236,21 +235,21 @@ NOT_BRICK_2
 	jmp SOMEPLACE_USEFUL
 ```
 
-By comparison, the lookup table method uses 7 bytes of data for each brick.  A single round of comparisons for one brick would be toough to fit inside seven bytes.  Explicit code testing each range of Brick positions is unavoidably much slower than the direct lookup method.
+By comparison, the lookup table method uses 7 bytes of data for each brick.  A single round of comparisons for one brick would be tough to fit inside seven bytes.  Explicit code testing each range of Brick positions is unavoidably slower than the direct lookup method.
 
 The comparison tests could be more memory efficient by reducing the test to a subroutine using different inputs per each brick. The tests would be driven by a table with less data per Brick than the direct lookup method. But in the end, this would still be far more execution time than the direct lookup method, and this routine is needed repeatedly per TV frame to evaluate Ball v Brick pixel collisions.
 
-**Top Border**
+**Top Borders**
 
-The Top Border is like the line of Bricks modified with the spaces between Bricks filled in.
+The Top Border is a  solid line of pixels across the screen from the Left border to Right Border.  This is built from two lines of ANTIC Mode 9 graphics which has pixels two color clocks wide by four scan lines tall.
 
 ```asm
 SCREEN_BORDER ; Solid horizontal border between left and right vertical borders. 
-	.byte ~00000000,~00000000 ; Left border
-	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111 
+	.byte ~00000000 ; Left border
+	.byte ~11111111,~11111111,~11111111
 	; Center of display
-	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111
-	.byte ~10000000,~00000000, ; Last brick pixel 
+	.byte ~11111111,~11111111,~11111111
+	.byte ~10000000 ; Last brick pixel 
  ```
 
 The area of the top Border also presents the external labels for "PLAYER NUMBER" and "BALL IN PLAY".  These are pre-determined bit-mapped images.  Display List "subroutines" display the image(s) for the three states of the Top Border.  This is done with a JMP instruction in the main Display List pointing to one of the other three Display Lists.  (Located in the Main Display List at JMP_TOP_BORDER (+2).) Simply changing the low byte in the main Display List to point to one of the three Border image Display Lists "subroutines" causes the next frame to display the intended image.  Only the low byte changes in the Display List, so there can never be a partial/incorrect address in the Main Display List.  Therefore there is no need to synchronize the change to ANTIC's current beam position.
@@ -375,11 +374,11 @@ The Bottom Border is identical to the Top Border and uses the same screen data:
 
 ```asm
 SCREEN_BORDER ; Solid horizontal border between left and right vertical borders. 
-	.byte ~00000000,~00000000 ; Left border
-	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111 
+	.byte ~00000000 ; Left border
+	.byte ~11111111,~11111111,~11111111
 	; Center of display
-	.byte ~11111111,~11111111,~11111111,~11111111,~11111111,~11111111
-	.byte ~10000000,~00000000, ; Last brick pixel 
+	.byte ~11111111,~11111111,~11111111
+	.byte ~10000000 ; Last brick pixel 
  ```
 
 The Bottom Border has two states, visible, or not visible.  When the Bottom Border is not visible the Paddle is visible.  When the border is visible there is no need to change any display character istics of the  Paddle.  The Paddle and the border are the same color, so they cover (blend in) with each other.
