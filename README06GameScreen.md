@@ -27,21 +27,23 @@ The game requires only the bitmaps for Missiles and Player 0.  Three other Playe
 
 **Screen Memory**
 
-Top Border, External Label Text, Numbers/Scores, Bricks, and Bottom Border uses ANTIC Modes B and C graphics and only COLPF0.
+Top Border and Bottom border use two lines of ANTIC mode 9 and COLPF0 for color.  External Label Text, Numbers/Scores, and Bricks use ANTIC Modes B and C graphics and COLPF0.
+
+In ANTIC's narrow playfield width bitmapped graphics Mode 8 requires 8 bytes per line.  The following screen memory resources are referenced by the Display List documented below:
+- 1 BORDER_LINE (solid horizontal line for border)
 
 In ANTIC's narrow playfield width bitmapped graphics Modes B and C require 16 bytes per line.  The following screen memory resources are referenced by the Display List documented below:
-- 1 BORDER_LINE (solid horizontal line for border)
 - 7 LABEL_PLAYER_LINE (draw the external label for "Player Number")
 - 7 LABEL_BALL_LINE (draw the external label for "Ball In Play")
 - 5 PLAYER_AND_BALL_LINE (number "segments" drawn for Player Number and Ball In Play)
 - 5 SCORES_LINE (number "segments" drawn for player scores.)
 - 8 BRICKS_LINE (rows of bricks displayed on screen)
 
-Total screen memory needed is 33 lines * 16 bytes which is 528 bytes.
+Total screen memory needed is 1 line * 8 bytes plus 32 lines * 16 bytes which is 520 bytes.
 
 Creating this display on typical computers of the 8-bit era would require dedicating a contiguous block of memory providing the bitmap display on every display line.  Assuming a system had the same kind of resolution/color as the Atari graphics Modes the display requires 16 bytes times 208 scan lines, 3,328 bytes.  More likely 20 bytes per line, or 4,160 bytes for the full screen.
 
-A fun part of the Atari is the display programmability.  Graphics memory is needed only where graphics are displayed.  Screen memory need not be contiguous and can be addressed beginning almost anywhere in memory for any line.  The only limitation is that a line of graphics cannot cross over a 4K boundary in the middle of a line -- an easy thing to avoid.  Since the Atari can dedicate only the memory it needs to generate the display this works out to only the 528 bytes reported above.  About half of this is for the bitmaps supporting the external text labels "Player Number", and "Ball In Play" (224 bytes total).  The working game screen thus needs only 304 bytes of screen memory.
+A fun part of the Atari is the display programmability.  Graphics memory is needed only where graphics are displayed.  Screen memory need not be contiguous and can be addressed beginning almost anywhere in memory for any line.  The only limitation is that a line of graphics cannot cross over a 4K boundary in the middle of a line -- an easy thing to avoid.  Since the Atari can dedicate only the memory it needs to generate the display this works out to only the 520 bytes reported above.  About half of this is for the bitmaps supporting the external text labels "Player Number", and "Ball In Play" (224 bytes total).  The working game screen thus needs only 296 bytes of screen memory.
 
 Below is a map of the display screen indicating:
 
@@ -51,7 +53,7 @@ Below is a map of the display screen indicating:
 
 ![Screen RAM Use](ScreenMemoryUsage.png?raw=true "Screen RAM Use")
 
-The first red line is the top border.  The seven lines that follow are the same and so repeat the same screen data.
+The first red line is the top border in Mode 9 which is 4 scanlines tall. The next line is also Mode 9 and so repeats the same screen data.
 
 The next two sections with five red lines each make up the numbers at the top of the playfield.  There is only five rows of screen data each displayed three times to create numbers 15 scan lines tall.
 
