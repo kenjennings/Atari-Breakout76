@@ -423,8 +423,8 @@ The Atari game only needs to use the Missiles and Player 0 in the Player/Missile
 |        |               | +$0B0 - +$0BF | LABEL_BALL_LINE5 |
 |        |               | +$0C0 - +$0CF | LABEL_BALL_LINE6 |
 |        |               | +$0D0 - +$0DF | LABEL_BALL_LINE7 |
-|        |               | +$0E0 - +$0EF | BORDER_LINE |
-|        |               | +$0F0 - +$0FF | Unused 16 bytes|
+|        |               | +$0E0 - +$0E7 | BORDER_LINE |
+|        |               | +$0E8 - +$0FF | Unused 24 bytes|
 | PMBASE | +$100 - +$1FF |               | Unused Page 1 |
 |        |               | +$100 - +$10F | PLAYER_AND_BALL_LINE1 |
 |        |               | +$110 - +$11F | PLAYER_AND_BALL_LINE2 |
@@ -447,7 +447,7 @@ The Atari game only needs to use the Missiles and Player 0 in the Player/Missile
 |        |               | +$260 - +$26F | BRICKS_LINE7 |
 |        |               | +$270 - +$27F | BRICKS_LINE8 |
 |        |               | +$280 - +$2FF | Backup of bricks buffer for other player. |
-| PMBASE | +$300 - +$3FF |               | Missiles bitmap (Borders, Ball) |
+| PMBASE | +$300 - +$3FF |               | Missiles bitmap (Left/Right Borders, Ball) |
 | PMBASE | +$400 - +$4FF |               | Player 0 bitmap (Paddle) |
 | PMBASE | +$500 - +$5FF |               | Player 1 bitmap UNUSED |
 |        |               | +$500 -       | Main Display List (approx 150 bytes) |
@@ -571,10 +571,8 @@ To "Flash" Scores, Player Number, or Ball counter the image must be drawn and er
 | Scan Lines | Display Lines | Mode | LMS         | DLI | COLPF0 | COLPF3 | Notes |
 | ---------- | ------------- | ---- | ----        | --- | ------ | ------ | ----- |
 |            |               |      |             |     |        |        | DISPLAY_LIST_BORDER |
-| 16 - 17    | 1 - 2         | $0B  | BORDER_LINE |     |        |        | Top Border |
-| 18 - 19    | 3 - 4         | $0B  | BORDER_LINE |     |        |        | Top Border |
-| 20 - 21    | 5 - 6         | $0B  | BORDER_LINE |     |        |        | Top Border |
-| 22 - 23    | 7 - 8         | $0B  | BORDER_LINE |     |        |        | Top Border |
+| 16 - 19    | 1 - 4         | $09  | BORDER_LINE |     |        |        | Top Border |
+| 20 - 23    | 5 - 8         | $09  | BORDER_LINE |     |        |        | Top Border |
 |            |               | JMP  |             |     |        |        | Jump to RETURN_END_TOP_BORDER |
 
  **TOP EXTERNAL LABELS - PLAYER NUMBER**
@@ -612,10 +610,8 @@ To "Flash" Scores, Player Number, or Ball counter the image must be drawn and er
 | Scan Lines | Display Lines | Mode | LMS         | DLI | COLPF0 | COLPF3 | Notes |
 | ---------- | ------------- | ---- | ----        | --- | ------ | ------ | ----- |
 |            |               |      |             |     |        |        | DISPLAY_LIST_BOTTOM_BORDER |
-| 212 - 213  | 197 - 198     | $0B  | BORDER_LINE |     |        |        | Bottom Border |
-| 214 - 215  | 199 - 200     | $0B  | BORDER_LINE |     |        |        | Bottom Border |
-| 216 - 217  | 201 - 202     | $0B  | BORDER_LINE |     |        |        | Bottom Border |
-| 218 - 219  | 203 - 204     | $0B  | BORDER_LINE | Y   | X      | X      | Bottom Border - DLI Return COLPF0, COLPF3 to White/$0C |
+| 212 - 215  | 197 - 200     | $09  | BORDER_LINE |     |        |        | Bottom Border |
+| 216 - 219  | 201 - 204     | $09  | BORDER_LINE | Y   | X      | X      | Bottom Border - DLI Return COLPF0, COLPF3 to White/$0C |
 |            |               | JMP  |             |     |        |        | Jump to RETURN_END_BOTTOM_BORDER |
 
 **OR NO BOTTOM BORDER (Paddle)**
