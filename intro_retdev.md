@@ -1,5 +1,5 @@
 
-Why Retro Computer Game Programming?
+***Why Retro Computer Game Programming?***
 
 Many people alive today were born so long after the introduction of the first personal computers and video games that they have never had the opportunity to use or even see the systems that created these industries.  For those people the retro systems are new experiences and this new popluation of technology fans are making retro systems a cool and trendy hobby.  
 
@@ -22,8 +22,9 @@ Modern computers are phenominally more powerful than the first personal computer
 
 Everything is limited on a retro computer.  The smaller memory restricts the size of work the computer can manage at one time.  The slower storage I/O makes it longer to load smaller files.  But in comparison, sometimes modern computers are painfully inefficient.  While they may be many tens of thousands times faster with millions of times more memory and storage they still make users inexplicably wait and run slowly while churning through unimaginable megabytes of data on disk.  I am often infuriated by how long it takes for seemingly simple things to occur on modern PCs.  We have Object oriented languages to thank.  This has monstrously bloated applications and Operating Systems with repetetive memory thrashing, redundant code, and garbage collection.
 
+---
 
-Why Atari 8-bit Computers?
+***Why Atari 8-bit Computers?***
 
 There are other systems that were more popular back in the day, but the Atari unique features that separate it from others.
 
