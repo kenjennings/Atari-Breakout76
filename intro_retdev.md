@@ -69,7 +69,7 @@ Additionally, the system supports:
 The Atari comes with a comprehensive and friendly Operating System that provides the following facilities:
 
 - Automatic booting and driver loading from peripherals.
-- Standard, centralized I/O library defining devices for Cassete, Disk, Printer, Screen graphics, and Text Editor.
+- Standard, centralized I/O library defining devices for cassete, disk, printer, screen graphics, and full screen text editor.
 - Support for creating graphics displays, plotting, drawing, and filling.  Displays may be full screen or include a scrolling text window.
 - Basic floating-point math library
 - Game controller polling.
