@@ -7,7 +7,7 @@ Many retro systems have reached the 40 year mark.  Age can make the systems frag
 
 Current computers also provide modern programming tools not available to the programmers decades ago.  Integrated Development Environments, editors with syntax hilighting, and cross-platform compilers allow working in a comfortable environment with near-instant build times that those original programmers would have envied.
 
-Developing for retro systems teaches awareness of data represntation and processing efficiency that is not very easy to experience on modern computers with gigabyte operating systems, and terabytes of storage.  Observe the multiple orders of magnitude difference of processing and storage between a retro system and a commodity personal computer in 2018:
+Developing for retro systems teaches awareness of data representation and processing efficiency that is not very easy to explore on modern computers with gigabyte operating systems, and terabytes of storage.  Observe the multiple orders of magnitude difference of processing and storage between a retro system and a commodity personal computer in 2018:
 
 Topic | Retro System | 2018 commodity PC | Factor Increase
 --- | --- | --- | ---
@@ -20,34 +20,34 @@ Modern game development requires an entire company of developers, artists, engin
 
 Modern computers are phenominally more powerful than the first personal computers.  However, those early computers could do many of the things people do with computers today, sometimes a little slower.  Editing text, printing documents.  Also, programming.  A few of the computers of days past provided sufficient graphics capabilities making digital art and illustration practical.  There are a few things that they did not do:  The Internet did not exist, so networking, web browsing, and email were non-existent concerns.
 
-Everything is limited on a retro computer.  The smaller memory restricts the size of work the computer can manage at one time.  The slower storage I/O makes it longer to load smaller files.  But in comparison, sometimes modern computers are painfully inefficient.  While they may be many tens of thousands times faster with millions of times more memory and storage they still make users inexplicably wait and run slowly while churning through unimaginable megabytes of data on disk.  I am often infuriated by how long it takes for seemingly simple things to occur on modern PCs.  We have Object oriented languages to thank.  This has monstrously bloated applications and Operating Systems with repetetive memory thrashing, redundant code, and garbage collection.
+Everything is limited on a retro computer.  The smaller memory restricts the size of work the computer can manage at one time.  The slower storage I/O makes it longer to load smaller files.  But in comparison, sometimes modern computers are painfully inefficient.  While they may be many tens of thousands times faster with millions of times more memory and storage the user's experience is not tens of thousands or millions of times faster.  Today's computers still make users  wait  inexplicably and run slowly while churning through unimaginable megabytes of data on disk.  I am often infuriated by how long it takes for seemingly simple things to occur on modern PCs.  We have Object oriented languages to thank.  This has monstrously bloated applications and Operating Systems with repetetive memory thrashing, redundant code, and garbage collection.
 
 ---
 
 ***Why Atari 8-bit Computers?***
 
-There are other systems that were more popular back in the day, but the Atari unique features that separate it from others.
+There are other systems that were more popular back in the day, but the Atari's unique features separate it from the others.
 
-Ataris are very reliable.  If you intend to acquire a real system the Ataris were built to be very sturdy and robust.  The original models 400 and 800 are like tanks.  While the XL models represent Atari's effort at cost reduction, the company still could not bring themselves to cheapen the construction to the same degree as other cmputer systems.  They do not have overheating problems common to other retro computers.  Though the Ataris sold fewer units than other computers, fully working computers are common and easy to find today.
+Ataris are very reliable.  If you intend to acquire a real system the Ataris were built to be very sturdy and robust.  The original models 400 and 800 are like tanks.  While the XL models represent Atari's effort at cost reduction, the company still could not bring themselves to cheapen the construction to the same degree as other computer systems.  They do not overheat to he point of destroying chips which is a common problem with certain other retro computers.  Though the Ataris sold fewer units than other computers, fully working computers are still common and easy to find today.
 
-The Atari 8-bit computers are the evolutionary step between the Atari 2600 video game system and the Amiga computers.  The custom graphics and hardware in the three systems share design similarities, because they shared the same hardware engineers.  An Atari computer can be seen as an 8-bit version of an Amiga, or as a more powerful and easier to program 2600.
+The Atari 8-bit computers are the evolutionary step between the Atari 2600 video game system and the Amiga computers.  The custom graphics and hardware in the three systems share design similarities, because they shared the same hardware designers.  An Atari computer can be seen as an 8-bit version of an Amiga, or as a more powerful and easier to program 2600.
 
-Considering the Atari was designed in the 70s it has remarkably flexible graphics that in some ways would not be exceeded until the Amigas appeared.  Without utilizing any interrupts or complex timing tricks the display hardware can inherently do the following:
+Considering the Atari was designed in the 70s it has remarkably flexible graphics that in some areas would not be exceeded until the Amigas appeared.  Without utilizing any interrupts or complex timing tricks the display hardware can inherently do the following:
 
-- Fully programmable playfield via a Display List that enables mixing graphics modes with no interrupts or CPU intervention.
-- Six text modes with four kinds of character rendering including lowercase descenders.  Also supports redefinable characters, and vertical mirroring.
-- Eight pixel graphics modes of varying pixel sizes, color depth, and memory requirements.
-- Four kinds of color interpretation modes can be applied to the 14 screen display modes described above.
-- Vertical and horizontal overscan display.
+- Fully programmable Playfield via a Display List that enables mixing graphics modes with no interrupts or CPU intervention.
+- Six text modes with four kinds of character rendering including lowercase descenders.  It also supports redefinable characters, and vertical mirroring.
+- Eight graphics modes of varying pixel sizes, color depth, and memory requirements.
+- Four kinds of color interpretation modes can be applied to the 14 text and graphics modes described above.
+- Supports display sizes up to vertical and horizontal overscan.
 - Fine scrolling support up to 16 color clocks horizontally, and 16 scan lines vertically.
-- "Sprites", aka Player/Missile graphics displays four, 8 pixel-wide Players, and four 2 pixel-wide Missile objects that can be the height of the screen.
+- "Sprites", aka Player/Missile graphics display four, 8 pixel-wide Players, and four, 2 pixel-wide Missile objects that can be the height of the screen.
 - Missiles may be group together as a fifth player.
 - Players and Missiles fully independent of Playfield dimensions and can be moved into the vertical or horizontal overscan area.
 - Player/Missile pixel width may vary (1x, 2x, 4x), and pixel height may vary (1x, 2x)
 - Full hardware collision detection between Players, Missiles, and Playfield colors specific to the individual Playfield color and Player/Missile object.
 - Multiple priority schemes allow Player/Missiles and Playfield graphics to have different display priorities over one another. 
 - Colors for the playfield and Player/Missile graphics are defined indirectly through nine color registers that can be set to any of 128 available colors.
-- Color may be merged between multiple Player/Missiles, and between Player/Missiles and the Playfield.
+- Color may be merged between multiple Player/Missiles, and between Player/Missiles and the Playfield generating more colors -- up to 23 colors on one scan line.
 
 The sound hardware designed for game sound effects is also significant.  Audio capabilities include:
 
