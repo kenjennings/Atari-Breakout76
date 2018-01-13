@@ -1,5 +1,5 @@
 
-***Why Retro Computer Game Programming?***
+**Why Retro Computer Game Programming?**
 
 Many people  today were born so long after the introduction of the first personal computers and video games that they have never had the opportunity to use or even see the systems that created these industries.  For those people the retro systems are new experiences and this new popluation of technology fans are making retro systems a cool and trendy hobby.  
 
@@ -24,7 +24,7 @@ Everything is limited on a retro computer.  The smaller memory restricts the siz
 
 ---
 
-***Why Atari 8-bit Computers?***
+**Why Atari 8-bit Computers?**
 
 There are other systems that were more popular back in the day, but the Atari's unique features separate it from the others.
 
