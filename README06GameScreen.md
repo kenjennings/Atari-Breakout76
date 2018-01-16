@@ -385,17 +385,17 @@ There is always another way to solve a problem on the Atari.  The third choice i
 
 However, an issue occurs - The priority of Player 5, the "fifth player" color, which colors the Missile objects used for the Ball, and Left/Right Borders is the same as Playfield color 0, which is colors the Numbers.  Any Priority that masks Playfield color 0 also masks Player 5 color.  A problem...  
 
-Priority Bits [3:0] | 0 0 0 1 = $1 | 0 0 1 0 = $2 | 0 1 0 0 = $4 | 1 0 0 0 = $8 | 0 0 0 0 = $0
---- | --- | --- | --- | --- | ---
-Top | PM0 | PM0 | P5/PF0 | P5/PF0 | PM0
-. | PM1 | PM1 | PF1 | PF1 | PM1
-. | PM2 | P5/PF0 | PF2 | PM0 | P5/PF0
-. | PM3 | PF1 | PF3 | PM1 | PF1
-. | P5/PF0 | PF2 | PM0 | PM2 | PM2
-. | PF1 | PF3 | PM1 | PM3 | PM3
-. | PF2 | PM2 | PM2 | PF2 | PF2
-. | PF3 | PM3 | PM3 | PF3 | PF3
-Bottom | COLBK | COLBK | COLBK | COLBK | COLBK
+Priority Bits | 0 0 0 1 | 0 0 1 0 | 0 1 0 0 | 1 0 0 0 | 0 0 0 0
+---           | ---     | ---     | ---     | ---     | ---
+Top           | PM0     | PM0     | P5/PF0  | P5/PF0  | PM0
+.             | PM1     | PM1     | PF1     | PF1     | PM1
+.             | PM2     | P5/PF0  | PF2     | PM0     | P5/PF0
+.             | PM3     | PF1     | PF3     | PM1     | PF1
+.             | P5/PF0  | PF2     | PM0     | PM2     | PM2
+.             | PF1     | PF3     | PM1     | PM3     | PM3
+.             | PF2     | PM2     | PM2     | PF2     | PF2
+.             | PF3     | PM3     | PM3     | PF3     | PF3
+Bottom        | COLBK   | COLBK   | COLBK   | COLBK   | COLBK
 
 Therefore, the Fifth Player option cannot be used.  When Fifth Player is disabled the Missile objects are the same color as the corresponding Player.  This now means to make the Missiles appear as solid white lines the height of the screen, the corresponding Player must have the color register set to white for the height of the screen.  Therefore a new order and use of Player/Missile objects is required.  Using Priority value ~0001 aligns objects as follows:
 
