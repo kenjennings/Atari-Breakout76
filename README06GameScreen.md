@@ -19,6 +19,17 @@ Single Line resolution Player/Missile Graphics.
 - Paddle/COLPM0 is Blue/$96. 
 - Player/Missile highest priority above (on top of) Playfield.
 
+1/16/2017: FIXED, see below, revise discussions and memory map later:
+
+- Player 0, Ball
+- Missile 0, Left Border
+- Player 1, Paddle
+- Middle 1, Right Border
+- Player 2, First Number Mask
+- Player 3, Second Number Mask
+- Playfield 0, Numbers, Bricks, Top/Bottom Borders.
+
+
 Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
 
 Reserving memory for Player/Missile graphics automatically provides some memory useful for other purposes,  since the Player/Missile memory map leaves the first 3 pages (768 byte) unused.  This can instead be used for screen memory or the display list.
@@ -372,6 +383,8 @@ The Numbers for Player Number and Ball In Play need to flash on and off.  Since 
 
 There is always another way to solve a problem on the Atari.  The third choice is to use Player/Missile graphics.  At maximum horizontal width a Player can cover 32 color clocks.  This is sufficient to cover any of the number, even the score which is four digits wide.  A Player object set to the same color as the background could cover the drawn images on screen provided the priority of the Players is above the playfield.  Turning "off" the Numbers on screen is as simple as changing one horizontal position register for a Player to cover the numbers in screen.  Turning it on is just a matter of moving the obscuring Player object to a horizontal position off the screen. 
 
+However, an issue occurs - The priority of Player 5, the "fifth player" color, which colors the Missile objects used for the Ball, and Left/Right Borders is the same as Playfield color 0, which is colors the Numbers.  Any Priority that masks Playfield color 0 also masks Player 5 color.  A problem...  
+
 Priority Bits [3:0] | 0 0 0 1 = $1 | 0 0 1 0 = $2 | 0 1 0 0 = $4 | 1 0 0 0 = $8 | 0 0 0 0 = $0
 --- | --- | --- | --- | --- | ---
 Top | PM0 | PM0 | P5/PF0 | P5/PF0 | PM0
@@ -384,9 +397,7 @@ Top | PM0 | PM0 | P5/PF0 | P5/PF0 | PM0
 . | PF3 | PM3 | PM3 | PF3 | PF3
 Bottom | COLBK | COLBK | COLBK | COLBK | COLBK
 
-An issue occurs - The priority of Player 5, the "fifth player" color, which colors the Missile objects used for the Ball, and Left/Right Borders is the same as Playfield color 0, which is colors the Numbers.  Any Priority that masks Playfield color 0 also masks the Player 5 color.  A problem.  
-
-When Player 5 is disabled, then the Missile objects are the same color as the corresponding Player.  This now means to make the Missiles appear as solid white lines the height of the screen, the corresponding Player must have the color register set to white for the height of the screen.  Therefore a new order and use of Player/Missile objects is required.  Using Priority value ~0001 aligns objects as follows:
+Therefore, the Fifth Player option cannot be used.  When Fifth Player is disabled the Missile objects are the same color as the corresponding Player.  This now means to make the Missiles appear as solid white lines the height of the screen, the corresponding Player must have the color register set to white for the height of the screen.  Therefore a new order and use of Player/Missile objects is required.  Using Priority value ~0001 aligns objects as follows:
 
 - Player 0, Ball
 - Missile 0, Left Border
