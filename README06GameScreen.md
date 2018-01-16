@@ -374,14 +374,14 @@ There is always another way to solve a problem on the Atari.  The third choice i
 
 Priority Bits [3:0] | 0 0 0 1 = $1 | 0 0 1 0 = $2 | 0 1 0 0 = $4 | 1 0 0 0 = $8 | 0 0 0 0 = $0
 --- | --- | --- | --- | --- | ---
-Top| PM0 | PM0 | P5/PF0 | P5/PF0 | PM0
-	| PM1 | PM1 | PF1 | PF1 | PM1
-	| PM2 | P5/PF0 | PF2 | PM0 | P5/PF0
-	| PM3 | PF1 | PF3 | PM1 | PF1
-	| P5/PF0 | PF2 | PM0 | PM2 | PM2
-	| PF1 | PF3 | PM1 | PM3 | PM3
-	| PF2 | PM2 | PM2 | PF2 | PF2
-	| PF3 | PM3 | PM3 | PF3 | PF3
+Top | PM0 | PM0 | P5/PF0 | P5/PF0 | PM0
+. | PM1 | PM1 | PF1 | PF1 | PM1
+. | PM2 | P5/PF0 | PF2 | PM0 | P5/PF0
+. | PM3 | PF1 | PF3 | PM1 | PF1
+. | P5/PF0 | PF2 | PM0 | PM2 | PM2
+. | PF1 | PF3 | PM1 | PM3 | PM3
+. | PF2 | PM2 | PM2 | PF2 | PF2
+. | PF3 | PM3 | PM3 | PF3 | PF3
 Bottom | COLBK | COLBK | COLBK | COLBK | COLBK
 
 An issue occurs - The priority of Player 5, the "fifth player" color, which colors the Missile objects used for the Ball, and Left/Right Borders is the same as Playfield color 0, which is colors the Numbers.  Any Priority that masks Playfield color 0 also masks the Player 5 color.  A problem.  
