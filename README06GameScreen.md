@@ -368,6 +368,33 @@ Removing the shifting work would require creating pre-shifted images of all the 
 
 The hybrid algorithmic solution with some lookup tables is a reasonable amount of memory use combined with code.
 
+The Numbers for Player Number and Ball In Play need to flash on and off.  Since the objects need to flash at different times and both reside on the same lines of the display, the game cannot use the usual, lowest-weight methods -- altering color register values, or altering the display list.  The next choice would be to repeatedly draw the images on screen and erase them.  This could be simplified further by coping the images to a buffer, removing them from the screen, and then copying them back from the buffer.
+
+There is always another way to solve a problem on the Atari.  The third choice is to use Player/Missile graphics.  At maximum horizontal width a Player can cover 32 color clocks.  This is sufficient to cover any of the number, even the score which is four digits wide.  A Player object set to the same color as the background could cover the drawn images on screen provided the priority of the Players is above the playfield.  Turning "off" the Numbers on screen is as simple as changing one horizontal position register for a Player to cover the numbers in screen.  Turning it on is just a matter of moving the obscuring Player object to a horizontal position off the screen. 
+
+Priority Bits [3:0] | 0 0 0 1 = $1 | 0 0 1 0 = $2 | 0 1 0 0 = $4 | 1 0 0 0 = $8 | 0 0 0 0 = $0
+Top| PM0 | PM0 | P5/PF0 | P5/PF0 | PM0
+	| PM1 | PM1 | PF1 | PF1 | PM1
+	| PM2 | P5/PF0 | PF2 | PM0 | P5/PF0
+	| PM3 | PF1 | PF3 | PM1 | PF1
+	| P5/PF0 | PF2 | PM0 | PM2 | PM2
+	| PF1 | PF3 | PM1 | PM3 | PM3
+	| PF2 | PM2 | PM2 | PF2 | PF2
+	| PF3 | PM3 | PM3 | PF3 | PF3
+Bottom | COLBK | COLBK | COLBK | COLBK | COLBK
+
+An issue occurs - The priority of Player 5, the "fifth player" color, which colors the Missile objects used for the Ball, and Left/Right Borders is the same as Playfield color 0, which is colors the Numbers.  Any Priority that masks Playfield color 0 also masks the Player 5 color.  A problem.  
+
+When Player 5 is disabled, then the Missile objects are the same color as the corresponding Player.  This now means to make the Missiles appear as solid white lines the height of the screen, the corresponding Player must have the color register set to white for the height of the screen.  Therefore a new order and use of Player/Missile objects is required.  Using Priority value ~0001 aligns objects as follows:
+
+- Player 0, Ball
+- Missile 0, Left Border
+- Player 1, Paddle
+- Middle 1, Right Border
+- Player 2, First Number Mask
+- Player 3, Second Number Mask
+- Playfield 0, Numbers, Bricks, Top/Bottom Borders.
+
 **Bottom Border**
 
 The Bottom Border is identical to the Top Border and uses the same screen data:
