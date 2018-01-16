@@ -373,6 +373,7 @@ The Numbers for Player Number and Ball In Play need to flash on and off.  Since 
 There is always another way to solve a problem on the Atari.  The third choice is to use Player/Missile graphics.  At maximum horizontal width a Player can cover 32 color clocks.  This is sufficient to cover any of the number, even the score which is four digits wide.  A Player object set to the same color as the background could cover the drawn images on screen provided the priority of the Players is above the playfield.  Turning "off" the Numbers on screen is as simple as changing one horizontal position register for a Player to cover the numbers in screen.  Turning it on is just a matter of moving the obscuring Player object to a horizontal position off the screen. 
 
 Priority Bits [3:0] | 0 0 0 1 = $1 | 0 0 1 0 = $2 | 0 1 0 0 = $4 | 1 0 0 0 = $8 | 0 0 0 0 = $0
+--- | --- | --- | --- | --- | ---
 Top| PM0 | PM0 | P5/PF0 | P5/PF0 | PM0
 	| PM1 | PM1 | PF1 | PF1 | PM1
 	| PM2 | P5/PF0 | PF2 | PM0 | P5/PF0
