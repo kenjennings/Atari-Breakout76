@@ -441,10 +441,16 @@ Again, since only the low byte changes in the Display List, there can never be a
 
 **Vertical Blank Interrupt**
 
-VBI Establishes:
+- GTIA GRACTL control for Player/Missile graphics
+
+OS Shadow Establishes:
 - ANTIC Display Width Narrow + Playfield DMA + Player/Missile DMA.
-- GTIA GRACTL control for Player/Missile graphics + 5th Player 
+- GTIA PRIOR value ~0001
 - COLPF0 is White/$0C
+- COLPM0 is 
+
+VBI Establishes:
+
 
 ---
 
