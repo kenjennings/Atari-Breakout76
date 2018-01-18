@@ -11,32 +11,38 @@
 **Player/Missile Graphics**
 
 Single Line resolution Player/Missile Graphics.
-- Use 5th player option to color all Missiles using COLPF3.
-- Missile 0 is Left Border.
-- Missile 1 is Right Border.
-- Missile 2 is Ball.
-- Player 0 is Paddle.
-- Paddle/COLPM0 is Blue/$96. 
-- Player/Missile highest priority above (on top of) Playfield.
 
-1/16/2017: FIXED, see below, revise discussions and memory map later:
+Player/Missile highest priority above (on top of) Playfield.
 
-- Player 0, Ball
-- Missile 0, Left Border
-- Player 1, Paddle
-- Middle 1, Right Border
-- Player 2, First Number Mask
-- Player 3, Second Number Mask
-- Playfield 0, Numbers, Bricks, Top/Bottom Borders.
+Fifth Player grouping Missiles into another Player will not be used.
 
+Priority value  ~0001 will be used for the game placing all Player/Missile colors above the Playfield colors.
+
+Player/Missile Object | Use | Color 
+--- | --- | ---
+Player 0 | Ball | COLPM0 is White/$0C
+Missile 0 | Left Border | COLPM0 is White/$0C
+Player 1 | Paddle  |  COLPM1 is White/$0C, Paddle is Blue/$96
+Missile 1 | Right Border |  COLPM1 is White/$0C
+Player 2 |  First Number Mask | COLPM2 is Black/$00
+Player 3 | Second Number Mask |  COLPM3 is Black/$00
 
 Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
 
-Reserving memory for Player/Missile graphics automatically provides some memory useful for other purposes,  since the Player/Missile memory map leaves the first 3 pages (768 byte) unused.  This can instead be used for screen memory or the display list.
+Reserving memory for Player/Missile graphics automatically provides memory useful for other purposes, since the Player/Missile memory map leaves the first 3 pages (768 byte) unused.  This can be used for screen memory or the display list.
 
-The game requires only the bitmaps for Missiles and Player 0.  Three other Players' bitmaps are unused providing another 3 pages (768 bytes) of aligned memory for other purposes.
+The game requires the full bitmaps for Missiles and all four Players.  However, the entire bitmap is needed for only the Missiles (Left and Right Borders) and Player 0 (Ball).  Players 1, 2, 3 have limited vertical placement (Paddle, Text mask 1, Text Mask 2). If the horizontal positions of these objects is changed offscreen when there is no data to display, then that portion of the Players' bitmap is free for other purposes.
+
+---
 
 **Screen Memory**
+
+The game screen will be defined as 216 scan lines tall.  (Equivalent to 27 lines of ANTIC Mode 2 text).
+
+Playfield | Use | Color
+--- | --- | ---
+Playfield 0 | Numbers, Bricks, Top/Bottom Borders | COLPF0 is White/$0C
+Playfield 0 | External Labels (Top Border) | COLPF0 is Yellow/$1A 
 
 Top Border and Bottom border use two lines of ANTIC mode 9 and COLPF0 for color.  External Label Text, Numbers/Scores, and Bricks use ANTIC Modes B and C graphics and COLPF0.
 
@@ -54,7 +60,7 @@ Total screen memory needed is 1 line * 8 bytes, plus 32 lines * 16 bytes which i
 
 Creating this display on typical computers of the 8-bit era would require dedicating a contiguous block of memory providing the bitmap display on every display line.  Assuming a system had the same kind of resolution/color as the Atari graphics Modes the display requires 16 bytes times 208 scan lines, 3,328 bytes.  More likely 20 bytes per line, or 4,160 bytes for the full screen.
 
-A fun part of the Atari is the display programmability.  Graphics memory is needed only where graphics are displayed.  Screen memory need not be contiguous and can be addressed beginning almost anywhere in memory for any line.  The only limitation is that a line of graphics cannot cross over a 4K boundary in the middle of a line -- an easy thing to avoid.  Since the Atari can dedicate only the memory it needs to generate the display this works out to only the 520 bytes reported above.  About half of this is for the bitmaps supporting the external text labels "Player Number", and "Ball In Play" (224 bytes total).  The working game screen thus needs only 296 bytes of screen memory.
+A fun part of the Atari is the display programmability.  Graphics memory is needed only where graphics are displayed.  Screen memory need not be contiguous and can be addressed beginning almost anywhere in memory for any line.  The only limitation is that a line of graphics cannot cross over a 4K boundary in the middle of a line -- an easy thing to avoid.  Since the Atari can dedicate only the memory it needs to generate the display this works out to only the 520 bytes reported above.  About half of this is for the bitmaps supporting the external text labels "Player Number", and "Ball In Play" (224 bytes total).  The working game screen while the ball is in motion uses only 296 bytes of screen memory.
 
 Below is a map of the display screen indicating:
 
@@ -78,6 +84,8 @@ The game will also need other reference data supporting the graphics display, bu
 - a master bitmap of a full brick line for reloading bricks.
 - a mask table used for removing an individual brick from the display.
 - images and masks for the numbers 0 through 9 for Score, etc at the top of the display.
+
+---
 
 **Bricks**
 
@@ -250,6 +258,8 @@ By comparison, the lookup table method uses 7 bytes of data for each brick.  A s
 
 The comparison tests could be more memory efficient by reducing the test to a subroutine using different inputs per each brick. The tests would be driven by a table with less data per Brick than the direct lookup method. But in the end, this would still be far more execution time than the direct lookup method, and this routine is needed repeatedly per TV frame to evaluate Ball v Brick pixel collisions.
 
+---
+
 **Top Borders**
 
 The Top Border is a  solid line of pixels across the screen from the Left border to Right Border.  This is built from two lines of ANTIC Mode 9 graphics which has pixels two color clocks wide by four scan lines tall.
@@ -271,6 +281,8 @@ The area of the top Border also presents the external labels for "PLAYER NUMBER"
 | Player Number | DISPLAY_LIST_PLAYER_LABEL | Yellow/$1A | Black/$00 |
 | Ball In Play  | DISPLAY_LIST_BALL_LABEL   | Yellow/$1A | Black/$00 |
 
+---
+
 **Numbers**
 
 Numbers are sized like bricks -- 7 color clocks wide using six for the image, and one as space between the numbers. The numbers are created as 3x5 segments.  The six color clocks are divided into pairs and each pair is the horizontal dimension of a segment.  The segment vertical dimension is three scan lines accomplished by displaying hte same line of screen memory three times.    The illustration below shows all the horizontal bits/pixels/color clocks.  Each row represents 3 scan lines vertically.  
@@ -281,7 +293,7 @@ Numbers are sized like bricks -- 7 color clocks wide using six for the image, an
 - :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
 
-==========
+
 
 - :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
 - :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square:  :white_medium_small_square::white_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:  :black_medium_small_square::black_medium_small_square::white_medium_small_square::white_medium_small_square::black_medium_small_square::black_medium_small_square::white_medium_small_square:
@@ -381,9 +393,9 @@ The hybrid algorithmic solution with some lookup tables is a reasonable amount o
 
 The Numbers for Player Number and Ball In Play need to flash on and off.  Since the objects need to flash at different times and both reside on the same lines of the display, the game cannot use the usual, lowest-weight methods -- altering color register values, or altering the display list.  The next choice would be to repeatedly draw the images on screen and erase them.  This could be simplified further by coping the images to a buffer, removing them from the screen, and then copying them back from the buffer.
 
-There is always another way to solve a problem on the Atari.  The third choice is to use Player/Missile graphics.  At maximum horizontal width a Player can cover 32 color clocks.  This is sufficient to cover any of the number, even the score which is four digits wide.  A Player object set to the same color as the background could cover the drawn images on screen provided the priority of the Players is above the playfield.  Turning "off" the Numbers on screen is as simple as changing one horizontal position register for a Player to cover the numbers in screen.  Turning it on is just a matter of moving the obscuring Player object to a horizontal position off the screen. 
+There is always another way to solve a problem on the Atari.  The third choice is to use Player/Missile graphics.  At maximum horizontal width a Player can cover 32 color clocks.  This is sufficient to cover any of the Numbers, even the score which is four digits wide.  A Player object set to the same color as the background could cover the drawn images on screen provided the priority of the Players is above the playfield.  Turning "off" the Numbers on screen is as simple as changing one horizontal position register for a Player to cover the numbers in screen.  Turning it on is just a matter of moving the obscuring Player object to a horizontal position off the screen. 
 
-However, an issue occurs - The priority of Player 5, the "fifth player" color, which colors the Missile objects used for the Ball, and Left/Right Borders is the same as Playfield color 0, which is colors the Numbers.  Any Priority that masks Playfield color 0 also masks Player 5 color.  A problem...  
+Priority value  ~0001 will be used for the game.
 
 Priority Bits | 0 0 0 1 | 0 0 1 0 | 0 1 0 0 | 1 0 0 0 | 0 0 0 0
 ---           | ---     | ---     | ---     | ---     | ---
@@ -397,15 +409,7 @@ Top           | PM0     | PM0     | P5/PF0  | P5/PF0  | PM0
 .             | PF3     | PM3     | PM3     | PF3     | PF3
 Bottom        | COLBK   | COLBK   | COLBK   | COLBK   | COLBK
 
-Therefore, the Fifth Player option cannot be used.  When Fifth Player is disabled the Missile objects are the same color as the corresponding Player.  This now means to make the Missiles appear as solid white lines the height of the screen, the corresponding Player must have the color register set to white for the height of the screen.  Therefore a new order and use of Player/Missile objects is required.  Using Priority value ~0001 aligns objects as follows:
-
-- Player 0, Ball
-- Missile 0, Left Border
-- Player 1, Paddle
-- Middle 1, Right Border
-- Player 2, First Number Mask
-- Player 3, Second Number Mask
-- Playfield 0, Numbers, Bricks, Top/Bottom Borders.
+---
 
 **Bottom Border**
 
@@ -433,12 +437,16 @@ Again, since only the low byte changes in the Display List, there can never be a
 | Border        | DISPLAY_LIST_BOTTOM_BORDER    | Blue/$96  | 
 | No Border     | DISPLAY_LIST_NO_BOTTOM_BORDER | N/A | 
 
+---
+
 **Vertical Blank Interrupt**
 
 VBI Establishes:
 - ANTIC Display Width Narrow + Playfield DMA + Player/Missile DMA.
 - GTIA GRACTL control for Player/Missile graphics + 5th Player 
-- COLPF3 is white/$0C
+- COLPF0 is White/$0C
+
+---
 
 **Display Memory Map**
 
@@ -485,18 +493,18 @@ The Atari game only needs to use the Missiles and Player 0 in the Player/Missile
 |        |               | +$260 - +$26F | BRICKS_LINE7 |
 |        |               | +$270 - +$27F | BRICKS_LINE8 |
 |        |               | +$280 - +$2FF | Backup of bricks buffer for other player. |
-| PMBASE | +$300 - +$3FF |               | Missiles bitmap (Left/Right Borders, Ball) |
-| PMBASE | +$400 - +$4FF |               | Player 0 bitmap (Paddle) |
-| PMBASE | +$500 - +$5FF |               | Player 1 bitmap UNUSED |
+| PMBASE | +$300 - +$3FF |               | Missiles bitmap (Left/Right Borders) |
+| PMBASE | +$400 - +$4FF |               | Player 0 bitmap (Ball) |
+| PMBASE | +$500 - +$5FF |               | Player 1 bitmap (Paddle) **SHARED...** |
 |        |               | +$500 -       | Main Display List (approx 150 bytes) |
-| PMBASE | +$600 - +$6FF |               | Player 2 bitmap UNUSED |
+| PMBASE | +$600 - +$6FF |               | Player 2 bitmap (Text Mask 1) **SHARED...** |
 |        |               | +$600 -       | Display List "Subroutines" |
-| PMBASE | +$700 - +$7FF |               | Player 3 bitmap UNUSED | |
-|        |               | +$700 - +$7FF | Unused 256 bytes|
+| PMBASE | +$700 - +$7FF |               | Player 3 bitmap (Text Mask 2) |
+
 
 Related lines of screen data occur within the same page in memory.  Code moving between adjacent rows of screen memeory only need to alter the low byte of addesses to reference the next row. 
 
-After laying out the graphics resources over the Player/Missile memory map there is still 112 bytes in two pages unused plus the full 256 bytes of the Player 3 bitmap is untouched.  Other game resources and variables may be placed there. 
+---
 
 **Other Notes**
 
@@ -504,18 +512,19 @@ No Atari text modes are used in the Game Screen, so no character set is needed. 
 
 The game needs backup of each Player's screen/bricks image when switching between players.  So, the game could simply copy the 8 lines of BRICKS_LINE data to equivalent backup buffers (another 128 bytes for backup.) This is not directly displayed, so it need not be precisely aligned.
 
-To "Flash" external labels simply toggle COLPF0 in the DLI between black/$00 and yellow/$1A
+Flashing the external labels can be done simply by toggling COLPF0 in the DLI between Black/$00 and Yellow/$1A
 
-To "Flash" Scores, Player Number, or Ball counter the image must be drawn and erased, since each shares the same line with another value that may not be flashing.
+Flashing the Scores, Player Number, and Ball counter will be done using Players 2 and 3 to cover the numbers.  The Players will use a bitmap displayed in the background black color and will move to obscure the numbers to "erase" them from the screen.  This reduces flashing to a few register updates to "remove" the Numbers from the screen, rather than using an additional bitmap masking exercise.
 
+---
 
 **Main Display List**
 
-| Scan Lines | Display Lines | Mode | LMS                   | DLI | COLPF0 | COLPF3 | Notes |
+| Scan Lines | Display Lines | Mode | LMS                   | DLI | COLPF0 | COLPM0/COLPM1 | Notes |
 | ---------- | ------------- | ---- | ----                  | --- | ------ | ------ | ----- |
 | **TOP SPACING**  
 | 0 - 7      |               | $70  |                       |     |        |        | Necessary Spacing | 
-| 8 - 15     |               | $70  |                       |  Y  |    X   |        | DLI set COLPF0 to White/$0C or Yellow/$1A or black/$00 depending on state of Border or Labels |
+| 8 - 11     |               | $30  |                       |  Y  |    X   |        | DLI set COLPF0 to White/$0C or Yellow/$1A or Black/$00 depending on state of Border or Labels |
 |            |               |      |                       |     |        |        | JMP_TOP_BORDER (+2) |
 | **TOP BORDER**
 | 16 - 23    | 1 - 8         | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BORDER |
@@ -590,6 +599,7 @@ To "Flash" Scores, Player Number, or Ball counter the image must be drawn and er
 | 185 - 192  | 170 - 177     | $70  |                       |     |        |        | 8 Blank Lines  |
 | 193 - 200  | 178 - 185     | $70  |                       |     |        |        | 8 Blank Lines  |
 | 201 - 208  | 186 - 193     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 201 - 208  | 186 - 193     | $70  |                       |     |        |        | 8 Blank Lines  extra for 216 |
 | 209 - 211  | 194 - 196     | $20  |                       | Y   |     X  |     X  | 3 Blank Lines -- 123 total - DLI Set COLPF0, COLPF3 to Blue/$96 |
 |            |               |      |                       |     |        |        | JMP_BOTTOM_BORDER (+2) |
 | **PADDLE-BOTTOM BORDER**
@@ -659,7 +669,6 @@ To "Flash" Scores, Player Number, or Ball counter the image must be drawn and er
 |            |               |      |      |     |        |        | DISPLAY_LIST_BOTTOM_NO_BORDER |
 | 212 - 219  | 197 - 204     | $70  |      | Y   | X      | X      | 8 Blank Lines - DLI Return COLPF0, COLPF3 to White/$0C |
 |            |               | JMP  |      |     |        |        | Jump to RETURN_END_BOTOM_BORDER |
-
 
 ---
 
