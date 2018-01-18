@@ -10,11 +10,11 @@
 
 I am so tempted to embellish this to stupid extremes, but that is the intention for Breakout-GECE.  (Control!  You must learn control!  -Yoda)
 
-So, the Title Screen is just a simple place to park for managing simple configuration settings, and provide a tolerably minimum amount of credits and directions.
+The Title Screen is just a simple place to park for managing simple configuration settings, and provide a tolerably minimum amount of credits and directions.
 
-A reasonably simple display list.  Just a title line in Mode 7.  Prompts  in Mode 6.
+A reasonably simple display list.  Just a title line in Mode 7.  Prompts in Mode 6.
 
-THe title "B R E A K O U T" will be written in the four game colors.  (Yellow, green, orange, red.)   THe colors will rotate twice per second to animate the display.
+The title "B R E A K O U T" will be written in the four game colors.  (Yellow, green, orange, red.)   The colors will rotate twice per second to animate the display.
 
 Prompts/directions:
 
@@ -29,6 +29,8 @@ Prompts/Input need different colors from the title.
 - Other text is darker orange.
 - Selectable values not chosen are grey.
 - Current value is hilighted white.
+
+Paddle input is also allowed for the options.  The heirarchical menu will be flattened into a list where rotation of the paddle will focus on each item in the list.   The Paddle button will select the option (and turn off any other mutually exclusive option that was already on.  The first and last options on the list will indicate start the game allowing the paddle triugger to begin the game.
 
 No custom character set.
 
