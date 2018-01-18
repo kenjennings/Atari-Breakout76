@@ -18,20 +18,20 @@ Fifth Player grouping Missiles into another Player will not be used.
 
 Priority value  ~0001 will be used for the game placing all Player/Missile colors above the Playfield colors.
 
-Player/Missile Object | Use | Color 
---- | --- | ---
-Player 0 | Ball | COLPM0 is White/$0C
-Missile 0 | Left Border | COLPM0 is White/$0C
-Player 1 | Paddle  |  COLPM1 is White/$0C, Paddle is Blue/$96
-Missile 1 | Right Border |  COLPM1 is White/$0C
-Player 2 |  First Number Mask | COLPM2 is Black/$00
-Player 3 | Second Number Mask |  COLPM3 is Black/$00
+Player/Missile | Use                | Color 
+---            | ---                | ---
+Player 0       | Ball               | COLPM0 is White/$0C
+Missile 0      | Left Border        | COLPM0 is White/$0C
+Player 1       | Paddle             | COLPM1 is White/$0C, Paddle is Blue/$96
+Missile 1      | Right Border       | COLPM1 is White/$0C
+Player 2       | First Number Mask  | COLPM2 is Black/$00
+Player 3       | Second Number Mask | COLPM3 is Black/$00
 
-Single Line Resolution Player/Missile graphics requires dedicating aligned, 2K of memory.
+Single Line Resolution Player/Missile graphics requires allocating 2K of contiguous memory, aligned to a 2K boundary.
 
 Reserving memory for Player/Missile graphics automatically provides memory useful for other purposes, since the Player/Missile memory map leaves the first 3 pages (768 byte) unused.  This can be used for screen memory or the display list.
 
-The game requires the full bitmaps for Missiles and all four Players.  However, the entire bitmap is needed for only the Missiles (Left and Right Borders) and Player 0 (Ball).  Players 1, 2, 3 have limited vertical placement (Paddle, Text mask 1, Text Mask 2). If the horizontal positions of these objects is changed offscreen when there is no data to display, then that portion of the Players' bitmap is free for other purposes.
+The game requires the bitmaps for Missiles and all four Players.  However, the entire bitmap is needed for only the Missiles (Left and Right Borders) and Player 0 (Ball).  Players 1, 2, 3 have limited vertical placement (Paddle, Text mask 1, Text Mask 2). If the horizontal positions of these objects is changed offscreen when there is no data to display, then that portion of the Players' bitmap is free for other purposes.  For this game, the unused parts of the bitmaps for these Players will hold 
 
 ---
 
@@ -496,7 +496,7 @@ The Atari game only needs to use the Missiles and Player 0 in the Player/Missile
 | PMBASE | +$300 - +$3FF |               | Missiles bitmap (Left/Right Borders) |
 | PMBASE | +$400 - +$4FF |               | Player 0 bitmap (Ball) |
 | PMBASE | +$500 - +$5FF |               | Player 1 bitmap (Paddle) **SHARED...** |
-|        |               | +$500 -       | Main Display List (approx 150 bytes) |
+|        |               | +$500 - $591  | Main Display List (146/$92 bytes) |
 | PMBASE | +$600 - +$6FF |               | Player 2 bitmap (Text Mask 1) **SHARED...** |
 |        |               | +$600 -       | Display List "Subroutines" |
 | PMBASE | +$700 - +$7FF |               | Player 3 bitmap (Text Mask 2) |
@@ -518,98 +518,98 @@ Flashing the Scores, Player Number, and Ball counter will be done using Players 
 
 ---
 
-**Main Display List**
+**Main Display List -- 216 Display Lines**
 
 | Scan Lines | Display Lines | Mode | LMS                   | DLI | COLPF0 | COLPM0/COLPM1 | Notes |
 | ---------- | ------------- | ---- | ----                  | --- | ------ | ------ | ----- |
-| **TOP SPACING**  
+| **TOP SPACING**
 | 0 - 7      |               | $70  |                       |     |        |        | Necessary Spacing | 
 | 8 - 11     |               | $30  |                       |  Y  |    X   |        | DLI set COLPF0 to White/$0C or Yellow/$1A or Black/$00 depending on state of Border or Labels |
 |            |               |      |                       |     |        |        | JMP_TOP_BORDER (+2) |
 | **TOP BORDER**
-| 16 - 23    | 1 - 8         | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BORDER |
+| 12 - 19    | 1 - 8         | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BORDER |
 | **OR EXTERNAL LABELS - PLAYER NUMBER**
-| 16 - 23    | 1 - 8         | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_PLAYER_LABEL |
+| 12 - 19    | 1 - 8         | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_PLAYER_LABEL |
 | **OR EXTERNAL LABELS - BALL IN PLAY**
-| 16 - 23    | 1 - 8         | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BALL_LABEL |
+| 12 - 19    | 1 - 8         | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BALL_LABEL |
 | **RETURN_END_TOP_BORDER** 
 |            |               |      |                       |     |        |        | RETURN_END_TOP_BORDER |
-| 24         | 9             | $00  |                       |     | X      |        | Blank Line - DLI Return COLPF0 to White/$0C |
+| 20         | 9             | $00  |                       |     | X      |        | Blank Line - DLI Return COLPF0 to White/$0C |
 | **PLAYER AND BALL NUMBERS**
-| 25         | 10            | $0C  | PLAYER_AND_BALL_LINE1 |     |        |        | Segment 1, Player And Ball Display  |
-| 26 - 27    | 11 - 12       | $0B  | PLAYER_AND_BALL_LINE1 |     |        |        | Segment 1, Player And Ball Display  |
-| 28         | 13            | $0C  | PLAYER_AND_BALL_LINE2 |     |        |        | Segment 2, Player And Ball Display  |
-| 29 - 30    | 14 - 15       | $0B  | PLAYER_AND_BALL_LINE2 |     |        |        | Segment 2, Player And Ball Display  |
-| 31         | 16            | $0C  | PLAYER_AND_BALL_LINE3 |     |        |        | Segment 3, Player And Ball Display  |
-| 32 - 33    | 17 - 18       | $0B  | PLAYER_AND_BALL_LINE3 |     |        |        | Segment 3, Player And Ball Display  |
-| 34         | 19            | $0C  | PLAYER_AND_BALL_LINE4 |     |        |        | Segment 4, Player And Ball Display  |
-| 35 - 36    | 20 - 21       | $0B  | PLAYER_AND_BALL_LINE4 |     |        |        | Segment 4, Player And Ball Display  |
-| 37         | 22            | $0C  | PLAYER_AND_BALL_LINE5 |     |        |        | Segment 5, Player And Ball Display  |
-| 38 - 39    | 23 - 24       | $0B  | PLAYER_AND_BALL_LINE5 |     |        |        | Segment 5, Player And Ball Display  |
-| 40         | 25            | $00  |                       |     |        |        | Blank Line  |
+| 21         | 10            | $0C  | PLAYER_AND_BALL_LINE1 |     |        |        | Segment 1, Player And Ball Display  |
+| 22 - 23    | 11 - 12       | $0B  | PLAYER_AND_BALL_LINE1 |     |        |        | Segment 1, Player And Ball Display  |
+| 24         | 13            | $0C  | PLAYER_AND_BALL_LINE2 |     |        |        | Segment 2, Player And Ball Display  |
+| 25 - 26    | 14 - 15       | $0B  | PLAYER_AND_BALL_LINE2 |     |        |        | Segment 2, Player And Ball Display  |
+| 27         | 16            | $0C  | PLAYER_AND_BALL_LINE3 |     |        |        | Segment 3, Player And Ball Display  |
+| 28 - 29    | 17 - 18       | $0B  | PLAYER_AND_BALL_LINE3 |     |        |        | Segment 3, Player And Ball Display  |
+| 30         | 19            | $0C  | PLAYER_AND_BALL_LINE4 |     |        |        | Segment 4, Player And Ball Display  |
+| 31 - 32    | 20 - 21       | $0B  | PLAYER_AND_BALL_LINE4 |     |        |        | Segment 4, Player And Ball Display  |
+| 33         | 22            | $0C  | PLAYER_AND_BALL_LINE5 |     |        |        | Segment 5, Player And Ball Display  |
+| 33 - 35    | 23 - 24       | $0B  | PLAYER_AND_BALL_LINE5 |     |        |        | Segment 5, Player And Ball Display  |
+| 36         | 25            | $00  |                       |     |        |        | Blank Line  |
 | **SCORES**
-| 41         | 26            | $0C  | SCORES_LINE1          |     |        |        | Segment 1, Scores Display  |
-| 42 - 43    | 27 - 28       | $0B  | SCORES_LINE1          |     |        |        | Segment 1, Scores Display  |
-| 44         | 29            | $0C  | SCORES_LINE2          |     |        |        | Segment 2, Scores Display  |
-| 45 - 46    | 30 - 31       | $0B  | SCORES_LINE2          |     |        |        | Segment 2, Scores Display  |
-| 47         | 32            | $0C  | SCORES_LINE3          |     |        |        | Segment 3, Scores Display  |
-| 48 - 49    | 33 - 34       | $0B  | SCORES_LINE3          |     |        |        | Segment 3, Scores Display  |
-| 50         | 35            | $0C  | SCORES_LINE4          |     |        |        | Segment 4, Scores Display  |
-| 51 - 52    | 36 - 37       | $0B  | SCORES_LINE4          |     |        |        | Segment 4, Scores Display  |
-| 53         | 38            | $0C  | SCORES_LINE5          |     |        |        | Segment 5, Scores Display  |
-| 54 - 55    | 39 - 40       | $0B  | SCORES_LINE5          |     |        |        | Segment 5, Scores Display  |
-| 56 - 57    | 41 - 42       | $10  |                       |  Y  | X      | X      | 2 Blank Lines - DLI Set COLPF0, COLPF3 to Red/$42 |
+| 37         | 26            | $0C  | SCORES_LINE1          |     |        |        | Segment 1, Scores Display  |
+| 38 - 39    | 27 - 28       | $0B  | SCORES_LINE1          |     |        |        | Segment 1, Scores Display  |
+| 40         | 29            | $0C  | SCORES_LINE2          |     |        |        | Segment 2, Scores Display  |
+| 41 - 42    | 30 - 31       | $0B  | SCORES_LINE2          |     |        |        | Segment 2, Scores Display  |
+| 43         | 32            | $0C  | SCORES_LINE3          |     |        |        | Segment 3, Scores Display  |
+| 44 - 45    | 33 - 34       | $0B  | SCORES_LINE3          |     |        |        | Segment 3, Scores Display  |
+| 46         | 35            | $0C  | SCORES_LINE4          |     |        |        | Segment 4, Scores Display  |
+| 47 - 48    | 36 - 37       | $0B  | SCORES_LINE4          |     |        |        | Segment 4, Scores Display  |
+| 49         | 38            | $0C  | SCORES_LINE5          |     |        |        | Segment 5, Scores Display  |
+| 50 - 51    | 39 - 40       | $0B  | SCORES_LINE5          |     |        |        | Segment 5, Scores Display  |
+| 52 - 53    | 41 - 42       | $10  |                       |  Y  | X      | X      | 2 Blank Lines - DLI Set COLPF0, COLPF3 to Red/$42 |
 | **BRICKS**
-| 58         | 43            | $0C  | BRICKS_LINE1          |     |        |        | Red Bricks row 1  |
-| 59 - 60    | 44 - 45       | $0B  | BRICKS_LINE1          |     |        |        | Red Bricks row 1  |
-| 61         | 46            | $00  |                       |     |        |        | Blank Line  |
-| 62         | 47            | $0C  | BRICKS_LINE2          |     |        |        | Red Bricks row 2  |
-| 63 - 64    | 48 - 49       | $0B  | BRICKS_LINE2          |     |        |        | Red Bricks row 2  |
-| 65         | 50            | $00  |                       |  Y  |  X     |  X     | Blank Line - DLI Set COLPF0, COLPF3 to Orange/$28  |
-| 66         | 51            | $0C  | BRICKS_LINE3          |     |        |        | Orange Bricks row 1  |
-| 67 - 68    | 52 - 53       | $0B  | BRICKS_LINE3          |     |        |        | Orange Bricks row 1  |
-| 69         | 54            | $00  |                       |     |        |        | Blank Line  |
-| 70         | 55            | $0C  | BRICKS_LINE4          |     |        |        | Orange Bricks row 2  |
-| 71 - 72    | 56 - 57       | $0B  | BRICKS_LINE4          |     |        |        | Orange Bricks row 2  |
-| 73         | 58            | $00  |                       |  Y  |  X     |  X     | Blank Line - DLI Set COLPF0, COLPF3 to Green/$C4  |
-| 74         | 59            | $0C  | BRICKS_LINE5          |     |        |        | Green Bricks row 1  |
-| 75 - 76    | 60 - 61       | $0B  | BRICKS_LINE5          |     |        |        | Green Bricks row 1  |
-| 77         | 62            | $00  |                       |     |        |        | Blank Line  |
-| 78         | 63            | $0C  | BRICKS_LINE6          |     |        |        | Green Bricks row 2  |
-| 79 - 80    | 64 - 65       | $0B  | BRICKS_LINE6          |     |        |        | Green Bricks row 2  |
-| 81         | 66            | $00  |                       |  Y  |  X     |  X     | Blank Line - DLI Set COLPF0, COLPF3 to Yellow/$1A  |
-| 82         | 67            | $0C  | BRICKS_LINE7          |     |        |        | Yellow Bricks row 1  |
-| 83 - 84    | 68 - 69       | $0B  | BRICKS_LINE7          |     |        |        | Yellow Bricks row 1  |
-| 85         | 70            | $00  |                       |     |        |        | Blank Line  |
-| 86         | 71            | $0C  | BRICKS_LINE8          |     |        |        | Yellow Bricks row 2  |
-| 87 - 88    | 72 - 73       | $0B  | BRICKS_LINE8          |  Y  | X      | X      | Yellow Bricks row 2 - DLI Set COLPF0, COLPF3 to White/$0C |
+| 54         | 43            | $0C  | BRICKS_LINE1          |     |        |        | Red Bricks row 1  |
+| 55 - 56    | 44 - 45       | $0B  | BRICKS_LINE1          |     |        |        | Red Bricks row 1  |
+| 57         | 46            | $00  |                       |     |        |        | Blank Line  |
+| 58         | 47            | $0C  | BRICKS_LINE2          |     |        |        | Red Bricks row 2  |
+| 59 - 60    | 48 - 49       | $0B  | BRICKS_LINE2          |     |        |        | Red Bricks row 2  |
+| 61         | 50            | $00  |                       |  Y  |  X     |  X     | Blank Line - DLI Set COLPF0, COLPF3 to Orange/$28  |
+| 62         | 51            | $0C  | BRICKS_LINE3          |     |        |        | Orange Bricks row 1  |
+| 63 - 64    | 52 - 53       | $0B  | BRICKS_LINE3          |     |        |        | Orange Bricks row 1  |
+| 65         | 54            | $00  |                       |     |        |        | Blank Line  |
+| 66         | 55            | $0C  | BRICKS_LINE4          |     |        |        | Orange Bricks row 2  |
+| 67 - 68    | 56 - 57       | $0B  | BRICKS_LINE4          |     |        |        | Orange Bricks row 2  |
+| 69         | 58            | $00  |                       |  Y  |  X     |  X     | Blank Line - DLI Set COLPF0, COLPF3 to Green/$C4  |
+| 70         | 59            | $0C  | BRICKS_LINE5          |     |        |        | Green Bricks row 1  |
+| 71 - 72    | 60 - 61       | $0B  | BRICKS_LINE5          |     |        |        | Green Bricks row 1  |
+| 73         | 62            | $00  |                       |     |        |        | Blank Line  |
+| 74         | 63            | $0C  | BRICKS_LINE6          |     |        |        | Green Bricks row 2  |
+| 75 - 76    | 64 - 65       | $0B  | BRICKS_LINE6          |     |        |        | Green Bricks row 2  |
+| 77         | 66            | $00  |                       |  Y  |  X     |  X     | Blank Line - DLI Set COLPF0, COLPF3 to Yellow/$1A  |
+| 78         | 67            | $0C  | BRICKS_LINE7          |     |        |        | Yellow Bricks row 1  |
+| 79 - 80    | 68 - 69       | $0B  | BRICKS_LINE7          |     |        |        | Yellow Bricks row 1  |
+| 81         | 70            | $00  |                       |     |        |        | Blank Line  |
+| 82         | 71            | $0C  | BRICKS_LINE8          |     |        |        | Yellow Bricks row 2  |
+| 83 - 84    | 72 - 73       | $0B  | BRICKS_LINE8          |  Y  | X      | X      | Yellow Bricks row 2 - DLI Set COLPF0, COLPF3 to White/$0C |
 | **EMPTY PLAYFIELD**
-| 89 - 96    | 74 - 81       | $70  |                       |     |        |        | 8 Blank Lines -- 123 total  |
-| 97 - 104   | 82 - 89       | $70  |                       |     |        |        | 8 Blank Lines  |
-| 105 - 112  | 90 - 97       | $70  |                       |     |        |        | 8 Blank Lines  |
-| 113 - 120  | 98 - 105      | $70  |                       |     |        |        | 8 Blank Lines  |
-| 121 - 128  | 106 - 113     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 129 - 136  | 114 - 121     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 137 - 144  | 122 - 129     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 145 - 152  | 130 - 137     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 153 - 160  | 138 - 145     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 161 - 168  | 146 - 153     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 169 - 176  | 154 - 161     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 177 - 184  | 162 - 169     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 185 - 192  | 170 - 177     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 193 - 200  | 178 - 185     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 201 - 208  | 186 - 193     | $70  |                       |     |        |        | 8 Blank Lines  |
-| 201 - 208  | 186 - 193     | $70  |                       |     |        |        | 8 Blank Lines  extra for 216 |
-| 209 - 211  | 194 - 196     | $20  |                       | Y   |     X  |     X  | 3 Blank Lines -- 123 total - DLI Set COLPF0, COLPF3 to Blue/$96 |
+| 85 - 92    | 74 - 81       | $70  |                       |     |        |        | 8 Blank Lines -- 123 total  |
+| 93 - 100   | 82 - 89       | $70  |                       |     |        |        | 8 Blank Lines  |
+| 101 - 108  | 90 - 97       | $70  |                       |     |        |        | 8 Blank Lines  |
+| 109 - 116  | 98 - 105      | $70  |                       |     |        |        | 8 Blank Lines  |
+| 117 - 124  | 106 - 113     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 125 - 132  | 114 - 121     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 133 - 140  | 122 - 129     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 141 - 148  | 130 - 137     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 149 - 156  | 138 - 145     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 157 - 164  | 146 - 153     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 165 - 172  | 154 - 161     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 173 - 180  | 162 - 169     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 181 - 188  | 170 - 177     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 189 - 196  | 178 - 185     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 197 - 204  | 186 - 193     | $70  |                       |     |        |        | 8 Blank Lines  |
+| 205 - 212  | 194 - 201     | $70  |                       |     |        |        | 8 Blank Lines  extra for 216 |
+| 213 - 215  | 202 - 204     | $20  |                       | Y   |     X  |     X  | 3 Blank Lines -- 123 total - DLI Set COLPF0, COLPF3 to Blue/$96 |
 |            |               |      |                       |     |        |        | JMP_BOTTOM_BORDER (+2) |
 | **PADDLE-BOTTOM BORDER**
-| 212 - 219  |  197 - 204    | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BOTTOM_BORDER |
+| 216 - 223  | 205 - 212     | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BOTTOM_BORDER |
 | **OR NO BOTTOM BORDER**
-| 212 - 219  | 197 - 204     | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BOTTOM_NO_BORDER |
+| 216 - 223  | 205 - 212     | JMP  |                       |     |        |        | Jump to DISPLAY_LIST_BOTTOM_NO_BORDER |
 | **RETURN_END_BOTTOM_BORDER** 
 |            |               |      |                       |     |        |        | RETURN_END_BOTTOM_BORDER |
 | **THE END**
-| 220 - 223  | 205 - 208     | $30  |                       |     |        |        | 4 Blank Lines |
+| 224 - 227  | 213 - 216     | $30  |                       |     |        |        | 4 Blank Lines |
 |            |               | JVB  |                       |     |        |        | Jump Vertical Blank |
 
 **DISPLAY LIST "SUBROUTINES"**
@@ -619,8 +619,8 @@ Flashing the Scores, Player Number, and Ball counter will be done using Players 
 | Scan Lines | Display Lines | Mode | LMS         | DLI | COLPF0 | COLPF3 | Notes |
 | ---------- | ------------- | ---- | ----        | --- | ------ | ------ | ----- |
 |            |               |      |             |     |        |        | DISPLAY_LIST_BORDER |
-| 16 - 19    | 1 - 4         | $09  | BORDER_LINE |     |        |        | Top Border |
-| 20 - 23    | 5 - 8         | $09  | BORDER_LINE |     |        |        | Top Border |
+| 12 - 15    | 1 - 4         | $09  | BORDER_LINE |     |        |        | Top Border |
+| 26 - 19    | 5 - 8         | $09  | BORDER_LINE |     |        |        | Top Border |
 |            |               | JMP  |             |     |        |        | Jump to RETURN_END_TOP_BORDER |
 
  **TOP EXTERNAL LABELS - PLAYER NUMBER**
@@ -628,14 +628,14 @@ Flashing the Scores, Player Number, and Ball counter will be done using Players 
 | Scan Lines | Display Lines | Mode | LMS                | DLI | COLPF0 | COLPF3 | Notes |
 | ---------- | ------------- | ---- | ----               | --- | ------ | ------ | ----- |
 |            |               |      |                    |     |        |        |  DISPLAY_LIST_PLAYER_LABEL |
-| 16         | 1             | $0C  | LABEL_PLAYER_LINE1 |     |        |        | "Player Number"  |
-| 17         | 2             | $0C  | LABEL_PLAYER_LINE2 |     |        |        | "Player Number"  |
-| 18         | 3             | $0C  | LABEL_PLAYER_LINE3 |     |        |        | "Player Number"  |
-| 19         | 4             | $0C  | LABEL_PLAYER_LINE4 |     |        |        | "Player Number"  |
-| 20         | 5             | $0C  | LABEL_PLAYER_LINE5 |     |        |        | "Player Number"  |
-| 21         | 6             | $0C  | LABEL_PLAYER_LINE6 |     |        |        | "Player Number"  |
-| 22         | 7             | $0C  | LABEL_PLAYER_LINE7 |     |        |        | "Player Number"  |
-| 23         | 8             | $00  |                    |     |        |        | Blank Line  |
+| 12         | 1             | $0C  | LABEL_PLAYER_LINE1 |     |        |        | "Player Number"  |
+| 13         | 2             | $0C  | LABEL_PLAYER_LINE2 |     |        |        | "Player Number"  |
+| 14         | 3             | $0C  | LABEL_PLAYER_LINE3 |     |        |        | "Player Number"  |
+| 15         | 4             | $0C  | LABEL_PLAYER_LINE4 |     |        |        | "Player Number"  |
+| 16         | 5             | $0C  | LABEL_PLAYER_LINE5 |     |        |        | "Player Number"  |
+| 17         | 6             | $0C  | LABEL_PLAYER_LINE6 |     |        |        | "Player Number"  |
+| 18         | 7             | $0C  | LABEL_PLAYER_LINE7 |     |        |        | "Player Number"  |
+| 19         | 8             | $00  |                    |     |        |        | Blank Line  |
 |            |               | JMP  |                    |     |        |        | Jump to RETURN_END_TOP_BORDER |
 
 **TOP EXTERNAL LABELS - BALL IN PLAY**
@@ -643,14 +643,14 @@ Flashing the Scores, Player Number, and Ball counter will be done using Players 
 | Scan Lines | Display Lines | Mode | LMS              | DLI | COLPF0 | COLPF3 | Notes |
 | ---------- | ------------- | ---- | ----             | --- | ------ | ------ | ----- |
 |            |               |      |                  |     |        |        | DISPLAY_LIST_BALL_LABEL |
-| 16         | 1             | $0C  | LABEL_BALL_LINE1 |     |        |        | "Ball In Play"  |
-| 17         | 2             | $0C  | LABEL_BALL_LINE2 |     |        |        | "Ball In Play"  |
-| 18         | 3             | $0C  | LABEL_BALL_LINE3 |     |        |        | "Ball In Play"  |
-| 19         | 4             | $0C  | LABEL_BALL_LINE4 |     |        |        | "Ball In Play"  |
-| 20         | 5             | $0C  | LABEL_BALL_LINE5 |     |        |        | "Ball In Play"  |
-| 21         | 6             | $0C  | LABEL_BALL_LINE6 |     |        |        | "Ball In Play"  |
-| 22         | 7             | $0C  | LABEL_BALL_LINE7 |     |        |        | "Ball In Play"  |
-| 23         | 8             | $00  |                  |     |        |        | Blank Line  |
+| 12         | 1             | $0C  | LABEL_BALL_LINE1 |     |        |        | "Ball In Play"  |
+| 13         | 2             | $0C  | LABEL_BALL_LINE2 |     |        |        | "Ball In Play"  |
+| 14         | 3             | $0C  | LABEL_BALL_LINE3 |     |        |        | "Ball In Play"  |
+| 15         | 4             | $0C  | LABEL_BALL_LINE4 |     |        |        | "Ball In Play"  |
+| 16         | 5             | $0C  | LABEL_BALL_LINE5 |     |        |        | "Ball In Play"  |
+| 17         | 6             | $0C  | LABEL_BALL_LINE6 |     |        |        | "Ball In Play"  |
+| 18         | 7             | $0C  | LABEL_BALL_LINE7 |     |        |        | "Ball In Play"  |
+| 19         | 8             | $00  |                  |     |        |        | Blank Line  |
 |            |               | JMP  |                  |     |        |        | Jump to RETURN_END_TOP_BORDER |
 
 **BOTTOM BORDER (or Paddle - No Bottom Border)**
@@ -658,8 +658,8 @@ Flashing the Scores, Player Number, and Ball counter will be done using Players 
 | Scan Lines | Display Lines | Mode | LMS         | DLI | COLPF0 | COLPF3 | Notes |
 | ---------- | ------------- | ---- | ----        | --- | ------ | ------ | ----- |
 |            |               |      |             |     |        |        | DISPLAY_LIST_BOTTOM_BORDER |
-| 212 - 215  | 197 - 200     | $09  | BORDER_LINE |     |        |        | Bottom Border |
-| 216 - 219  | 201 - 204     | $09  | BORDER_LINE | Y   | X      | X      | Bottom Border - DLI Return COLPF0, COLPF3 to White/$0C |
+| 216 - 219  | 205 - 208     | $09  | BORDER_LINE |     |        |        | Bottom Border |
+| 220 - 223  | 209 - 212     | $09  | BORDER_LINE | Y   | X      | X      | Bottom Border - DLI Return COLPF0, COLPF3 to White/$0C |
 |            |               | JMP  |             |     |        |        | Jump to RETURN_END_BOTTOM_BORDER |
 
 **OR NO BOTTOM BORDER (Paddle)**
@@ -667,7 +667,7 @@ Flashing the Scores, Player Number, and Ball counter will be done using Players 
 | Scan Lines | Display Lines | Mode | LMS  | DLI | COLPF0 | COLPF3 | Notes |
 | ---------- | ------------- | ---- | ---- | --- | ------ | ------ | ----- |
 |            |               |      |      |     |        |        | DISPLAY_LIST_BOTTOM_NO_BORDER |
-| 212 - 219  | 197 - 204     | $70  |      | Y   | X      | X      | 8 Blank Lines - DLI Return COLPF0, COLPF3 to White/$0C |
+| 216 - 223  | 205 - 212     | $70  |      | Y   | X      | X      | 8 Blank Lines - DLI Return COLPF0, COLPF3 to White/$0C |
 |            |               | JMP  |      |     |        |        | Jump to RETURN_END_BOTOM_BORDER |
 
 ---
