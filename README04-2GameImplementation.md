@@ -14,7 +14,7 @@ When there is no game in progress the paddle is replaced by a horizontal border 
 
 **GAME SCREEN**:
 
-The visible playfield will be 208 scan lines tall.
+Initial estimate is the visible playfield would be 208 scan lines tall. **UPDATE**: Stats collected from owners of real CRTs indicate the majority of displays are capable of showing at least 216 scan lines intact. Therefore the screen will be defined as **216** lines.  This will slightly improve the vertical/horizontal aspect ratio to be closer to the original arcade.
 
 The game screen scaled to the Atari's dimensions fits within the Atari's narrow playfield horizontal width (128 color clocks).  Utilizing ANTIC's narrow width reduces the RAM requirements for graphics.
 
