@@ -28,7 +28,7 @@ The score counter increment relates to the sounds played. One strike on a Yellow
 
 The change in score is immediate, but the tones play while the ball continues moving.  The multiple-tone playback will need a multi-tasking sound system to allow game movement to continue simultaneously during sound management over multiple frames.
 
-***Sidebar***: Since the the Border tone waveform shape appears so well formed I theorize that the Breakout hardware has an oscillator/clock to generate the Border sound to which it then applies other digital logic manipulating that into the higher and lower frequencies for the Paddle and Brick/Score sounds.
+***Sidebar***: Since the the Border tone waveform shape appears so well formed I theorize that the Breakout hardware has an oscillator/clock to generate the Border sound to which it then applies other digital logic manipulating that into the higher and lower frequencies for the Paddle and Brick/Score sounds and it is this signal manipulation that results in the strange shapes of the other two waveforms.
 
 ---
 
