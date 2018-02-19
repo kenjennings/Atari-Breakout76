@@ -74,7 +74,7 @@ The first red line is the top border in Mode 9 which is 4 scanlines tall. The ne
 
 The next two sections with five red lines each make up the numbers at the top of the playfield.  There is only five rows of screen data each displayed three times to create numbers 15 scan lines tall.
 
-The next section are eight lines of bricks with one row of data repeated to make bricks thtee scan lines tall.
+The next section are eight lines of bricks with one row of data repeated to make bricks three scan lines tall.
 
 At the bottom there is no red line for the bottom border/paddle area.  When this is visible it repeats the same data used for the top border. 
 
