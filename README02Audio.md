@@ -18,11 +18,11 @@ A test program on the Atari that repeatedly plays short tones and uses the keybo
 
 In the end, the audio guessing effort determined:   
 
-Object  | Sound  | Pitch/Freq | Duration | POKEY AUDF at 64KHz
+Object  | Sound  | Pitch/Freq | Duration | POKEY AUDF at 64KHz | Envelope
 --- | --- | --- | ---- | ---
-Paddle  | High    | B6/2010 Hz | 31 ms (2 frames)  | 15
-Borders | Medium  | B5/987 Hz | 85 ms (5 frames) | 31
-Bricks/Score | Low     | B4/488 Hz | 31 ms (2 frames) | 64
+Paddle  | High    | B6/2010 Hz | 31 ms (2 frames)  | 15 | ![Paddle](BeepPaddleEnvelope.png?raw=true "Paddle Envelope")
+Borders | Medium  | B5/987 Hz | 85 ms (5 frames) | 31 | ![Border](BeepBorderEnvelope.png?raw=true "Border Envelope")
+Bricks/Score | Low     | B4/488 Hz | 31 ms (2 frames) | 64 | ![Brick](BeepBrickEnvelope.png?raw=true "Brick Envelope")
 
 The score counter increment relates to the sounds played. One strike on a Yellow Brick causes one point added to the score, and one tone.  One strike to a Green Brick adds three points to the score, and plays three tones. And so forth: Five tones for Orange, and 7 tones for Red.  
 
