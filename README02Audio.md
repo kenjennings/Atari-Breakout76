@@ -24,6 +24,8 @@ Paddle  | High    | B6/2010 Hz | 31 ms (2 frames)  | 15 | ![Paddle](BeepPaddleEn
 Borders | Medium  | B5/987 Hz | 85 ms (5 frames) | 31 | ![Border](BeepBorderEnvelope.png?raw=true "Border Envelope")
 Bricks/Score | Low     | B4/488 Hz | 31 ms (2 frames) | 64 | ![Brick](BeepBrickEnvelope.png?raw=true "Brick Envelope")
 
+There is almost no point to trying to impersonate an Attack-Sustain-Decay-Release envelope.  The tone durations are so short the envelope amounts to moving from mimimum volume to maximum volume for one or two frames and then back to minimum volume.   The border tone lasts a couple frames longer.
+
 The score counter increment relates to the sounds played. One strike on a Yellow Brick causes one point added to the score, and one tone.  One strike to a Green Brick adds three points to the score, and plays three tones. And so forth: Five tones for Orange, and 7 tones for Red.  
 
 The change in score is immediate, but the tones play while the ball continues moving.  The multiple-tone playback will need a multi-tasking sound system to allow game movement to continue simultaneously during sound management over multiple frames.
