@@ -19,7 +19,7 @@ A test program on the Atari that repeatedly plays short tones and uses the keybo
 In the end, the audio guessing effort determined:   
 
 Object  | Sound  | Pitch/Freq | Duration | POKEY AUDF at 64KHz | Envelope
---- | --- | --- | ---- | ---
+--- | --- | --- | ---- | --- | ---
 Paddle  | High    | B6/2010 Hz | 31 ms (2 frames)  | 15 | ![Paddle](BeepPaddleEnvelope.png?raw=true "Paddle Envelope")
 Borders | Medium  | B5/987 Hz | 85 ms (5 frames) | 31 | ![Border](BeepBorderEnvelope.png?raw=true "Border Envelope")
 Bricks/Score | Low     | B4/488 Hz | 31 ms (2 frames) | 64 | ![Brick](BeepBrickEnvelope.png?raw=true "Brick Envelope")
