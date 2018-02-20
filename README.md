@@ -41,3 +41,5 @@ The display should be fairly simple to maintain a reasonable immitation of the o
 
 **Section 07:** [Title Screen]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen" )
 
+**Section 08:** [Organizing Memory]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README08Memory.md "Organizing Memory" )
+
