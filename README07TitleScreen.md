@@ -1,9 +1,10 @@
 # Atari-Breakout76 Title Screen
 
-**PREVIOUS SECTION** | **Back To START** 
-:--- | :---: 
-[:arrow_left: . . . Game Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") 
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Test Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | [Organizing Memory . . . :arrow_right:](https://github.com/kenjennings/Atari-Breakout76/blob/master/README08Memory.md "Organizing Memory") 
  
+
 ---
 
 **TITLE SCREEN**
@@ -38,7 +39,7 @@ The screen needs a couple interrupts for management.  The Vertical Blank Interru
 
 ---
 
-**PREVIOUS SECTION** | **Back To START** 
-:--- | :---: 
-[:arrow_left: . . . Game Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") 
+**PREVIOUS SECTION** | **Back To START** | **NEXT SECTION**
+:--- | :---: | ---:
+[:arrow_left: . . . Test Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README06GameScreen.md "Game Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") | [Organizing Memory . . . :arrow_right:](https://github.com/kenjennings/Atari-Breakout76/blob/master/README08Memory.md "Organizing Memory") 
  
