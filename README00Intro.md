@@ -32,6 +32,8 @@ An important fact here is that Breakout is a very early arcade game built from d
 
 **Section 07:** [Title Screen]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen" )
 
+**Section 08:** [Organizing Memory]( https://github.com/kenjennings/Atari-Breakout76/blob/master/README08Memory.md "Organizing Memory" )
+
 ---
 
 . | **Back To START** | .
