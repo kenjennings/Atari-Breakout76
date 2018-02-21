@@ -8,6 +8,8 @@
 
 **Organizing Memory**
 
+Everything resides in memory -- the program, the variables and data, the graphics images, etc.  
+
 **Page Zero**
 
 **Aligned Memory**
