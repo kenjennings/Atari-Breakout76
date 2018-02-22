@@ -32,7 +32,7 @@ Likewise, the Atari's ANTIC graphics hardware reads data from memory. While the 
 | Display List | 16-bit | 16-bit | 1K Max |
 | Display RAM | 16-bit | 16-bit | 4K Max (Restart via LMS instruction |
 | Player/Missile (double-line) | Page Pointer | 1K Boundary | 1K Max |
-| Player/Missile (single-line | Page Pointer | 2K Boundary | 2K Max |
+| Player/Missile (single-line) | Page Pointer | 2K Boundary | 2K Max |
 | Character Set (Modes 2, 3, 4, 5) | Page Pointer | 1K Boundary | 1K Max |
 | Character Set (Modes 6, 7) | Page Pointer | 1/2K Boundary | 1/2K Max |
 
