@@ -28,7 +28,7 @@ Overview of system memory:
 Likewise, the Atari's ANTIC graphics hardware reads data from memory. While the graphics chip can access the entire 16-bit address space there are limits to how much contiguous memory the chip may automatically reference.  Also, some features use only one byte -- a Page reference -- to identify the beginning of data.
 
 | Feature | DMA address | Starting Address Limit | Max Contiguous RAM |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | 
 | Display List | 16-bit | 16-bit | 1K Max |
 | Display RAM | 16-bit | 16-bit | 4K Max (Restart via LMS instruction |
 | Player/Missile (double-line) | Page Pointer | 1K Boundary | 1K Max |
