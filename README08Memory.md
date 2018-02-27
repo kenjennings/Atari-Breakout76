@@ -8,15 +8,15 @@
 
 **Overall Modular Design**
 
-As a matter of program design, each modular feature will place its code in files separated by purpose.   The main source file is responsible for establishing the program address or other supporting values, and then the main source file includes each of the other modules.
+Each feature will place its code and data in files separated by purpose.  The main source file is responsible for establishing the program address or other supporting values, and then the main source file includes each of the other modules.  The kinds of files needed for a feature depend on the memory organization required for the data or the code.  The discussion below outlines the kinds of memory and assembly code that a feature may use. 
 
 **Organizing Memory**
 
-Everything resides in memory -- the program, the variables and data, the graphics images, etc.  Program memory arranged to fit the 6502 CPU preferences results in smaller, faster code.  Additionally, the custom graphics hardware in the Atari accesses memory directly and it requires the data for graphics features be arranged in specific ways.
+Everything resides in memory -- the program, the variables and data, the graphics images, etc.  Program memory arranged to fit the 6502 CPU preferences results in smaller, faster code.  Additionally, the custom graphics hardware in the Atari accesses memory directly and requires the data for graphics features arranged in specific manners.
 
 Recall that a 16-bit address must be described using two bytes of information.  The low byte, value 0 to 255, and the high byte, value 0 to 255.  Multiply the high byte by 256, and add the low byte to specify an address.  
 
-Memory address $0000 to $00FF all have the high byte $00.  The relationship of the 256 memory locations with the same high byte is called a "Page", so this memory with the high byte value $00 is referred to as "Page Zero".  Memory addresses $0100 to $01FF all have the high byte $01 making this block of memory "Page one", and so forth for 256 pages each with 256 bytes.  The memory organized in contiguous 256 byte blocks or Pages is significant to the 6502 processor.  Many parts of the computer are placed in memory based on a staring Page address -- the cartridge ROM location, the Operating System, and custom chips hardware registers.  
+Memory addresses $0000 to $00FF all have the high byte $00.  The 256 memory addresses related to each other by the same high byte are called a "Page".  The memory addresses with the high byte value $00 are referred to as "Page Zero".  Memory addresses $0100 to $01FF all have the high byte $01 making this block of memory "Page one", and so forth for 256 pages each with 256 bytes.  The memory organized in contiguous 256 byte blocks or Pages is significant to the 6502 processor.  Many parts of the computer are placed in memory based on a staring Page address -- the cartridge location, the Operating System, and input/output hardware such as the custom chips hardware registers.
 
 Not all memory in the system is RAM accessible to a program.  Some memory is ROM containing the Operating System.  On some Atari models the Operating System ROM can be switched out to expose RAM at the same locations.  However, the Atari' comprehensive Operating System provides many useful services and functions, so it is usually more trouble than it is worth for a program to disable the Operating System. 
 
@@ -24,7 +24,7 @@ Also, the ROM cartridge replaces RAM if RAM exists at that same location.  Typic
 
 When the Operating System is active several 256 byte pages at the beginning of memory are committed to variables supporting Operating System functions.  Also, if DOS is loaded a couple more Kilobytes of low memory are committed to DOS and the disk buffers.
 
-Likewise, the Atari's ANTIC graphics hardware reads data from memory. While the graphics chip can access the entire 16-bit address space there are limits to how much contiguous memory the chip may automatically reference.  Also, some features use only one byte to describe a starting Page number for the beginning of data.
+The Atari's ANTIC graphics hardware also reads data from memory. While the graphics chip can access the entire 16-bit address space there are limits to how much contiguous memory the chip may automatically reference.  Also, some graphics features use only one byte to describe a starting Page number for the beginning of data.
 
 Overview of system memory:
 
@@ -34,20 +34,21 @@ Overview of system memory:
 
 **Page Zero**
 
-The first Page of memory, Page Zero, is special in the system.  6502 instructions referencing addresses in any other page in memory require three bytes; one for the instruction and two more bytes for the 16-bit address. The 6502 has specific machine language instructions for Page Zero that assume the high byte value of the address is $00 and so they need only two bytes -- one instruction byte and one address byte.  Frequent references to Page Zero locations can noticably shrink program size.  
+The first Page of memory, Page Zero, is special in the system.  6502 instructions referencing addresses in any other page in memory require two bytes to express the 16-bit address. The 6502 has special machine language instructions for Page Zero that assume the high byte value of the address is $00 and so need only one byte to describe the address.  Frequent reference to Page Zero locations can noticably shrink program size.  
 
-Instructions using Page Zero execute faster than the corresponding instructions referencing other memory, so they can speed up programs when execution time is critical.  Page Zero locations are somewhat like cache or additional registers.
+Because the instructions using Page Zero are shorter, they also execute faster than the corresponding instructions referencing other memory.  Page Zero use can speed up programs when execution time is critical.  In a way, Page Zero locations are somewhat like cache or additional registers.
 
-Finally, the 6502 has some special instructions that only work with Page 0 locations.  These instructions can use the values in Page 0 memory as pointers to another destination address in memory.  This powerful feature enables writing reusable code that can operate against any memory in the system just by changing an address stored in Page Zero.
+Finally, the 6502 has special instructions that only work with Page 0 locations.  These instructions can use the values in Page 0 memory as pointers to another destination address in memory.  This powerful feature enables writing reusable code that can operate against any memory in the system just by changing an address stored in Page Zero.
 
-Since Page Zero provides so much power and utility these 256 bytes are highly contested.  The first half of Page 0, $00 to $7F is committed to the Operating System as configuration values and working variables for managing input/output operations, the full screen editor, pixel graphics drawing, the real-time clock, and other useful functions.
+Since Page Zero provides so much power and utility these 256 bytes are highly contested.  The first half of Page Zero ($00 to $7F) is committed to the Operating System.  These locations are configuration values and working variables for managing input/output operations, the full screen editor, pixel graphics drawing, the real-time clock, and other useful functions.
 
 The second half of Page Zero ($80 to $FF) is primarily dedicated to the ROM cartridge program.  This ordinarily means BASIC which uses most of the page.  The remainder of the page belongs to the Floating Point library.   
 
-The assembly language game will load from disk and there will be no ROM cartridge running in memory.  The game will also not use any Floating-Point routines.  Therefore, all of the second half of Page Zero, 128 bytes, are available to the program for use as  128 byte-sized variables or 64 address-sized variables.
+The assembly language game will load from disk and there will be no ROM cartridge running in memory.  The game will also not use any Floating-Point routines.  Therefore, all of this half of Page Zero is available to the program.
 
-A problem with Page Zero on non-Atari computers is how to set up startup values i Page Zero.  Often this requires extra code to explicitly load and store values -- four bytes of instructions, data, and addresses to set one byte of Page Zero.
+A problem with Page Zero on non-Atari computers is how to initialize the values in Page Zero.  Often this requires extra code to explicitly load and store values -- four bytes of instructions, data, and addresses are required to set one byte of Page Zero.
 
+```asm
 TITLESPEED = $80
 TITLETEXT  = $81 ; two-byte pointer
 TITLEX     = $83
@@ -63,6 +64,7 @@ TITLEY     = $84
 	sta TITLEX
 	lda #$40
 	sta TITLEY
+```
 
 This requires 20 bytes of program code to set only 5 bytes in Page Zero.  In an earlier game design I was managing Page Zero like the non-Atari example above as declarations.  This resulted in painful, tedious, source code editing purgatory every time I added or removed a page zero variable.  In the example above, if TITLETEXT is removed, then the declarations for every variable that follows must be recalculated and edited two addresses earlier in memory.  This leads to inevitable problems.
 
@@ -70,10 +72,12 @@ The Atari has an interesting solution.  The Atari executable load file format is
 
 The executable file format discussion is relevant to Page Zero, because it allows an Atari assembly language program to declare Page Zero variables and define the initial values the same as it would do for any other memory.  Therefore, data can be loaded directly into Page Zero locations from the executable file:
 
+```asm
 	*= $80 ; Set program location to Page Zero
 
 VARIABLE1 .word $02FC
 VARIABLE2 .byte $FF
+```
 
 This loads 3 bytes of data into three bytes of Page Zero.  There is actually no code involved.  The data is loaded directly from the executable file on disk.
 
@@ -81,6 +85,7 @@ This also solves the problem with managing and keeping order of Page Zero variab
 
 Main looks like this:
 
+```asm
 	*= $80
 
 .include "TitleZero.asm"
@@ -95,6 +100,7 @@ TITLETEXT  .word $02FC
 TITLEX     .byte $7f
 TITLEY     .byte $40
 . . .
+```
 
 No part of the code actually declares the addresses of variables.  Any of the Page Zero variable files can be easily edited and variables changed and moved around, and then everything is correct after reassembly.
 
