@@ -8,11 +8,17 @@
 
 **Overall Modular Design**
 
-Each feature will place its code and data in files separated by purpose.  The main source file is responsible for establishing the program address or other supporting values, and then the main source file includes each of the other modules.  The kinds of files needed for a feature depend on the memory organization required for the data or the code.  The discussion below outlines the kinds of memory and assembly code that a feature may use. 
+Each feature of the game will place its code and data in files separated by purpose.  However, modularizing code and data in this manner can be difficult in assembly on an 8-bit system.
+
+
+Higher level languages on larger computers do not require the programmer think much about memory -- the compiler and the environment automatically use heap and stack as appropriate.  But, an assembly language program on an 8-bit computer is more difficult.  Being closer to the metal means the assembly programmer has more to consider and control.  Modular design requires more thought and planning.  Code and data must be grouped based on the memory organization required for that kind of graphics data or the code.  
+
+The discussion below outlines the kinds of memory and assembly code that a feature may use.  The code and data for features will be grouped into files based based on this organization.   The main source file is responsible for establishing the program address or other supporting values, and then the main source file includes each of the files for the modular feature.     
+
 
 **Organizing Memory**
 
-Everything resides in memory -- the program, the variables and data, the graphics images, etc.  Program memory arranged to fit the 6502 CPU preferences results in smaller, faster code.  Additionally, the custom graphics hardware in the Atari accesses memory directly and requires the data for graphics features arranged in specific manners.
+Everything resides in memory -- the program, the variables and data, the graphics images, etc.  Program memory arranged to fit the 6502 CPU preferences results in smaller, faster code.  Additionally, the custom graphics hardware in the Atari accesses memory directly and requires the data for graphics features arranged in specific ways.
 
 Recall that a 16-bit address must be described using two bytes of information.  The low byte, value 0 to 255, and the high byte, value 0 to 255.  Multiply the high byte by 256, and add the low byte to specify an address.  
 
@@ -24,13 +30,11 @@ Also, the ROM cartridge replaces RAM if RAM exists at that same location.  Typic
 
 When the Operating System is active several 256 byte pages at the beginning of memory are committed to variables supporting Operating System functions.  Also, if DOS is loaded a couple more Kilobytes of low memory are committed to DOS and the disk buffers.
 
-The Atari's ANTIC graphics hardware also reads data from memory. While the graphics chip can access the entire 16-bit address space there are limits to how much contiguous memory the chip may automatically reference.  Also, some graphics features use only one byte to describe a starting Page number for the beginning of data.
+The Atari's ANTIC graphics hardware also reads data from memory.  While the graphics chip can access the entire 16-bit address space there are limits to how much contiguous memory the chip may automatically reference.  Also, some graphics features use only one byte to describe a starting Page number for the beginning of data.
 
 Overview of system memory:
 
-
-
-
+Diagram of memory map goes here.
 
 **Page Zero**
 
@@ -44,9 +48,9 @@ Since Page Zero provides so much power and utility these 256 bytes are highly co
 
 The second half of Page Zero ($80 to $FF) is primarily dedicated to the ROM cartridge program.  This ordinarily means BASIC which uses most of the page.  The remainder of the page belongs to the Floating Point library.   
 
-The assembly language game will load from disk and there will be no ROM cartridge running in memory.  The game will also not use any Floating-Point routines.  Therefore, all of this half of Page Zero is available to the program.
+This assembly language game will load from disk and there will be no ROM cartridge running in memory.  The game will not use any Floating-Point routines.  Therefore, all of this half of Page Zero is available to the program.
 
-A problem with Page Zero on non-Atari computers is how to initialize the values in Page Zero.  Often this requires extra code to explicitly load and store values -- four bytes of instructions, data, and addresses are required to set one byte of Page Zero.
+A problem with Page Zero is how to initialize the values in Page Zero.  Often this requires extra code to explicitly load and store values -- four bytes of instructions, data, and addresses are required to set one byte of Page Zero.
 
 ```asm
 TITLESPEED = $80
@@ -68,6 +72,37 @@ TITLEY     = $84
 
 This requires 20 bytes of program code to set only 5 bytes in Page Zero.  In an earlier game design I was managing Page Zero like the non-Atari example above as declarations.  This resulted in painful, tedious, source code editing purgatory every time I added or removed a page zero variable.  In the example above, if TITLETEXT is removed, then the declarations for every variable that follows must be recalculated and edited two addresses earlier in memory.  This leads to inevitable problems.
 
+The alternative method is to declare the data intended for Page Zero in another location in memory in and then copy the data to Page Zero during program initialization. Such as:
+
+```asm
+TITLESPEED = $80
+TITLETEXT  = $81 ; two-byte pointer
+TITLEX     = $83
+TITLEY     = $84
+
+	*= $3400
+
+PAGEZERODATA
+	.byte $FF
+	.word $02FC
+	.byte $7f
+	.byte $40
+. . .
+	MAXZERODATA = $40 ; How many bytes used in Page Zero.
+
+INIT
+	ldy #$00
+LOOPCOPYZERO
+	lda PAGEZERODATA,y
+	sta $80,y
+	iny
+	cpy #MAXZERODATA
+	bne LOOPCOPYZERO
+. . .
+```
+
+This solution reduces the memory overhead for initializing Page Zero locations.  The entire working code is 12 bytes of code copying a contiguous block of bytes into Page Zero.  However, the data defined in memory outside of Page Zero becomes wasted space after Page Zero is initilized.  This solution also does not solve the problem of editing the labels for Page Zero locations.  Adding and removing location labels is still an onerous task.  
+
 The Atari has an interesting solution.  The Atari executable load file format is structured.  It provides starting and ending addresses with the data to fill in that memory space.  This allows the Atari to optimize executable file size by describing only the data that the program needs thus reducing file size and speeding up load time.  Many other systems start loading at a usually fixed address and must represent all the memory as one continuous block in the file even if parts of it are not used.
 
 The executable file format discussion is relevant to Page Zero, because it allows an Atari assembly language program to declare Page Zero variables and define the initial values the same as it would do for any other memory.  Therefore, data can be loaded directly into Page Zero locations from the executable file:
@@ -75,13 +110,16 @@ The executable file format discussion is relevant to Page Zero, because it allow
 ```asm
 	*= $80 ; Set program location to Page Zero
 
-VARIABLE1 .word $02FC
-VARIABLE2 .byte $FF
+TITLESPEED .byte $FF
+TITLETEXT  .word $02FC
+TITLEX     .byte $7f
+TITLEY     .byte $40
+. . .
 ```
 
-This loads 3 bytes of data into three bytes of Page Zero.  There is actually no code involved.  The data is loaded directly from the executable file on disk.
+This loads five bytes of data into five bytes of Page Zero.  There is actually no code involved.  The data is loaded directly from the executable file on disk.
 
-This also solves the problem with managing and keeping order of Page Zero variables.  The addresses of the variables no longer need to be declared.  The Assembler will take care of it.  The main source file can control the assembly directive to set the program address to Page Zero, then include files for each feature that defines variable values without andy other address definitions.
+This also solves the problem with managing and keeping order of Page Zero variables.  The addresses of the variables no longer need to be declared.  The Assembler will take care of it.  The main source file can control the assembly directive to set the program address to Page Zero, then include files for each feature that defines variable values without any other address definitions.
 
 Main looks like this:
 
@@ -92,9 +130,11 @@ Main looks like this:
 .include "BallZero.asm"
 .include "PaddleZero.asm"
 etc.
+```
 
 And then "TitleZero.asm" contains:
- 
+
+```asm
 TITLESPEED .byte $FF
 TITLETEXT  .word $02FC
 TITLEX     .byte $7f
