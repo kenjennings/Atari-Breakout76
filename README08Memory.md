@@ -172,7 +172,7 @@ System memory Map here.
 P/M Memory Map - Offsets from PMBASE
 
 | - | Unused | M3 M2 M1 M0 | P0 | P1 | P2 | P3 |
-| --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | :---: | --- | --- | --- | --- |
 | ***Start*** | Top | of | Screen | . | . | .|
 | hex | $000 | $180 | $200 | $280 | $300 | $380 |
 | dec |  0 | 384 | 512 | 640 | 768 | 896 |
@@ -189,7 +189,7 @@ System memory Map here.
 P/M Memory Map - Offsets from PMBASE
 
 | - | Unused | M3 M2 M1 M0 | P0 | P1 | P2 | P3 |
-| --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | :---: | --- | --- | --- | --- |
 | ***Start*** | Top | of | Screen | . | . | .|
 | hex | $000 | $300 | $400 | $500 | $600 | $700 |
 | dec |  0 | 768 | 1024 | 1280 | 1536 | 1792 |
