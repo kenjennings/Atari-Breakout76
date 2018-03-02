@@ -159,17 +159,21 @@ The Atari's ANTIC graphics chip reads memory to provide data for several graphic
 | Character Set (Modes 6, 7) | Page Pointer | 1/2K Boundary | 1/2K Max |
 
 
-- **Display List** ANTIC can read the Display List beginning anywhere in memory, but it cannot read across a 1K boundary (4 Pages) in memory.  Reading past a 1K boundary requires the Display List include a JMP  (jump) instruction which reloads the Display List program counter at the new address after the 1K boundary.  But, this is not a difficult problem to avoid as even the largest possible display list is less than 1K.
+- **Display List** The Display List is a simple program ANIC executes.  The program describes the screen construction.  Display List commands identify the text or graphics mode to display on that line, and optionally the 16-bit address of the start of screen memory for that line, plus options indicating the line performs horizontal or vertical fine scrolling.  Each text or graphics mode line requires an instruction.  This means mixing different text and graphics modes on screen is merely a matter of using different instructions in the Display List.  This is a very power feature as many other 8-bit computers from the era either can't support multiple display modes on the screen, or require complex interrupts to change video registers.
+
+ANTIC can read the Display List beginning anywhere in memory, but it cannot read across a 1K boundary (4 Pages) in memory.  Reading past a 1K boundary requires the Display List include a JMP  (jump) instruction which reloads the Display List program counter at the new address after the 1K boundary.  But, this is not a difficult problem to avoid as even the largest possible Display List is less than 1K.
 
 Memory Map here.
 
-- **Display RAM** The text and pixel display data can begin anywhere in memory with the exception that it does not cross over a 4K boundary in the middle of displaying a line of contiguous data.  A full screen display in ANTIC modes E and F require 8K of RAM.  The Operating System creates these Display Lists with an instruction including the LMS (Load Memory Scan) option near the middle of the screen instructing ANTIC to reload the screen memory address for the second 4K block of memory.
+- **Display RAM** Antic reads screen memeory through the Memory Scan register.  As indicated in the Display List section an ANTIC Display List command for a text or graphics mode may optionally describe the starting address for screen memory.  If there is no screen memory specification ANTIC's Memory Scan automatically continues reading sequentially from memory where it ended for the previous line.  The Memory Scan address for text and pixel display data can begin anywhere in memory with the exception that the action of reading memory does not cross over a 4K boundary in the middle of the line.
+
+The Operating System constructs Display Lists for full screen graphics modes with the Load Memory Scan option on the first mode line.  ANTIC's Memory Scan reads the remainder of the screen data automatically traversing through contiguous memory that follows.  An exception is ANTIC modes E and F which require 8K of RAM.  The Operating System creates these Display Lists with the Load Memory Scan option added to an instruction near the middle of the screen directing ANTIC to load a new starting screen memory address into the Memory Scan register for the second 4K block of memory.
 
 System memory Map here.
 
-- **Double-Line Player Missile Graphics** This uses a one byte pointer to a page (the high byte of an address).  For this mode the Page must be at a 1K boundary.  ANTIC will read Player/Missile bitmaps from the identified 1K block beginning at this page.
+- **Double-Line Player Missile Graphics** This Player/Missile mode supplies one byte of bitmap data to the Player/Missile images for two consecutive scan lines.  Player/Missile memory DMA uses a one byte pointer to a Page (PMBASE).  This Player/Missile display mode requires the Page must be at a 1K boundary.  ANTIC reads Player/Missile bitmaps from the 1K memory block beginning at this page.
 
-P/M Memory Map - Offsets from PMBASE
+Player/Missile Double-Line Memory Map  Double-Line - Offsets from PMBASE
 
 | - | Unused | M3 M2 M1 M0 | P0 | P1 | P2 | P3 |
 | --- | --- | :---: | --- | --- | --- | --- |
@@ -183,7 +187,7 @@ P/M Memory Map - Offsets from PMBASE
 
 System memory Map here.
 
-- **Single-Line Player Missile Graphics** This uses a one byte pointer to a page (the high byte of an address).  For this mode the Page must be at a 2K boundary.  ANTIC will read Player/Missile bitmaps from the identified 2K block beginning at this page.
+- **Single-Line Player Missile Graphics** This Player/Missile mode supplies one byte of bitmap data to the Player/Missile images for each scan line.  Player/Missile memory DMA uses a one byte pointer to a Page (PMBASE).  This Player/Missile display mode requires the Page must be at a 2K boundary.  ANTIC reads Player/Missile bitmaps from the 2K memory block beginning at this page.
 
 
 P/M Memory Map - Offsets from PMBASE
@@ -199,7 +203,7 @@ P/M Memory Map - Offsets from PMBASE
 
 Memory Map here.
 
-Note that by reserving 1K or 2K of aligned memory for Player/Missile graphics a block of unused space is automatically included.  This space can be used for undisplayed frames of animated Player/Missile bitmaps, screen memory, part of a character set, or any other purpose.
+Note that reserving the 1K or 2K of aligned memory for Player/Missile graphics automatically includes a block of unused space which by definition is also automatically aligned.  This space may be used for undisplayed frames of animated Player/Missile bitmaps, screen memory, part of a character set, or any other purpose.  Likewise, the aligned memory for any unused Player/Missile object is available for other purposes.
 
 
 - **Character Set (2, 3, 4, 5)** This uses a 1 byte pointer to a page in memory.  These character set images for this text mode must begin on a 1K boundary, and ANTIC reads data for the character set from the identified 1K block beginning at this page.
@@ -218,17 +222,29 @@ General purpose data need not be organized.  Although, lists and tables which wi
 
 **Code: The Main Program**
 
-This program is not very memory intensive.  The executing part can be loaded after the Atari's DUP utility (the friendly menu-driven interface for DOS, so that the MEMSAVE file to swap DUP out for another program need not be used.  A larger game that needs more storage could 
+This is a simple game and is not very memory intensive.  It can begin in memory after the Atari's DUP utility. (DUP is the friendly, menu-driven interface for DOS.)  A larger game that needs more memory could use the space for DUP providing a few more K of RAM to the program.
+
+General execution is to maintain the state and values of on-screen entities from the top of the screen to the bottom.  Calculations for all moving, variable visible entities occur during the main progam.  Changes to the displayed entities occur either during the main program before the entity is displayed, or during the Vertical Blank interrupt between frames.
+
+When the main program completes a cycle of game entity value updates it loops waiting for the start of the next frame.  Thus the main code and the vertical blank are in sync with each other servicing the game entity animation, movement, and value changes frame by frame.
 
 **Interrupts: Vertical Blank Interrupt**
 
-Interrupts seem like an advanced topic, but this is really not so hard to understand and use the vertical blank on the Atari.  At the end of a video frame, while the CRT electron beam returns to the top of the screen the Atari stops itself, and runs a bit of utility code to perform system house-keeping -- updating critical custom hardware registers for the ANTIC display while there is screen output is off, copying color register shadow registers to the hardware registers, polling the game controllers, and maintaining timers and clocks.  
+At the end of a video frame, the CRT electron beam must return to the top of the screen.  This period of time between video frames is called the vertical blank and it surprising long (several thousand machine cycles).  During this time the Atari stops itself and runs utility code perfoming important system house-keeping that includes updates of critical custom hardware registers for the display while the screen output is off, copying color register shadow registers to the hardware registers, polling the game controllers, and maintaining timers and clocks.
 
-The Atari OS provides facilities allowing the programmer to attach their own code for execution either before or after the system's vertical blank interrupt code.
+Diagram normal VBI/SYSVBV/SYSEXIT
 
- 
+Interrupts seem like an advanced topic, but the Vertical Blank Interrupt is really not so hard to understand and use on the Atari.  The Atari Operating system provides an easy to use facilities to attach a custom routine for execution either before or after the Operating System's vertical blank maintenance code.  Code added before the Operating System vertical Blank routine is the "Immediate Vertical Blank Interrupt", and code added after the Operating System's Vertical Blank routine is the "Deferred Vertical Blank Interrupt."
+
+There are not many special considerations for the user code running in the vertical blank.  Registers do not need to be saved on entry and restored on exit.  The only requirements are exiting the code by jumping to the proper Operating System vector, and generally healthy respect for the time spent in the custom vertical blank routine.  The time available during the Vertical Blank before the next frame begins display allows execution of about 800 to 1000 6502 instructions.  
+
+The user's Imnmediate Vertical Blank Interrupt code should be as short and fast as possible to return control to the Operating System's Vertical Blank Interrupt, so that it can finish all its critical updates before the next frame begins display.  The user's Deferred Vertical Blank Interrupt has more lattitute.  It nay continue to run as the screen begins to display. It must end before the next vertical blank starts.
+
+Immediate, System, and Deferred diagram.
+
 **Interrupts: Display List Interrupt**
 
+The Display List Interrupt occurs while the ANTIC chip is generating the display.  One of the options that can be added to a text or graphics mode line is the Display List Interrupt.  When this option on the last scan line of the text or graphics mode ANTIC will alert the 6502 to the interrupt.  The CPU stops its main code to run the interrupt code defined for the Display List Interrupt.
 
 
 This is a little more complicated to set up than the Vertical Blank interrupt, and there are some important rules to follow in the code to 
@@ -239,4 +255,5 @@ This is a little more complicated to set up than the Vertical Blank interrupt, a
 **PREVIOUS SECTION** | **Back To START** 
 :--- | :---: 
 [:arrow_left: . . . Title Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") 
+ 
  
