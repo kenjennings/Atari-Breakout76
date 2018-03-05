@@ -1,3 +1,8 @@
+Retro Game Development: Atari Version
+
+
+To Almighty God, Creator of semiconductor chemistry and physics which makes all this fun possible.
+
 
 **Why Retro Computer Game Programming?**
 
@@ -32,9 +37,11 @@ Ataris are very reliable.  If you intend to acquire a real system the Ataris wer
 
 The Atari 8-bit computers are the evolutionary step between the Atari 2600 video game system and the Amiga computers.  The custom graphics and hardware in the three systems share design similarities, because they shared the same hardware engineers.  When one is familiar with the custom chipsets of the three systems it is easy to see An Atari computer as the 8-bit version of an Amiga, or as a more powerful and easier to program 2600.
 
-Considering the Atari was designed in the 70s it has remarkably flexible graphics that in some aspects would not be exceeded by other computers until the Amigas appeared.  Without utilizing any interrupts or complex timing tricks the display hardware can inherently do the following:
+Considering the Atari was designed in the 70s it has remarkably flexible graphics that in some aspects would not be exceeded by other computers until the Amigas appeared.  The graphics chips can do many things in hardware automatically with little to no CPU intervention.
 
-- Fully programmable playfield via a Display List that enables mixing graphics modes with no interrupts or CPU intervention.
+The display is created using a Display List.  The Display List is a simple program that the graphics chip ANIC executes.  The program describes the screen construction.  Display List commands identify the text or graphics mode to display on that line, and optionally the 16-bit address of the start of screen memory for that line, plus options indicating the line performs horizontal or vertical fine scrolling.  Each text or graphics mode line requires an instruction.  This means mixing different text and graphics modes on screen is merely a matter of using different instructions in the Display List.  This is a very power feature as many other 8-bit computers from the era either can't support multiple display modes on the screen, or require complex interrupts to change video registers.
+
+The Display List supports the following features:
 
 - Six text modes with four kinds of character rendering including lowercase descenders.  Also supports redefinable characters, and vertical mirroring.
 
