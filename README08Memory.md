@@ -159,9 +159,7 @@ The Atari's ANTIC graphics chip reads memory to provide data for several graphic
 | Character Set (Modes 6, 7) | Page Pointer | 1/2K Boundary | 1/2K Max |
 
 
-- **Display List** The Display List is a simple program ANIC executes.  The program describes the screen construction.  Display List commands identify the text or graphics mode to display on that line, and optionally the 16-bit address of the start of screen memory for that line, plus options indicating the line performs horizontal or vertical fine scrolling.  Each text or graphics mode line requires an instruction.  This means mixing different text and graphics modes on screen is merely a matter of using different instructions in the Display List.  This is a very power feature as many other 8-bit computers from the era either can't support multiple display modes on the screen, or require complex interrupts to change video registers.
-
-ANTIC can read the Display List beginning anywhere in memory, but it cannot read across a 1K boundary (4 Pages) in memory.  Reading past a 1K boundary requires the Display List include a JMP  (jump) instruction which reloads the Display List program counter at the new address after the 1K boundary.  But, this is not a difficult problem to avoid as even the largest possible Display List is less than 1K.
+- **Display List** ANTIC can read the Display List beginning anywhere in memory, but it cannot read across a 1K boundary (4 Pages) in memory.  Reading past a 1K boundary requires the Display List include a JMP  (jump) instruction which reloads the Display List program counter at the new address after the 1K boundary.  But, this is not a difficult problem to avoid as even the largest possible Display List is less than 1K.
 
 Memory Map here.
 
@@ -247,7 +245,7 @@ Immediate, System, and Deferred diagram.
 The Display List Interrupt occurs while the ANTIC chip is generating the display.  One of the options that can be added to a text or graphics mode line is the Display List Interrupt.  When this option on the last scan line of the text or graphics mode ANTIC will alert the 6502 to the interrupt.  The CPU stops its main code to run the interrupt code defined for the Display List Interrupt.
 
 
-This is a little more complicated to set up than the Vertical Blank interrupt, and there are some important rules to follow in the code to 
+This is a little more complicated to set up than the Vertical Blank interrupt, and there are some important rules to follow in the code to enter and exit the Display List Interrupt correctly.  On the good side, the programmer does not have to calculate the interrupt location on screen or otherwise compensate for instability.
 
 
 ---
