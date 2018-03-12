@@ -249,9 +249,79 @@ The Display List Interrupt occurs while the ANTIC chip is generating the display
 
 This is a little more complicated to set up than the Vertical Blank interrupt, and there are some important rules to follow in the code to enter and exit the Display List Interrupt correctly.  On the good side, the programmer does not have to calculate the interrupt location on screen or otherwise do anything complicated to compensate for interrupt instability.
 
-Display List Interrupt setup must occur when it is absolutely certain another Display List Interrupt cannot start.  The large scale, brute force method is to stop the screen display, turn off the interrupts, and wait for the current frame to finish.  This definitely guarantees no Display List Interrupt collision.
-To set a Display List Interrupt turn off the Display List Interrupt bit (in NMIEN) and 
+Display List Interrupt setup must occur when it is absolutely certain another Display List Interrupt cannot start.  The large scale, brute force method is to stop the screen display, turn off the interrupts, and wait for the current frame to finish, then set the Display List Interrupt address, re-enable the interrupts, and re-enable the display.  This definitely guarantees no Display List Interrupt collision, but it also guarantees no video output for a frame.  Alternatively, a machine language program can monitor ANTIC's register reporting the current scan line and alter the Display List Interrupt vector when it knows it cannot overlap another Display List Interrupt's execution.  But, the safest and easiest method is to use the Vertical Blank Interrupt to reset the Display List Interrupt for each frame.  
 
+Multiple Display List Interrupt on the display requires each interrupt to end by resetting the Display List Interrupt vector to the starting address of the next Display List Interrupt routine.  The last Display List Interrupt on the screen resets the vector to the first Display List Interrupts starting address.  The Vertical Blank Interrupt is again the most useful assistant.  When a program has multiple Display List Interrupts, the Vertical Blank Interrupt reinforcing the correct starting point for each frame stabilizes the Display List Interrupt sequence which helps diagnose bugs in the display or the interrupts.
+
+Connecting multiple display list interrupts is a wrench in the works of keeping a screen feature independent code.  For a Display List routine to reset the Display List vector to the address of the next routine requires the first routine know the address of the second routine violating the independent design.  The problem resoltion her is to make the main code responsible for knowing the address of the Display List interrupt routines and to reset the Display List Interrupt vector for each routine. 
+
+Main looks like this:
+
+```asm
+	*= $5000
+
+DLI_1
+.include "TitleDLI.asm"
+	lda #<DLI_2
+	sta VDSLST
+	lda #>DLI_2
+	sta VDSLST+1
+	rti
+	
+DLI_2
+.include "BallDLI.asm"
+	lda #<DLI_3
+	sta VDSLST
+	lda #>DLI_3
+	sta VDSLST+1
+	rti
+	
+DLI_3
+.include "PaddleDLI.asm"
+	lda #<DLI_4
+	sta VDSLST
+	lda #>DLI_4
+	sta VDSLST+1
+	rti
+etc.
+
+; at the end of Display List Interrupts the Main code
+; can either reset the vector to the first routime, 
+; or trust the Vertical Blank Interrupt to do it.
+
+	lda #<DLI_1
+	sta VDSLST
+	lda #>DLI_1
+	sta VDSLST+1
+	rti
+	
+```
+
+And then "TitleDLI.asm" contains:
+
+```asm
+; The routine need not declare a starting address, since 
+; the Main code will take care of it.
+
+	pha        ; Save A
+	lda #$1A   ; Light Yellow-ish
+	sta WSYNC  ; Sync to end of scanline
+	sta COLPF0 ; Set Playfield color
+;	pla        ; Do Not Do This
+
+```
+
+Guidelines for Display List Interrupt Routines:
+- The routine does save A, X, and Y to the stack if used in the routine.
+- The routine does restore X and Y from the stck.
+- The routine DOES NOT restore A from the stack.
+- The routine DOES NOT reset the Display List Interrupt vector to the next routine.
+- The routine DOES NOT present the RTI instruction to end the interrupt routine.
+
+Therefore the Main code is responsible for the following:
+- The Main code will reset the Display List Interrupt vector to the next routine. (Using the A register).
+- The Main code will restore the A register from the stack.
+- The Main code will present the RTI instruction to end the interrupt.
 
 ---
 
