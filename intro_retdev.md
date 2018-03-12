@@ -1,7 +1,19 @@
-Retro Game Development: Atari Version
+
+954 659 5000 
+Braxton center.
+Dr Leo referred for physical therapy.
+
+
+https://sharepoint.1dc.com/sites/nes/public%20docs/Shared%20Documents/Security%20Operations%20Documents/REF-00004%20F5%20SSL%20VPN%20User%20Guide.pdf"
+
+
+Retro System Game Development
+
+Atari Computer
 
 
 To Almighty God, Creator of semiconductor chemistry and physics which makes all this fun possible.
+
 
 
 **Why Retro Computer Game Programming?**
@@ -33,13 +45,35 @@ Everything is limited on a retro computer.  The smaller memory restricts the siz
 
 There are other systems that were more popular back in the day, but the Atari has unique features that separate it from others.
 
-Ataris are very reliable.  If you intend to acquire a real system the Ataris were built to be very sturdy and robust.  The original 400 and 800 models are like tanks.  While the XL models represent Atari's effort at cost reduction, the company still could not bring themselves to cheapen the construction to the same degree as other cmputer systems.  They do not have overheating problems common to other retro computers.  Though the Ataris sold fewer units than other computers, fully working computers are still easy to find today.
+The Atari 8-bit computers are the evolutionary step between the Atari 2600 video game system and the Amiga computers.  The custom graphics and hardware in the three systems share similarities, because they shared the same hardware engineers.  When one is familiar with the custom chipsets of the three systems it is easy to see An Atari computer as the 8-bit version of an Amiga, or as a more powerful and easier to program 2600.
 
-The Atari 8-bit computers are the evolutionary step between the Atari 2600 video game system and the Amiga computers.  The custom graphics and hardware in the three systems share design similarities, because they shared the same hardware engineers.  When one is familiar with the custom chipsets of the three systems it is easy to see An Atari computer as the 8-bit version of an Amiga, or as a more powerful and easier to program 2600.
+Ataris are very reliable.  If you intend to acquire a real system the Ataris were built to be very sturdy and robust.  The original 400 and 800 models are like tanks.  While the XL models represent Atari's effort at cost reduction, the company still could not bring themselves to cheapen the construction to the point that reliability suffered.  Though the Ataris sold fewer units than other computers, their high reliability makes it easy to find fully working computers today.
+
+The Atari computers are fast.  The CPU is clocked at 1.79MHz where many other 6502 systems run at 1MHz or slower.
 
 Considering the Atari was designed in the 70s it has remarkably flexible graphics that in some aspects would not be exceeded by other computers until the Amigas appeared.  The graphics chips can do many things in hardware automatically with little to no CPU intervention.
 
-The display is created using a Display List.  The Display List is a simple program that the graphics chip ANIC executes.  The program describes the screen construction.  Display List commands identify the text or graphics mode to display on that line, and optionally the 16-bit address of the start of screen memory for that line, plus options indicating the line performs horizontal or vertical fine scrolling.  Each text or graphics mode line requires an instruction.  This means mixing different text and graphics modes on screen is merely a matter of using different instructions in the Display List.  This is a very power feature as many other 8-bit computers from the era either can't support multiple display modes on the screen, or require complex interrupts to change video registers.
+The ANTIC chip executes its own program called the Display List.  The Display List is a "program" describing the screen construction.  Display List commands identify the text or graphics mode to display on that line.  This means mixing different text and graphics modes on screen is merely a matter of using different instructions in the Display List.  Mixing graphics modes requires no 6502 machine language programming, and it can even be done in BASIC.
+
+ANTIC provides a formidable collection of graphics modes.  Six text modes with four kinds of font rendering, and eight graphics modes of varying pixel sizes, color depth, and memory requirements.  In addition to the 14 display modes, the color processor (GTIA) provides four color interpretations for the display. 
+
+The Atari has a big color palette -- ordinarily 128 colors (256 in special circumstances.)  Eight shades of 16 colors.  The Atari has more shades of a single color than some computers have colors.  In most cases, there are no fixed colors in modes.  All the colors on the screen are chosen by indirection (hardware color registers).  If you desire a tree displayed in four shades of green you can do it.
+
+
+The ANTIC hardware supports overscan graphics -- extending the screen display horizontally and vertically to the borders of the CRT and beyond with no CPU or interrupts required.
+
+The graphics hardware provides full support for horizonal and vertical scrolling.  In fact, fine scrolling is nearly free.  The ANTIC chip supports coarse and fine scrolling directly.  A program on the Atari can fine scroll the entire display including the overscan area at 60 frames per second with negligible time from the 6502 CPU.
+
+
+
+
+
+same degree as other computer systems.
+
+assembly programming to sustain the is requires no 6502 CPU time and can be done in BASIC. without  This is a very power feature as many other 8-bit computers from the era either can't support multiple display modes on the screen, or require complex interrupts to change video registers.
+
+
+(Display List commands identify the text or graphics mode to display on that line.), and optional ly the 16-bit address of the start of screen memory for that line, plus options indicating the line performs horizontal or vertical fine scrolling.  Each text or graphics mode line requires an instruction.  
 
 The Display List supports the following features:
 
