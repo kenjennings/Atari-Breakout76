@@ -312,8 +312,8 @@ And then "TitleDLI.asm" contains:
 ```
 
 Guidelines for Display List Interrupt Routines:
-- The routine does save A, X, and Y to the stack if used in the routine.
-- The routine does restore X and Y from the stck.
+- The routine starts by saving the A, X, and Y to the stack if used in the routine.
+- The routine ends by restoring X and Y from the stack if previously saved.
 - The routine DOES NOT restore A from the stack.
 - The routine DOES NOT reset the Display List Interrupt vector to the next routine.
 - The routine DOES NOT present the RTI instruction to end the interrupt routine.
