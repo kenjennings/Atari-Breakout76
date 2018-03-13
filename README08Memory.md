@@ -266,6 +266,7 @@ DLI_1
 	sta VDSLST
 	lda #>DLI_2
 	sta VDSLST+1
+	pla
 	rti
 	
 DLI_2
@@ -274,6 +275,7 @@ DLI_2
 	sta VDSLST
 	lda #>DLI_3
 	sta VDSLST+1
+	pla
 	rti
 	
 DLI_3
@@ -282,6 +284,7 @@ DLI_3
 	sta VDSLST
 	lda #>DLI_4
 	sta VDSLST+1
+	pla
 	rti
 etc.
 
@@ -293,6 +296,7 @@ etc.
 	sta VDSLST
 	lda #>DLI_1
 	sta VDSLST+1
+	pla
 	rti
 	
 ```
@@ -307,12 +311,12 @@ And then "TitleDLI.asm" contains:
 	lda #$1A   ; Light Yellow-ish
 	sta WSYNC  ; Sync to end of scanline
 	sta COLPF0 ; Set Playfield color
-;	pla        ; Do Not Do This
+;	pla        ; Do NOT Do This
 
 ```
 
 Guidelines for Display List Interrupt Routines:
-- The routine starts by saving the A, X, and Y to the stack if used in the routine.
+- The routine starts by saving the A register to the stack, and the X, and Y registers if used in the routine.
 - The routine ends by restoring X and Y from the stack if previously saved.
 - The routine DOES NOT restore A from the stack.
 - The routine DOES NOT reset the Display List Interrupt vector to the next routine.
