@@ -329,6 +329,69 @@ Therefore the Main code is responsible for the following:
 
 ---
 
+**File Naming Conventions**
+
+| **Usage** | **Example** | **Description** |
+| Capitalized | ANTIC.asm   | System Include files | 
+| macros_ + subject | macros_math.asm | System macro library (for math) |
+| lib_ + subject | lib_math.asm | System library code called by JSR |
+| zero_ + game_ + subject | zero_bk76_Bricks.asm | Page Zero variables/declarations |
+| mem_ + game_ + subject | mem_bk76_Bricks.asm | Aligned variables/memory declarations |
+| var_ + game_ + subject | var_bk76_Bricks.asm | Unaligned, global variables/memory |
+| main_ + game_ + subject | main_bk76_Bricks.asm | mainline code for the feature |
+| vbi_ + game_ + subject | vbi_bk76_Bricks.asm | Vertical Blank Interrupt code for the feature |
+| dli_ + game_ + subject | vbi_bk76_Bricks.asm | Display List Interrupt code for the feature |
+| main_ + game | main_bk76.asm | main program that includes all other files |
+
+
+**General Label Naming Convensions**
+
+Imitating Hungarian notation, this uses a prefix at the start of the variable names to indicate location and size....
+
+Add location + Size to the beginning of the variable.
+
+Add location to the beginning of user/main program branch/jump destinations.
+
+
+**Locations:**
+
+| **Label Prefix** | **Location Description |
+| z | Variable in Page Zero location |
+| v | Variable in other page location |
+| b | Local short branch destination |
+| g | global "goto", a JSR/JMP in user/main program routine |
+
+
+**Sizes:**
+
+| **Label Prefix** | **Size Description |
+| b | Byte value |
+| w | word value |
+| a | address value (pointing to anything) | 
+| l | long (4 byte) value |
+| f | floating point (6 byte) value |
+
+
+**Example** | **Description**
+zbTempParm | Page Zero location contains byte value
+zwVector | Page Zero location contains two-byte, 16-bit value 
+zaParmAddr | Page Zero value contains address (two-byte, 16-bit)
+vfPiRSquare | Generic memory variable contains floating point (6 byte) value
+bLoopScreen | nearby branch target
+gInitDisplay | global JMP/JSR target in user code
+
+
+**System Label Naming Conventions**
+
+| **Usage** | **Example** | **Description** |
+| CAPITALIZED | SDMCTL | Atari System Define - Registers, variables, values, vectors |
+| Mixed Case | ClearScreen | Library routine (called by JSR) |
+| l + Name | lClearScreen | macro routine wrapper to call a Library routine |
+| m + Name | mAdd16 | macro routine that does not call (JSR) anything else |
+
+
+---
+
 **PREVIOUS SECTION** | **Back To START** 
 :--- | :---: 
 [:arrow_left: . . . Title Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") 
