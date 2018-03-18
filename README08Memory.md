@@ -355,7 +355,7 @@ Add location to the beginning of user/main program branch/jump destinations.
 
 **Locations:**
 
-| **Label Prefix** | **Location Description |
+| **Label Prefix** | **Location Description** |
 | z | Variable in Page Zero location |
 | v | Variable in other page location |
 | b | Local short branch destination |
@@ -364,7 +364,7 @@ Add location to the beginning of user/main program branch/jump destinations.
 
 **Sizes:**
 
-| **Label Prefix** | **Size Description |
+| **Label Prefix** | **Size Description** |
 | b | Byte value |
 | w | word value |
 | a | address value (pointing to anything) | 
