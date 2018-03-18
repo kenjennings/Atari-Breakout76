@@ -332,6 +332,7 @@ Therefore the Main code is responsible for the following:
 **File Naming Conventions**
 
 | **Usage** | **Example** | **Description** |
+| --- | --- | --- |
 | Capitalized | ANTIC.asm   | System Include files | 
 | macros_ + subject | macros_math.asm | System macro library (for math) |
 | lib_ + subject | lib_math.asm | System library code called by JSR |
@@ -356,6 +357,7 @@ Add location to the beginning of user/main program branch/jump destinations.
 **Locations:**
 
 | **Label Prefix** | **Location Description** |
+| --- | --- |
 | z | Variable in Page Zero location |
 | v | Variable in other page location |
 | b | Local short branch destination |
@@ -365,6 +367,7 @@ Add location to the beginning of user/main program branch/jump destinations.
 **Sizes:**
 
 | **Label Prefix** | **Size Description** |
+| --- | --- |
 | b | Byte value |
 | w | word value |
 | a | address value (pointing to anything) | 
@@ -373,6 +376,7 @@ Add location to the beginning of user/main program branch/jump destinations.
 
 
 **Example** | **Description**
+--- | --- 
 zbTempParm | Page Zero location contains byte value
 zwVector | Page Zero location contains two-byte, 16-bit value 
 zaParmAddr | Page Zero value contains address (two-byte, 16-bit)
@@ -384,6 +388,7 @@ gInitDisplay | global JMP/JSR target in user code
 **System Label Naming Conventions**
 
 | **Usage** | **Example** | **Description** |
+| --- | --- | --- |
 | CAPITALIZED | SDMCTL | Atari System Define - Registers, variables, values, vectors |
 | Mixed Case | ClearScreen | Library routine (called by JSR) |
 | l + Name | lClearScreen | macro routine wrapper to call a Library routine |
