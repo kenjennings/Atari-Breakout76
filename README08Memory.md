@@ -334,7 +334,7 @@ Therefore the Main code is responsible for the following:
 | **Usage** | **Example** | **Description** |
 | --- | --- | --- |
 | Capitalized | ANTIC.asm   | System Include files | 
-| macros_ + subject | macros_math.asm | System macro library (for math) |
+| macro_ + subject | macro_math.asm | System macro library (for math) |
 | lib_ + subject | lib_math.asm | System library code called by JSR |
 | zero_ + game_ + subject | zero_bk76_Bricks.asm | Page Zero variables/declarations |
 | mem_ + game_ + subject | mem_bk76_Bricks.asm | Aligned variables/memory declarations |
@@ -391,8 +391,7 @@ gInitDisplay | global JMP/JSR target in user code
 | --- | --- | --- |
 | CAPITALIZED | SDMCTL | Atari System Define - Registers, variables, values, vectors |
 | Mixed Case | ClearScreen | Library routine (called by JSR) |
-| l + Name | lClearScreen | macro routine wrapper to call a Library routine |
-| m + Name | mAdd16 | macro routine that does not call (JSR) anything else |
+| m + Name | mAdd16 | macro routines.  May be wrappers to call library (JSR) routines. |
 
 
 ---
