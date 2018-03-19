@@ -341,7 +341,7 @@ Therefore the Main code is responsible for the following:
 | var_ + game_ + subject | var_bk76_Bricks.asm | Unaligned, global variables/memory |
 | main_ + game_ + subject | main_bk76_Bricks.asm | mainline code for the feature |
 | vbi_ + game_ + subject | vbi_bk76_Bricks.asm | Vertical Blank Interrupt code for the feature |
-| dli_ + game_ + subject | vbi_bk76_Bricks.asm | Display List Interrupt code for the feature |
+| dli_ + game_ + subject | dli_bk76_Bricks.asm | Display List Interrupt code for the feature |
 | main_ + game | main_bk76.asm | main program that includes all other files |
 
 
