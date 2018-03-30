@@ -223,7 +223,7 @@ General purpose data need not be organized.  Although, lists and tables which wi
 
 **Code: The Main Program**
 
-This is a simple game and is not very memory intensive.  It can begin in memory after the Atari's DUP utility. (DUP is the friendly, menu-driven interface for DOS.)  A larger game that needs more memory could use the space for DUP providing a few more K of RAM to the program.  If memory is tight there are third party utilities to optimize memeory use.  XBIOS provides minimal disk functions needed by games for a tiny amount of memory in the library.
+Breakout is a simple game and is not very memory intensive.  It can begin in memory after the Atari's DUP utility. (DUP is the friendly, menu-driven interface for DOS.)  A larger game that needs more memory could use the space for DUP providing a few more K of RAM to the program.  If memory is tight there are third party utilities to optimize memory such as XBIOS which provides critical disk functions needed by games using a fraction of the memory needed for Atari DOS.
 
 General execution is to maintain the state and values of on-screen entities in order from the top of the screen to the bottom.  Calculations for all moving, variable visible entities occur during the main progam.  Changes to the displayed entities occur either during the main program before the entity is displayed, or during the Vertical Blank interrupt between frames.
 
