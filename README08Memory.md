@@ -378,12 +378,14 @@ Add location to the beginning of user/main program branch/jump destinations.
 
 
 
-**Example** | **Description**
+**Label Examples** | **Description**
 --- | --- 
 zbTempParm | Page Zero location contains byte value
 zwVector | Page Zero location contains two-byte, 16-bit value 
 zaParmAddr | Page Zero value contains address (two-byte, 16-bit)
 vfPiRSquare | Generic memory variable contains floating point (6 byte) value
+vbBallX | Generic memory variable contains byte value
+vsTitle | Generic memory variable is the start of a string of text
 bLoopScreen | nearby branch target
 gInitDisplay | global JMP/JSR target in user code
 
