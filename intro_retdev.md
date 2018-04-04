@@ -1,3 +1,4 @@
+
 Retro System Game Development
 
 Atari Computer
@@ -12,18 +13,18 @@ To Almighty God, Creator of semiconductor chemistry and physics making all this 
 
 Many people alive today were born so long after the introduction of the first personal computers and video games that they have never had the opportunity to experience the systems that created these industries.  Retro systems are new to them, and these technology fans are making retro systems a cool and trendy hobby.
 
-Another good reason is that a typical game on a retro system operates at a guaranteed frame rate tied to the television/CRT standard.  The computer and graphics subsystems are heavily tied to the television display rate, therefore game design follows the same by necessity.  This provides the player an extremely consistent, smooth, and predictable gameplay experience lacking in many modern games.
+Another good reason is that a typical game on a retro system operates at a guaranteed frame rate related to the television/CRT standard.  The computer and graphics subsystems are heavily tied to the television display rate, therefore game design follows the same by necessity.  This provides the player an extremely consistent, smooth, and predictable gameplay experience lacking in many modern games.
 
 Developing for retro systems teaches awareness of data representation and respect for processing efficiency.  These lessons are not obvious on modern computers with gigahertz CPUs, multi-gigabyte operating systems, and terabytes of storage.
 
-Retro systems are simple enough that one person can develop a perfectly enjoyable and playable video game.  Good games written by a single author is not so common today.  The expectations for modern games often require an entire company of developers, artists, engineers, actors, writers, salespeople, and accountants to meet the expectations of gamers demanding original orchestral soundtracks, hours of cut scenes, extensive back stories, complex equipment and upgrade schemes, non-player artificial intelligence, and first person perspective in a photorealistic world rendered at 47 blood splatters per second. The entry barrier to modern game development is monumental.
+Retro systems are simple enough that one person can develop a perfectly enjoyable and playable video game.  Today, good games on modern platforms written by a single author are not so common.  The entry barrier to modern game development is monumental.  Modern game development often requires an entire company of programmers, artists, engineers, actors, writers, salespeople, and accountants to meet the gamers expectations for original orchestral soundtracks, hours of cut scenes, extensive back stories, complex equipment and upgrade schemes, non-player artificial intelligence, and first person perspective in a photorealistic world rendered at 47 blood splatters per second.
 
 
 **The Real Deal or Emulation**
 
 In 2018 many retro systems have reached the 40 year mark.  Age can make the systems fragile, and simply powering them up can destroy decades-old chips and components.  Likewise, data storage devices and media are deteriorating.  The magnetic media on ancient floppy disks can be stripped off just by contact with the disk drive read head.  Some computer systems have a reputation for overheating to the point of self-destruction and age has made this issue worse.  Keeping a retro system working can require technical skills to replace components.  However, there is no substitute for the glow of pixels on a real CRT and operating games with the original controllers for which they were designed.
 
-Emulators provide a practical alternative that save wear and tear on real hardware.  Modern computer capabilities have grown to the point where they can perfectly emulate most retro systems down to the exact machine cycle.  Emulators make it possible to enjoy retro systems virtually for free.  They also supply benefits not possible on the real systems.  Many emulate floppy disks allowing the retro systems' disks to reside as files on the computer hosting the emulator eliminating the risk of ruining decades-old floppies.  However, some emulators display impossibly perfect pixels in unnatural aspects ignoring the analog CRT nature that made retro games beautiful.
+Emulators provide a practical alternative that save wear and tear on real hardware.  Modern computer capabilities have grown to the point where they can perfectly emulate most retro systems down to the exact machine cycle.  Emulators make it possible to enjoy retro systems virtually for free.  They also supply benefits not possible on the real systems.  Many emulate floppy disks allowing the retro systems' disks to reside as files on the computer hosting the emulator and so eliminate the risk of ruining decades-old disks.  However, some emulators display impossibly perfect pixels in unnatural aspects ignoring the analog CRT nature that made retro games beautiful.
 
 Development tools on retro systems are limited, because the computers are limited.  Current computers allow modern programming tools not available to the programmers decades ago --  Integrated Development Environments, editors with syntax hilighting, and cross-platform compilers allow working in a larger, more comfortable environment with near-instant build times that programmers working on the original retro systems would have envied.  The hybrid decision is to take advantage of the advanced development tools on a modern computer, but actually run the programs on real hardware.
 
@@ -33,7 +34,7 @@ Development tools on retro systems are limited, because the computers are limite
 
 There are other systems that were more popular back in the day, but the Atari has unique features that separate it from others.
 
-The Atari 8-bit computers are the evolutionary step between the Atari 2600 video game system and the Amiga computers.  The custom graphics and hardware in the three systems share similarities, because they shared the same hardware engineers.  When one is familiar with the custom chipsets of the three systems it is easy to see An Atari computer as the 8-bit version of an Amiga, or as a more powerful and easier to program 2600.
+The Atari 8-bit computers are the evolutionary step between the Atari 2600 video game system and the Amiga computers.  The custom graphics and hardware in the three systems share similarities, because they share the same hardware engineers.  When one is familiar with the custom chipsets of the three systems it is easy to see An Atari computer as the 8-bit version of an Amiga, or as a more powerful and easier to program 2600.
 
 If you intend to acquire a real system the Ataris were built to be very sturdy and robust.  The original 400 and 800 models are like tanks.  While the XL models represent Atari's effort at cost reduction, the company still could not bring themselves to cheapen the construction to the point that reliability suffered.  Though the Ataris sold fewer units than other computers, their high reliability makes it easy to find fully working computers today.
 
@@ -41,11 +42,11 @@ The Atari computers are fast.  The CPU is clocked at 1.79MHz where many other 65
 
 The Operating System is remarkable for an 8-bit computer.  Full-featured and friendly, it supports automatic booting from disk, automatic driver loading from peripherals, standard, centralized I/O for devices, game controller polling, and built-in support for the system's graphics.
 
-One only need to look at the Atari's SIO bus to learn where USB comes from. SIO is a single serial port to which all peripherals daisy-chain, not just the disk drives.  The patent holder for USB also designed SIO and credits that experience for influencing USB.
+One only need look at the Atari's SIO bus to learn where USB comes from. SIO is a single serial port to which all peripherals daisy-chain, not just the disk drives.  The patent holder for USB also designed SIO and credits that experience for influencing USB.
 
 Considering the Atari was designed in the 70s it has remarkably flexible graphics that in some aspects would not be exceeded by other computers until the Amigas appeared.  The graphics chips can do many things in hardware automatically with little to no CPU intervention.
 
-The ANTIC chip executes its own program called the Display List.  The Display List is a "program" describing the screen construction.  Display List commands identify the text or graphics mode to display on that line.  This means mixing different text and graphics modes on screen is merely a matter of using different instructions in the Display List.  Mixing graphics modes requires no 6502 machine language programming, and it can even be done in BASIC.
+The ANTIC chip executes its own program called the Display List.  The Display List is a program in ANTIC's machine language describing screen construction.  Display List instructions identify the text or graphics mode to display on that line.  This means mixing different text and graphics modes on screen is merely a matter of using different instructions in the Display List.  Mixing graphics modes requires no 6502 machine language programming, and building a Display List can even be done in BASIC.
 
 ANTIC provides a formidable collection of graphics modes.  Six text modes with four kinds of font rendering, and eight graphics modes of varying pixel sizes, color depth, and memory requirements.  In addition to the 14 display modes, the color processor (GTIA) provides four color interpretations for the modes.
 
@@ -55,7 +56,7 @@ The graphics hardware provides full support for horizonal and vertical scrolling
 
 The Atari has a big color palette -- ordinarily 128 colors (256 in special circumstances.)  Eight shades of 16 colors.  The Atari has more shades of a single color than some computers have colors.  In most graphics modes, there are no fixed colors.  All the colors on the screen are chosen by indirection (hardware color registers).  If you desire a tree displayed in four shades of green you can do it.
 
-It has eight overlay objects, "Player/Missile" graphics per Atari nomenclature, and "Sprites" or "MOBs" on other systems.  Four are 8-bits wide, and four are 2 bits wide.  Each is entirely independent of the text/graphics mode, can be independently sized, have its own colors, and can range up to the entire screen height.  Various priority settings can change the stacking order and move Players above or below playfield graphics, and also blend colors between multiple Players/Missiles and the playfield graphics. 
+The Atari has eight overlay objects called "Player/Missile" graphics which other systems may refer to as "Sprites" or "MOBs".  Four are 8-bits wide, and four are 2 bits wide.  Each is entirely independent of the text/graphics mode, can be independently sized, have its own colors, and can range up to the entire screen height.  Various priority settings can change the stacking order and move Players above or below playfield graphics, and also blend colors between multiple Players/Missiles and the playfield graphics. 
 
 The Atari has the POKEY sound chip supplying four-voice sound.  Designed for sound effects its capabilities range from pure tones, to electric guitars, to car engines, to rocket ships, and with some CPU assistance, digitally sampled sounds.  The chip also supplies several high resolution timers.
 
