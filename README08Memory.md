@@ -389,11 +389,11 @@ bLoopScreen | nearby branch target
 gInitDisplay | global JMP/JSR target in user code
 
 
-**other Label Naming Conventions**
+**Other Label Naming Conventions**
 
 | **Usage** | **Example** | **Description** |
 | --- | --- | --- |
-| CAPITALIZED | SDMCTL | Defined constants.  System register addresses, OS variables, Register values, OS vectors |
+| CAPITALIZED | SDMCTL | Defined constants.  System register addresses, Register values, OS variables, , OS vectors |
 | m + Mixed Case | mAdd16 | macro routines.  May be wrappers to call library (JSR) routines. |
 | lib + Mixed Case | libClearScreen | Library routine (called by JSR) |
 
