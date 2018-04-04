@@ -8,9 +8,9 @@
 
 **Overall Modular Design**
 
-Each feature of the game will place its code and data in files separated by purpose.  However, modularizing code and data can be difficult in assembly on an 8-bit system. Higher level languages on larger computers do not require the programmer think much about memory -- the compiler and the environment automatically use heap and stack as appropriate and the graphics card API or the device drivers manage the graphics card memory.  But, here on an 8-bit system there is less automatic behavior.  Assembly language, being closer to the metal means the programmer has an oblication to consider and explicitly control more.  Modular design requires more thought and planning.  Code and data must be grouped based on the memory organization required for that kind of graphics data or code.  
+Programmer sanity is related to well-organized code and data.  Messy, disorganized assembly code is painful to work with and can drive a programmer crazy.  Higher level languages on larger computers do not require the programmer think much about memory -- the compiler and the environment automatically use heap and stack as appropriate and the graphics API or the device drivers manage the graphics card memory. But, assembly language being closer to the metal means the programmer has an obligation to consider more.  Modular, organized design requires more thought, planning, and discipline.
 
-The discussion below outlines the kinds of memory and assembly code that a feature may use.  The code and data for features will be grouped into files based based on this organization.   The main source file is responsible for establishing the program address or other supporting values, and then the main file includes each of the modular feature files.     
+The discussion below outlines the kinds of memory and assembly code that a feature may use.  The code and data for features will be grouped into files following this organization.  The main source file is responsible for establishing the program address or other supporting values, and then the main file includes each of the modular feature files.
 
 
 **Overview of Memory Organization**
@@ -39,7 +39,7 @@ Diagram of memory map goes here.
 
 The first Page of memory, Page Zero, is special in the system.  6502 instructions referencing addresses in any other page in memory require two bytes for expressing the 16-bit address.  The 6502 has special machine language instructions for Page Zero that assume the high byte value of the address is $00, thus need only one byte to describe the address.  Frequent reference to Page Zero locations noticably shrink program size.  
 
-Since the instructions using Page Zero are shorter, they take less time to fetch from memeory.  Thus they execute faster than the corresponding instructions referencing other memory.  Page Zero use can speed up programs when execution time is critical.  In a way, Page Zero locations are somewhat like cache or additional registers.
+Since the instructions using Page Zero are shorter, they take less time to fetch from memory.  Thus they execute faster than the corresponding instructions referencing other memory.  Page Zero use can speed up programs when execution time is critical.  In a way, Page Zero locations are somewhat like cache or additional registers.
 
 Finally, the 6502 has special instructions that only work with Page 0 locations.  These instructions can use the values in Page 0 memory as pointers -- addresses to other destinations in memory.  This powerful feature enables writing reusable code that can operate against any memory in the system just by changing an address stored in Page Zero.
 
@@ -73,7 +73,7 @@ TITLEY     = $84
 
 This requires 20 bytes of program code to set only 5 bytes in Page Zero.  Initializing all of the available Page Zero locations from $80 to $FF would require 512 bytes of code for initialization.  On an 8-bit computer that's a serious investment in a program.
 
-Also, the explicit memory address declarations contribute another problem. Each removal or insertion of a page zero variable results in painful, tedious, source code editing purgatory.  In the example above, if TITLETEXT is removed, then the declarations for every variable that follows must be recalculated and edited two addresses earlier in memory.  This leads to inevitable problems (aka: bugs).  The alternative is messy code, and gaps in Page Zero usage, because a variable was removed in code and forgotten.
+Also, the explicit memory address declarations contribute another problem. Each removal or insertion of a page zero variable puts the programmer into painful, tedious, code-editing purgatory.  In the example above, if TITLETEXT is removed, then the declarations for every following variable must be recalculated and edited two addresses earlier in memory.  This leads to inevitable problems (aka: bugs).  The alternative is messy code, and gaps in Page Zero usage, because a variable was removed in code and forgotten.
 
 A more memory efficient solution to the Page Zero initialization problem is to declare the data intended for Page Zero in another location in memory in and then copy the data to Page Zero during program initialization. Such as:
 
@@ -104,7 +104,7 @@ LOOPCOPYZERO
 . . .
 ```
 
-This solution reduces the memory overhead for initializing Page Zero locations.  The entire working code is 12 bytes of looping instructions which copy a contiguous block of bytes into Page Zero.  As far as the initialization goes, this beats the explicit code by a mile.  However, after loading data into Page Zero the data outside of Page Zero becomes a redundant copy wasting memory space, though much less than the prior example.  This solution also does not address the problem of editing the labels for Page Zero locations.  Adding and removing location labels is still an onerous task.  
+This solution reduces the memory overhead for initializing Page Zero locations.  The entire working code is 12 bytes of looping instructions which copy a contiguous block of bytes into Page Zero.  As far as the initialization goes, this beats the explicit code by a mile.  However, after loading data into Page Zero the data outside of Page Zero becomes a redundant copy, wasting memory space though much less than the prior example.  This solution also does not address the problem of editing the labels for Page Zero locations.  Adding and removing location labels is still an onerous task.  
 
 The Atari has an interesting solution.  The Atari executable load file format is structured.  It provides starting and ending addresses with the data to load in that memory space.  This allows the Atari to optimize executable file size by describing only the data that the program needs thus reducing file size and speeding up load time.  Many other systems start loading a machine language program at a fixed address and must represent all the memory as one continuous block in the file even if parts of it are not used.
 
@@ -120,7 +120,7 @@ TITLEY     .byte $40
 . . .
 ```
 
-This loads five bytes of data into five bytes of Page Zero.  There is actually no code involved.  The data is loaded directly from the executable file on disk.  This also solves the problem with managing and keeping order of Page Zero variables, since the source code no longer needs to declare the addresses.  The Assembler will take care of the address assignments.  
+This loads five bytes of data into five bytes of Page Zero.  There is actually no code involved.  The data is loaded directly into memory from the file on disk.  This also solves the problem with managing and keeping order of Page Zero variables, since the source code no longer needs to declare the addresses.  The Assembler will take care of the address assignments.  
 
 Next is how to use this method to make a modular solution for managing the program code.  The main source file must control the assembly directive to set the program address to Page Zero, then the main code includes the files for each modular feature requiring Page Zero variables.
 
@@ -145,13 +145,13 @@ TITLEY     .byte $40
 . . .
 ```
 
-No part of the code actually declares the addresses of variables.  Any of the Page Zero variable files can be easily edited and variables changed and moved around, and then everything is correct after reassembly.
+No part of the code explicitly assigns address values to the labels.  Any of the Page Zero variable files can be easily edited and variables changed and moved around, and then everything is correct after reassembly.
 
 **Aligned Program Data**
 
 Respecting the 8-bit architecture's 256-byte Page organization improves machine language efficiency.  We've already seen how using Page Zero reduces code size and execution time.  There is more to consider when accessing memory outside of Page Zero.  The 6502's X and Y index registers act as offsets by 0 to 255 bytes relative to a starting address.  When the resulting target address is in a different page of memory than the starting address it costs the instruction more time to access the memory. Therefore programs benefit when keeping related data organized in the same Page.
 
-The Atari's ANTIC graphics chip reads memory to provide data for several graphics features.  As previously mentioned, while ANTIC does have access to the entire 16-bit address space it features have limits on the starting address and/or in the amount of contiguous memory it can read.
+The Atari's ANTIC graphics chip reads memory to provide data for several graphics features.  As previously mentioned, while ANTIC does have access to the entire 16-bit address space features have limits on the starting address and/or the amount of contiguous memory it can read.
 
 | Feature | DMA address | Starting Address Alignment | Max Contiguous RAM |
 | --- | --- | --- | --- | 
@@ -168,13 +168,13 @@ Display List 1K Memory Map here.
 
 - **Display RAM** Antic reads screen memory through the Memory Scan register.  As indicated in the Display List overview earlier an ANTIC Display List command for a text or graphics mode may optionally describe the starting address for screen memory.  If there is no screen memory specification ANTIC's Memory Scan automatically continues reading sequentially from memory where it ended for the previous line.  The Memory Scan address for text and pixel mode display data can begin anywhere in memory with the exception that the action of reading memory for the mode line does not cross over a 4K boundary in the middle of the line.
 
-The Operating System constructs Display Lists for full screen graphics modes with the Load Memory Scan option on the first mode line.  ANTIC's Memory Scan reads the remainder of the screen data automatically traversing through contiguous memory that follows.  An exception is ANTIC modes E and F which require 8K of RAM.  The Operating System creates these Display Lists with the Load Memory Scan option added to an instruction near the middle of the screen directing ANTIC to load a new starting screen memory address into the Memory Scan register for the second 4K block of memory.
+The Operating System constructs Display Lists for graphics modes with the Load Memory Scan option on the first mode line.  ANTIC's Memory Scan reads the remainder of the screen data automatically traversing through contiguous memory that follows.  An exception is ANTIC modes E and F which require 8K of RAM.  The Operating System creates these Display Lists with the Load Memory Scan option added to an instruction near the middle of the screen directing ANTIC to load a new starting screen memory address into the Memory Scan register for the second 4K block of memory.
 
 Display Data 4K memory Map here.
 
 - **Double-Line Player Missile Graphics** This Player/Missile mode supplies one byte of bitmap data to the Player/Missile images for two consecutive scan lines.  Player/Missile memory DMA uses a one byte pointer to a Page (PMBASE).  This Player/Missile display mode requires the PMBASE Page must be at a 1K boundary.  ANTIC reads Player/Missile bitmaps from the 1K memory block beginning at this page.
 
-Player/Missile Double-Line Memory Map  Double-Line - Offsets from PMBASE
+Player/Missile Double-Line Memory Map - Offsets relative to PMBASE
 
 | - | Unused | M3 M2 M1 M0 | P0 | P1 | P2 | P3 |
 | --- | --- | :---: | --- | --- | --- | --- |
@@ -191,7 +191,7 @@ Player/Missile 1K  memory Map here.
 - **Single-Line Player Missile Graphics** This Player/Missile mode supplies one byte of bitmap data to the Player/Missile images for each scan line.  Player/Missile memory DMA uses a one byte pointer to a Page (PMBASE).  This Player/Missile display mode requires the Page must be at a 2K boundary.  ANTIC reads Player/Missile bitmaps from the 2K memory block beginning at this page.
 
 
-P/M Memory Map - Offsets from PMBASE
+Player/Missile Single-Line Memory Map - Offsets relative to PMBASE
 
 | - | Unused | M3 M2 M1 M0 | P0 | P1 | P2 | P3 |
 | --- | --- | :---: | --- | --- | --- | --- |
@@ -207,11 +207,11 @@ Player/Missile 2K  Map here.
 Note that reserving the 1K or 2K of aligned memory for Player/Missile graphics automatically includes a block of unused space which by definition is also automatically aligned.  This space may be used for undisplayed frames of animated Player/Missile bitmaps, screen memory, part of a character set, or any other purpose.  Likewise, the aligned memory for any unused Player/Missile object is available for other purposes.
 
 
-- **Character Set (2, 3, 4, 5)** This uses a 1 byte pointer to a page in memory.  These character set images for this text mode must begin on a 1K boundary, and ANTIC reads data for the character set from the identified 1K block beginning at this page.
+- **Character Set (modes 2, 3, 4, 5)** This uses a 1 byte pointer to a page in memory.  These character set images for this text mode must begin on a 1K boundary, and ANTIC reads data for the character set from the identified 1K block beginning at this page.
 
 Character Set 1k memory Map here.
 
-- **Character Set (6, 7)** This uses a 1 byte pointer to a page in memory.  These character set images for this text mode must begin on a 1/2K boundary, and ANTIC reads data for the character set from the identified 1/2K block beginning at this page.
+- **Character Set (modes 6, 7)** This uses a 1 byte pointer to a page in memory.  These character set images for this text mode must begin on a 1/2K boundary, and ANTIC reads data for the character set from the identified 1/2K block beginning at this page.
 
 Character set 1/2 K Memory Map here.
 
@@ -345,7 +345,7 @@ Therefore the Main code is responsible for the following:
 | main_ + game | main_bk76.asm | main program that includes all other files |
 
 
-**General Label Naming Convensions**
+**General Label Naming Conventions**
 
 Imitating Hungarian notation, this uses a prefix at the start of the variable names to indicate location and size....
 
@@ -364,7 +364,8 @@ Add location to the beginning of user/main program branch/jump destinations.
 | g | global "goto", a JSR/JMP in user/main program routine |
 
 
-**Sizes:**
+
+**Variable Sizes:**
 
 | **Label Prefix** | **Size Description** |
 | --- | --- |
@@ -373,6 +374,8 @@ Add location to the beginning of user/main program branch/jump destinations.
 | a | address value (pointing to anything) | 
 | l | long (4 byte) value |
 | f | floating point (6 byte) value |
+| s | string, aka sequential block of bytes |
+
 
 
 **Example** | **Description**
