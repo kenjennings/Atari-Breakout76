@@ -132,6 +132,7 @@ Main looks like this:
 .include "TitleZero.asm"
 .include "BallZero.asm"
 .include "PaddleZero.asm"
+
 etc.
 ```
 
@@ -286,10 +287,11 @@ DLI_3
 	sta VDSLST+1
 	pla
 	rti
+
 etc.
 
 ; at the end of Display List Interrupts the Main code
-; can either reset the vector to the first routime, 
+; can either reset the vector to the first routine, 
 ; or trust the Vertical Blank Interrupt to do it.
 
 	lda #<DLI_1
@@ -298,7 +300,6 @@ etc.
 	sta VDSLST+1
 	pla
 	rti
-	
 ```
 
 And then "TitleDLI.asm" contains:
@@ -312,8 +313,49 @@ And then "TitleDLI.asm" contains:
 	sta WSYNC  ; Sync to end of scanline
 	sta COLPF0 ; Set Playfield color
 ;	pla        ; Do NOT Do This
-
 ```
+
+Of course, the "macro" in "macro assembler" describes a tool to make repetetive tasks easier to manage and more reliable.  A good target is the addresss assignment to link to the next DLI.  A macro can simplify the programmer's code specifying the next Display List Interrupt in the chain.  The macro can also evaluate if the current and next Display List Interrupts are in the same page, and if so only generate the code to update the low byte of the address. 
+
+```asm
+.macro mChainDLI ; from address, to address
+	.if %0<>2
+		.error "mChainDLI: 2 arguments required (Current DLI, Next DLI)
+	.else
+		lda #<%2         ; Low Byte of next DLI addres
+		sta VDSLST       ; Set vector
+		.if [%1&$FF00]<>[%2&FF00] ; If the same, then no need to set high byte.
+			lda #>%2     ; High byte of next DLI address
+			sta VDSLST+1 ; Set vector
+		.endif
+		pla              ; restore A from stack
+		rti              ; DLI complete
+	.endif
+.endm
+
+	
+	*= $5000
+
+DLI_1
+.include "TitleDLI.asm"
+	mChainDLI DLI_1,DLI_2
+	
+DLI_2
+.include "BallDLI.asm"
+	mChainDLI DLI_2,DLI_3
+	
+DLI_3
+.include "PaddleDLI.asm"
+	mChainDLI DLI_3,DLI_4
+	
+etc.
+
+DLI_8
+.include "BorderDLI.asm"
+	mChainDLI DLI_8,DLI_1
+```
+
+
 
 Guidelines for Display List Interrupt Routines:
 - The routine starts by saving the A register to the stack, and the X, and Y registers if used in the routine.
@@ -354,15 +396,12 @@ Add location + Size to the beginning of the variable.
 Add location to the beginning of user/main program branch/jump destinations.
 
 
-**Locations:**
+**Variables:**
 
 | **Label Prefix** | **Location Description** |
 | --- | --- |
 | z | Variable in Page Zero location |
 | v | Variable in other page location |
-| b | Local short branch destination |
-| g | global "goto", a JSR/JMP in user/main program routine |
-
 
 
 **Variable Sizes:**
@@ -375,6 +414,14 @@ Add location to the beginning of user/main program branch/jump destinations.
 | l | long (4 byte) value |
 | f | floating point (6 byte) value |
 | s | string, aka sequential block of bytes |
+
+
+**Branch Locations:**
+
+| **Label Prefix** | **Location Description** |
+| --- | --- |
+| b | Local, short branch destination |
+| g | global "goto"/"gosub", a JSR/JMP in user/main program routine |
 
 
 **Variable Label Examples**
@@ -393,8 +440,8 @@ gInitDisplay | global JMP/JSR target in user code
 
 | **Usage** | **Example** | **Description** |
 | --- | --- | --- |
-| CAPITALIZED | SDMCTL | Defined constants.  System register addresses, Register values, OS variables, , OS vectors |
-| m + Mixed Case | mAdd16 | macro routines.  May be wrappers to call library (JSR) routines. |
+| CAPITALIZED | SDMCTL | Defined constants. System register addresses, Register values, OS variables, OS vectors |
+| m + Mixed Case | mWord_Add | macro routines. May be wrappers to call library (JSR) routines. |
 | lib + Mixed Case | libClearScreen | Library routine (called by JSR) |
 
 
@@ -402,6 +449,4 @@ gInitDisplay | global JMP/JSR target in user code
 
 **PREVIOUS SECTION** | **Back To START** 
 :--- | :---: 
-[:arrow_left: . . . Title Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README") 
- 
- 
+[:arrow_left: . . . Title Screen](https://github.com/kenjennings/Atari-Breakout76/blob/master/README07TitleScreen.md "Title Screen") | [. . . README . . .](https://github.com/kenjennings/Atari-Breakout76/blob/master/README.md "README")      
