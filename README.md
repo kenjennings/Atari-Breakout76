@@ -3,6 +3,16 @@ Currently Work In Progress..
 
 ---
 
+Build with eclipse/WUDSN and MADS assembler.
+
+The assembly code for the Atari depends on my MADS include library here: https://github.com/kenjennings/Atari-Mads-Includes.  
+
+The MADS 6502 assembler is here: http://http://mads.atari8.info
+
+WUDSN can be found here: https://www.wudsn.com/index.php
+
+---
+
 This is a simple Breakout clone for Atari 8-bit computers approximating the look and feel of the original arcade Breakout released by Atari in 1976 (without the bugs).
 
 The overarching goal here is to maintain visual presentation and play action as similar as possible to the original arcade game as well as can be done by the Atari computer's capabilities. Therefore, certain clever features of the Atari may not be the preferred choice if the result does not conform to the original game presentation.  This version uses only the Atari computer features necessary to mimic the correct look and behavior with as few extraneous bells and whistles as possible.
